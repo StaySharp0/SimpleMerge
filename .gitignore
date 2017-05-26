@@ -1,5 +1,8 @@
 *.class
+
+# Documents #
 diagram.PNG
+SRS.docx
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
