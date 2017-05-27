@@ -32,8 +32,8 @@
                      <children>
                         <TextField fx:id="fieldLeftFile" editable="false" text="filename" />
                         <Button fx:id="btnLeftFileOpen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileOpen" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="1" />
-                        <Button fx:id="btnLeftFileEdit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileEdit" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="2" />
-                        <Button fx:id="btnLeftFileSave" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileSave" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="3" />
+                        <Button fx:id="btnLeftFileEdit" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileEdit" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="2" />
+                        <Button fx:id="btnLeftFileSave" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileSave" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="3" />
                      </children>
                   </GridPane>
                </top>
@@ -69,8 +69,8 @@
                      <children>
                         <TextField fx:id="fieldRightFile" editable="false" text="filename" />
                         <Button fx:id="btnRightFileOpen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileOpen" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="1" />
-                        <Button fx:id="btnRightFileEdit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="2" />
-                        <Button fx:id="btnRightFileSave" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileSave" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="3" />
+                        <Button fx:id="btnRightFileEdit" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="2" />
+                        <Button fx:id="btnRightFileSave" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileSave" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="3" />
                      </children>
                   </GridPane>
                </top>
@@ -82,12 +82,12 @@
       <FlowPane prefHeight="35.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnProjectOpen" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="open" />
-            <Button fx:id="btnProjectSave" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="save" />
-            <Button fx:id="btnCompare" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="save" />
-            <Button fx:id="btnMtoLeft" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&gt;" />
-            <Button fx:id="btnMtoright" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&lt;" />
-            <Button fx:id="btnMtoLeftAll" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&gt;&gt;" />
-            <Button fx:id="btnMtoRightAll" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&lt;&lt;" />
+            <Button fx:id="btnProjectSave" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="save" />
+            <Button fx:id="btnCompare" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="save" />
+            <Button fx:id="btnMtoLeft" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&gt;" />
+            <Button fx:id="btnMtoright" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&lt;" />
+            <Button fx:id="btnMtoLeftAll" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&gt;&gt;" />
+            <Button fx:id="btnMtoRightAll" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&lt;&lt;" />
          </children>
       </FlowPane>
    </top>
