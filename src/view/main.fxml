@@ -83,6 +83,7 @@
          <children>
             <Button fx:id="btnProjectOpen" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="open" />
             <Button fx:id="btnProjectSave" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="save" />
+            <Button fx:id="btnCompare" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="save" />
             <Button fx:id="btnMtoLeft" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&gt;" />
             <Button fx:id="btnMtoright" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&lt;" />
             <Button fx:id="btnMtoLeftAll" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&gt;&gt;" />

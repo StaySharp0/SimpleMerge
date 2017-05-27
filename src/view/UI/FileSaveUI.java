@@ -1,6 +1,7 @@
 package view.UI;
 
 import javafx.scene.control.TextField;
+import view.UI.DataSet.FileSave;
 
 /**
  * Created by yongjunkim on 2017. 5. 27..
@@ -13,7 +14,12 @@ public class FileSaveUI implements btnAction {
     }
 
     @Override
-    public void onAction(EventCallback cb) {
+    public int getPosition() {
+        return 0;
+    }
+
+    @Override
+    public Boolean onAction(EventCallback cb) {
         String fileName = title.getText();
         String[] splitTmp = fileName.split("/* ");
 
@@ -22,6 +28,8 @@ public class FileSaveUI implements btnAction {
             title.setText(fileName);
         }
 
-        cb.callbackMethod();
+        FileSave data = cb.callbackMethod(null);
+
+        return true;
     }
 }

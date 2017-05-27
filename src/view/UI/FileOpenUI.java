@@ -4,6 +4,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import view.UI.DataSet.FileOpen;
 
 import java.io.File;
 
@@ -11,33 +12,41 @@ import java.io.File;
  * Created by yongjunkim on 2017. 5. 27..
  */
 public class FileOpenUI implements btnAction{
+    private int position;
     private Finder finder;
     private TextField title;
     private ListView<String> listView;
     private TextArea textArea;
 
-    public FileOpenUI(Stage root, TextField title, ListView listView, TextArea textArea){
+    public FileOpenUI(int pos, Stage root, TextField title, ListView listView, TextArea textArea){
 
-        finder = new Finder(root);
-
+        this.position = pos;
+        this.finder = new Finder(root);
         this.title = title;
         this.listView = listView;
         this.textArea = textArea;
     }
 
     @Override
-    public void onAction(EventCallback cb) {
+    public int getPosition() {
+        return this.position;
+    }
+
+    @Override
+    public Boolean onAction(EventCallback cb) {
 
         File source = finder.show();
-        String fileName = source.getName();
 
-        cb.callbackMethod(source);
+        FileOpen data = cb.callbackMethod(source);
 
-//        결과값 = cb.callbackMethod(source);
+        if(data == null) return false;
 
-        title.setText(fileName);
-//        listView.setItems(결과값);
-//        textArea.setText(결과값);
+        title.setText(data.getFileName());
+        listView.setItems(data.getListViewModel());
+        textArea.setText(data.getTextData());
+
+
+        return true;
 
     }
 }

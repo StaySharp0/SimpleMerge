@@ -8,32 +8,43 @@ import javafx.scene.control.TabPane;
 enum Status { VIEW, EDIT };
 
 public class EditorUI implements btnAction {
+    private int position;
     private TabPane tabPane;
     private Status status;
 
-
-    public EditorUI(TabPane tabPane){
+    public EditorUI(int pos, TabPane tabPane){
+        this.position = pos;
         this.tabPane = tabPane;
         this.status = status.VIEW;
+    }
 
+    public void ShowList(){
+        tabPane.getSelectionModel().select(0);
+    }
+
+    public void ShowTextArea(){
+        tabPane.getSelectionModel().select(1);
+    }
+
+
+    @Override
+    public int getPosition() {
+        return this.position;
     }
 
     @Override
-    public void onAction() {
-
-    }
-
-    @Override
-    public void onAction(EventCallback cb) {
+    public Boolean onAction(EventCallback cb) {
         switch (status){
-            case VIEW:
-                tabPane.getSelectionModel().select(1);
+            case VIEW: // view -> edit
+                this.ShowTextArea();
                 this.status = status.EDIT;
+
                 break;
-            case EDIT:
-                tabPane.getSelectionModel().select(0);
+            case EDIT: // edit -> view
+                this.ShowList();
                 this.status = status.VIEW;
         }
 
+        return true;
     }
 }
