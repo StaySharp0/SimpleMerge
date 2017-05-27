@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="429.0" prefWidth="750.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainController">
+   <center>
+      <SplitPane dividerPositions="0.5" prefHeight="439.0" prefWidth="850.0" BorderPane.alignment="CENTER">
+         <items>
+            <BorderPane prefHeight="0.0" prefWidth="0.0">
+               <top>
+                  <GridPane BorderPane.alignment="CENTER">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="25.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="25.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="25.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <TextField fx:id="fieldLeftFile" editable="false" text="filename" />
+                        <Button fx:id="btnLeftFileOpen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileOpen" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="1" />
+                        <Button fx:id="btnLeftFileEdit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileEdit" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="2" />
+                        <Button fx:id="btnLeftFileSave" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileSave" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="3" />
+                     </children>
+                  </GridPane>
+               </top>
+               <center>
+                  <TabPane fx:id="tabLeft" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                    <tabs>
+                      <Tab closable="false" text="ListView">
+                           <content>
+                              <ListView fx:id="listLeft" prefHeight="200.0" prefWidth="200.0" visible="false" />
+                           </content>
+                      </Tab>
+                      <Tab closable="false" style="visibility: hidden;" text="TextArea">
+                           <content>
+                              <TextArea fx:id="textAreaLeft" prefHeight="200.0" prefWidth="200.0" text="asdfasfd" />
+                           </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+               </center>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <top>
+                  <GridPane BorderPane.alignment="CENTER">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="25.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="25.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="25.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <TextField fx:id="fieldRightFile" editable="false" text="filename" />
+                        <Button fx:id="btnRightFileOpen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileOpen" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="1" />
+                        <Button fx:id="btnRightFileEdit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="2" />
+                        <Button fx:id="btnRightFileSave" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileSave" prefHeight="25.0" prefWidth="25.0" text="I" GridPane.columnIndex="3" />
+                     </children>
+                  </GridPane>
+               </top>
+            </BorderPane>
+         </items>
+      </SplitPane>
+   </center>
+   <top>
+      <FlowPane prefHeight="35.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnProjectOpen" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="open" />
+            <Button fx:id="btnProjectSave" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="save" />
+            <Button fx:id="btnMtoLeft" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&gt;" />
+            <Button fx:id="btnMtoright" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&lt;" />
+            <Button fx:id="btnMtoLeftAll" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&gt;&gt;" />
+            <Button fx:id="btnMtoRightAll" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&lt;&lt;" />
+         </children>
+      </FlowPane>
+   </top>
+</BorderPane>
