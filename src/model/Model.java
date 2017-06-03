@@ -3,6 +3,8 @@ import view.UI.DataSet.*;//`ll be changed
 import view.UI.Position;//`ll be changed
 import java.io.File;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Model implements ModelInterface{
 	private FileManager fm;
@@ -18,14 +20,14 @@ public class Model implements ModelInterface{
 	}
 	public Model(File fl, File fr){
 		this.fm = new FileManager(fl,fr);
-		if(this.getPathLeft() != null){
+		if(this.fm.getPathLeft() != null){
 			this.left = new Document(this.fm.getBufLeft());
 		}
 		else {
 			this.left = null;
 		}
 
-		if(this.getPathRight() != null){
+		if(this.fm.getPathRight() != null){
 			this.right = new Document(this.fm.getBufRight());
 		}
 		else {
@@ -105,7 +107,7 @@ public class Model implements ModelInterface{
 //}
 	@Override
 	public Item load(String path, int lr){
-		File f = new file(path);
+		File f = new File(path);
 		return this.load(f, lr);
 	}
 
@@ -120,7 +122,7 @@ public class Model implements ModelInterface{
 		return new Item();
 	}
 	@Override
-	public Item save(Strign data, int lr){
+	public Item save(String data, int lr){
 		return this.save(this.parseData(data), lr);
 	}
 	@Override
@@ -147,15 +149,7 @@ public class Model implements ModelInterface{
 	}
 // save sub-methods
 //{
-	// @Override
-	// public Item saveLeft(List<String> date){
 
-	// }
-	// @Override
-	// public Item saveRight(List<String> date){
-
-	// }
-	
 	private boolean saveLeft(){
 		return this.fm.saveLeft(this.left.getLines());
 	}
@@ -170,30 +164,67 @@ public class Model implements ModelInterface{
 	}
 	public Item edit(List<String> data, int lr){
 		String name;
+		boolean isEdited;
 
-		//TODO
+		if(lr == LEFT){
+			name = this.fm.getNameLeft();
+			if(isEdited = this.editLeft()){
+				name = "*" + name;;
+			}
+		}
+		else if(lr == RIGHT){
+			mane = name = this.fm.getNameRight();
+			if(isEdited = this.editRight()){
+				name = "*" + name;;
+			}
+		}
 
-		if(this.isCompared()){
+		if(isEdited && this.isCompared()){
 			this.algo = null;
 		}
 
 		return new Item(name);
 	}
 
-	private boolean editLeft(String line, int idx){
-		//TODO
+	private boolean editLeft(List<String> data, int idx){
+		boolean isEdited = false;
+
+		if(data.size() == this.left.length()){
+			for(int i = 0; i < data.size(); i++){
+				if(!data.get(i).equals(this.left.getLine(i))){
+					isEdited = true;
+					this.left.setLine(i,data.get(i));
+				}
+			}
+		}
+		else {
+			isEdited = true;
+			this.left = new Document(data);
+		}
 		
-		return false;
+		return isEdited;
 	}
-	private boolean editRight(String line, int idx){
-		//TODO
+	private boolean editRight(List<String> data, int idx){
+		boolean isEdited = false;
+
+		if(data.size() == this.right.length()){
+			for(int i = 0; i < data.size(); i++){
+				if(!data.get(i).equals(this.right.getLine(i))){
+					isEdited = true;
+					this.right.setLine(i,data.get(i));
+				}
+			}
+		}
+		else {
+			isEdited = true;
+			this.right = new Document(data);
+		}
 		
-		return false;
+		return isEdited;
 	}
 //}
-
+	@Override
 	public Item compare(){
-		//TODO
 		if(!this.isCompared()){
 			this.algo = new Algorithm(this.left.getLines(), this.right.getLines());
 		}
