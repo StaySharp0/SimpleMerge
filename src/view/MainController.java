@@ -94,6 +94,8 @@ public class MainController implements Initializable {
         Boolean status = ui.onAction((source) -> {
 
             System.out.println("FileOpen callback");
+            
+            // JUNIT test 필요
             // Item data = Model.load((File)source,pos));
 
 //            return data;
@@ -121,6 +123,8 @@ public class MainController implements Initializable {
         Boolean status = ui.onAction((source) -> {
 
             System.out.println("FileEdit callback");
+
+            // JUNIT test 필요
             // Item data = Model.edit((String)source, pos));
 
             return new Item();
@@ -137,6 +141,7 @@ public class MainController implements Initializable {
         Boolean status = ui.onAction((source) -> {
             System.out.println("Click:LeftFileSave");
 
+            // JUNIT test 필요
             // Item data = Model.save((String)source, pos));
 
             return new Item();
