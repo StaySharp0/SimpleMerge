@@ -15,15 +15,13 @@ public class FileOpenUI implements btnAction{
     private int position;
     private Finder finder;
     private TextField title;
-    private ListView<String> listView;
     private TextArea textArea;
 
-    public FileOpenUI(int pos, Stage root, TextField title, ListView listView, TextArea textArea){
+    public FileOpenUI(int pos, Stage root, TextField title, TextArea textArea){
 
         this.position = pos;
         this.finder = new Finder(root);
         this.title = title;
-        this.listView = listView;
         this.textArea = textArea;
     }
 
@@ -42,9 +40,7 @@ public class FileOpenUI implements btnAction{
         if(data == null) return false;
 
         title.setText(data.getFileName());
-        listView.setItems(data.getListViewModel());
         textArea.setText(data.getTextData());
-
 
         return true;
 

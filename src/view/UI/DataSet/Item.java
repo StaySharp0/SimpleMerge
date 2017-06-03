@@ -1,27 +1,28 @@
 package view.UI.DataSet;
 
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
 
 /**
  * Created by yongjunkim on 2017. 5. 27..
  */
-public class Item implements FileOpen, FileSave{
+public class Item implements FileOpen, FileEditSave, MergeCompare{
     private String fileName = "tmp";
     private String textData = "tmp";
-    private ObservableList<String> listViewModel = null;
+    private ArrayList<String>[] listViewItem;
 
     @Override
     public String getFileName() {
         return null;
     }
 
-    @Override
-    public ObservableList<String> getListViewModel() {
-        return null;
-    }
 
     @Override
     public String getTextData() {
         return null;
+    }
+
+    @Override
+    public String[] getListViewItem(int positon) {
+        return new String[positon];
     }
 }

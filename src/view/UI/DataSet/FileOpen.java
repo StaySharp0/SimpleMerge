@@ -7,6 +7,5 @@ import javafx.collections.ObservableList;
  */
 public interface FileOpen {
     public String getFileName();
-    public ObservableList<String> getListViewModel();
     public String getTextData();
 }

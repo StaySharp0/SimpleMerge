@@ -1,34 +1,35 @@
 package view.UI;
 
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import view.UI.DataSet.FileSave;
+import view.UI.DataSet.FileEditSave;
 
 /**
  * Created by yongjunkim on 2017. 5. 27..
  */
 public class FileSaveUI implements btnAction {
-    TextField title;
+    private int position;
+    private TextField title;
+    private TextArea textArea;
 
-    public FileSaveUI(TextField title){
+    public FileSaveUI(int pos, TextField title, TextArea textArea){
+        this.position = pos;
         this.title = title;
+        this.textArea = textArea;
     }
 
     @Override
     public int getPosition() {
-        return 0;
+        return position;
     }
 
     @Override
     public Boolean onAction(EventCallback cb) {
-        String fileName = title.getText();
-        String[] splitTmp = fileName.split("/* ");
 
-        if(splitTmp.length == 0) {
-            fileName = splitTmp[0];
-            title.setText(fileName);
-        }
+        FileEditSave data = cb.callbackMethod(textArea.getText());
+        if(data == null) return false;
 
-        FileSave data = cb.callbackMethod(null);
+        title.setText(data.getFileName());
 
         return true;
     }

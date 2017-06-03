@@ -3,6 +3,8 @@ package view.UI;
 import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import view.UI.DataSet.FileEditSave;
 
 /**
  * Created by yongjunkim on 2017. 5. 27..
@@ -10,15 +12,17 @@ import javafx.scene.control.TextArea;
 enum Status { VIEW, EDIT };
 
 public class EditorUI implements btnAction {
+    private TextField title;
     private Button btnEdit;
     private int position;
     private TextArea textArea;
     private TabPane tabPane;
     private Status status;
 
-    public EditorUI(int pos, TabPane tabPane, TextArea textArea, Button btnEdit){
+    public EditorUI(int pos, TabPane tabPane, TextField textField, TextArea textArea, Button btnEdit){
         this.position = pos;
         this.tabPane = tabPane;
+        this.title = textField;
         this.textArea = textArea;
         this.btnEdit = btnEdit;
         this.status = status.VIEW;
@@ -46,7 +50,6 @@ public class EditorUI implements btnAction {
         tabPane.getSelectionModel().select(0);
     }
 
-
     @Override
     public int getPosition() {
         return this.position;
@@ -62,7 +65,11 @@ public class EditorUI implements btnAction {
                 ShowViewMode();
         }
 
-        cb.callbackMethod(textArea.getText());
+        FileEditSave data = cb.callbackMethod(textArea.getText());
+
+        if(data == null) return false;
+
+        title.setText(data.getFileName());
 
         return true;
     }

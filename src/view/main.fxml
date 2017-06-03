@@ -99,7 +99,7 @@
          <children>
             <Button fx:id="btnProjectOpen" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="open" />
             <Button fx:id="btnProjectSave" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="save" />
-            <Button fx:id="btnCompare" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="save" />
+            <Button fx:id="btnCompare" disable="true" mnemonicParsing="false" onAction="#eventCompare" prefHeight="35.0" prefWidth="35.0" text="save" />
             <Button fx:id="btnMtoLeft" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&gt;" />
             <Button fx:id="btnMtoright" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&lt;" />
             <Button fx:id="btnMtoLeftAll" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="&gt;&gt;" />
