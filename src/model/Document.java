@@ -1,16 +1,15 @@
 package model;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 class Document{
 	private ArrayList<String> lines;
 	private boolean edited;
 	
-	public Document(Collection<String> strLst){
+	public Document(List<String> strLst){
 		this.lines = new ArrayList<String>(strLst);
 		this.edited = false;
 	}
-	public Document(Collection<String> strLst, boolean isEdited){
+	public Document(List<String> strLst, boolean isEdited){
 		this.lines = new ArrayList<String>(strLst);
 		this.edited = isEdited;
 	}
@@ -35,6 +34,12 @@ class Document{
 	public void insertLine(int idx, String newLine){
 		this.lines.add(newLine);
 		this.edited = true;
+	}
+
+	public void insertLine(int idx, List<String> listLines){
+		for(int i = 0; i < listLines.size(); i++){
+			this.insertLine(idx, listLines.get(i));
+		}
 	}
 
 	public void deleteLine(int idx){

@@ -4,7 +4,6 @@ import view.UI.Position;//`ll be changed
 import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class Model implements ModelInterface{
 	private FileManager fm;
@@ -58,6 +57,8 @@ public class Model implements ModelInterface{
 
 		return listData;
 	}
+
+
 
 	@Override
 	public Item load(File f, int lr){
@@ -166,16 +167,16 @@ public class Model implements ModelInterface{
 		String name;
 		boolean isEdited;
 
-		if(lr == LEFT){
+		if(lr == Position.LEFT){
 			name = this.fm.getNameLeft();
-			if(isEdited = this.editLeft()){
-				name = "*" + name;;
+			if(isEdited = this.editLeft(data)){
+				name = "*" + name;
 			}
 		}
-		else if(lr == RIGHT){
-			mane = name = this.fm.getNameRight();
-			if(isEdited = this.editRight()){
-				name = "*" + name;;
+		else if(lr == Position.RIGHT){
+			name = this.fm.getNameRight();
+			if(isEdited = this.editRight(data)){
+				name = "*" + name;
 			}
 		}
 
@@ -186,7 +187,7 @@ public class Model implements ModelInterface{
 		return new Item(name);
 	}
 
-	private boolean editLeft(List<String> data, int idx){
+	private boolean editLeft(List<String> data){
 		boolean isEdited = false;
 
 		if(data.size() == this.left.length()){
@@ -204,7 +205,7 @@ public class Model implements ModelInterface{
 		
 		return isEdited;
 	}
-	private boolean editRight(List<String> data, int idx){
+	private boolean editRight(List<String> data){
 		boolean isEdited = false;
 
 		if(data.size() == this.right.length()){
@@ -229,24 +230,169 @@ public class Model implements ModelInterface{
 			this.algo = new Algorithm(this.left.getLines(), this.right.getLines());
 		}
 
-		return new Item(this.algo.getResultLeft(), this.algo.getResultRight());
+		return new Item(this.getResultLeft(), this.getResultRight(), this.algo.isFirstAreSame());
+		//return new Item(this.algo.isFirstAreSame());
 	}
 	@Override
 	public Item getCompareResult(int lr){
 		if(this.isCompared()){
 			if(lr == Position.LEFT){
-				return new Item(this.algo.getResultLeft());
+				return new Item(this.getResultLeft());
 			}
 			else if(lr == Position.RIGHT){
-				return new Item(this.algo.getResultRight());
+				return new Item(this.getResultRight());
 			}
 			else if(lr == Position.ALL){
-				return new Item(this.algo.getResultLeft(), this.algo.getResultRight());
+				return new Item(this.getResultLeft(), this.getResultRight());
 			}
 		}
 		else {
 			return null;
 		}
+	}
+	private ArrayList<String> getResultLeft(){
+		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String> diffList = null;
+		ArrayList<String> sameList = null;
+		ArrayList<Integer> sameIdxResult = this.algo.getLcsIdxLeft();
+
+		if(this.algo.getResultLeft() != null && this.algo.getResultLeft().size() > 0){
+			diffList = new ArrayList<String>();
+			IdxPair idx;
+			String buf = "";
+			for(int i = 0; i < this.algo.getResultLeft().size(); i++){
+				idx = this.algo.getResultLeft().get(i);
+				for(int j = idx.begin; j < idx.end; j++){
+					buf += this.left.getLine(j);
+				}
+				if  (
+						this.algo.getResultLeft().get(i).distance  <
+						this.algo.getResultRight().get(i).distance 
+					){
+					for (
+							int j = 0;
+							j < (
+									this.algo.getResultRight().get(i).distance -
+									this.algo.getResultLeft().get(i).distance);
+							j++
+						){
+						buf += "\n";
+					}
+				}
+				diffList.add(buf);
+			}
+		}
+		
+		if(sameIdxResult != null && sameIdxResult.size() > 0){
+			sameList = new ArrayList<String>();
+			String buf = "";
+			for(int i = 0; i <= sameIdxResult.size(); i++){
+				if(i == 0 || sameIdxResult.get(i) - sameIdxResult.get(i - 1) == 1){
+					buf += this.left.getLine(sameIdxResult.get(i));
+				}
+				else if(i >= sameIdxResult.size() || sameIdxResult.get(i) - sameIdxResult.get(i - 1) > 1){
+					sameList.add(buf);
+					buf = "";
+					buf += this.left.getLine(sameIdxResult.get(i));	
+				}
+			}
+		}
+
+		if(diffList != null && sameList != null){
+			int cnt = 0;
+			if(diffList.size() > sameList.size() || !this.algo.isFirstAreSame()){
+				result.add(diffList.get(0));
+				cnt++;
+			}
+			for(;cnt < diffList.size();cnt++){
+				result.add(diffList.get(cnt));
+				result.add(sameList.get(cnt - 1));
+			}
+			if(sameList.size() >= diffList.size()){
+				result.add(sameList.get(sameList.size() - 1));
+			}
+		}
+		else if(diffList != null && sameList == null){
+			result = diffList;
+		}
+		else if(sameList != null){
+			result = sameList;
+		}
+		//else{}
+
+		return result;
+	}
+	private ArrayList<String> getResultRight(){
+		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String> diffList = null;
+		ArrayList<String> sameList = null;
+		ArrayList<Integer> sameIdxResult = this.algo.getLcsIdxRight();
+
+		if(this.algo.getResultRight() != null && this.algo.getResultRight().size() > 0){
+			diffList = new ArrayList<String>();
+			IdxPair idx;
+			String buf = "";
+			for(int i = 0; i < this.algo.getResultRight().size(); i++){
+				idx = this.algo.getResultRight().get(i);
+				for(int j = idx.begin; j < idx.end; j++){
+					buf += this.left.getLine(j);
+				}
+				if  (
+						this.algo.getResultRight().get(i).distance  <
+						this.algo.getResultLeft().get(i).distance 
+					){
+					for (
+							int j = 0;
+							j < (
+									this.algo.getResultLeft().get(i).distance -
+									this.algo.getResultRight().get(i).distance);
+							j++
+						){
+						buf += "\n";
+					}
+				}
+				diffList.add(buf);
+			}
+		}
+		
+		if(sameIdxResult != null && sameIdxResult.size() > 0){
+			sameList = new ArrayList<String>();
+			String buf = "";
+			for(int i = 0; i <= sameIdxResult.size(); i++){
+				if(i == 0 || sameIdxResult.get(i) - sameIdxResult.get(i - 1) == 1){
+					buf += this.left.getLine(sameIdxResult.get(i));
+				}
+				else if(i >= sameIdxResult.size() || sameIdxResult.get(i) - sameIdxResult.get(i - 1) > 1){
+					sameList.add(buf);
+					buf = "";
+					buf += this.left.getLine(sameIdxResult.get(i));	
+				}
+			}
+		}
+
+		if(diffList != null && sameList != null){
+			int cnt = 0;
+			if(diffList.size() > sameList.size() || !this.algo.isFirstAreSame()){
+				result.add(diffList.get(0));
+				cnt++;
+			}
+			for(;cnt < diffList.size();cnt++){
+				result.add(diffList.get(cnt));
+				result.add(sameList.get(cnt - 1));
+			}
+			if(sameList.size() >= diffList.size()){
+				result.add(sameList.get(sameList.size() - 1));
+			}
+		}
+		else if(diffList != null && sameList == null){
+			result = diffList;
+		}
+		else if(sameList != null){
+			result = sameList;
+		}
+		//else{}
+
+		return result;
 	}
 
 	public boolean isCompared(){
@@ -256,33 +402,47 @@ public class Model implements ModelInterface{
 	@Override
 	public Item merge(List<Integer> idxList, int lr){
 		if(this.isCompared()){
-				if(idxList == null){
-					return this.merge(lr);
-				}
-				//TODO
-				return null;
+			if(this.algo.isIdentical()){
+				return new Item();
+			}
+
+
+
+			return new Item();
 		}
 		else {
 			return null;
 		}
 	}
+
 	@Override
 	public Item merge(int idx, int lr){
 		if(this.isCompared()){
-			//TODO
+			if(this.algo.isIdentical()){
+				return new Item();
+			}
+
+			return new Item();
 		}
 		else {
 			return null;
 		}
 	}
+
 	@Override
 	public Item merge(int lr){
 		if(this.isCompared()){
-			//TODO
+			if(this.algo.isIdentical()){
+				return new Item();
+			}
+
+			return new Item();
 		}
 		else {
 			return null;
 		}
 	}
+
+	//private void copyToRight()
 
 }

@@ -1,8 +1,7 @@
 package model;
 import java.io.*;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 public class FileManager{
 	private ArrayList<String> bufLeft;
@@ -82,7 +81,7 @@ public class FileManager{
 
 		return success;
 	}
-	public boolean saveLeft(Collection<String> buf){
+	public boolean saveLeft(List<String> buf){
 		if(this.lScan != null){
 			this.lScan.close();
 		}
@@ -105,7 +104,7 @@ public class FileManager{
 		return success;
 	}
 	
-	public boolean saveRight(Collection<String> buf){
+	public boolean saveRight(List<String> buf){
 		if(this.rScan != null){
 			this.rScan.close();
 		}
