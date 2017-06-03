@@ -17,7 +17,7 @@ public interface ModelInterface {
 	public Item loadRight(String path);
 //}
 	public Item save(int lr);
-	public Item save(String data);
+	public Item save(String data, int lr);
 	public Item save(List<String> data, int lr);
 //{	
 	// public Item saveLeft(List<String> date);
