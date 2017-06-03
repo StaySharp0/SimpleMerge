@@ -4,16 +4,23 @@ import java.util.Collection;
 
 class Document{
 	private ArrayList<String> lines;
+	private boolean edited;
 	// public Document(String[] arrStr){
 	// 	//TODO
 	// }
 	public Document(Collection<String> strLst){
 		this.lines = new ArrayList<String>(strLst);
+		this.edited = false;
+	}
+	public Document(Collection<String> strLst, boolean isEdited){
+		this.lines = new ArrayList<String>(strLst);
+		this.edited = isEdited;
 	}
 
 	public ArrayList<String> getLines(){
-		return this.lines.clone();
+		return (ArrayList<String>)this.lines.clone();
 	}
+
 	public void setLine(int idx, String newLine){
 		this.lines.set(idx, newLine);
 	}
@@ -27,6 +34,12 @@ class Document{
 	}
 
 	public void deleteLine(int beginIdx, int endIdx){
-		this.lines.removeRange(beginIdx, endIdx);
+		for(int i = beginIdx; i < endIdx; i++){
+			this.deleteLine(i);
+		}
+	}
+
+	public boolean isEdited(){
+		return this.edited;
 	}
 }

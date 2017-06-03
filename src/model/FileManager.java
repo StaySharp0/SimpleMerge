@@ -1,105 +1,131 @@
 package model;
 import java.io.*;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class FileManager{
 	private ArrayList<String> bufLeft;
 	private ArrayList<String> bufRight;
+	private Scanner lScan;
+	private Scanner rScan;
 
 	private String lpath;
 	private String rpath;
 	
-	public FileManager(String pathLeft, String pathRight){
-		File fl = null, fr = null;
-		Scanner lScan = null, rScan = null;
+	private String lName;
+	private String rName;
 
-		if(pathLeft != null){
-			fl = new File(pathLeft);
-			if(fl.isFile()){
-				this.lpath = fl.getAbsolutePath();
-				lScan = new Scanner(fl);
-				this.bufLeft = new ArrayList<String>();
-				while(lScan.hasNextLine){
-					this.bufLeft.add(lScan.nextLne());
-				}
-				lScan.close();
-			}
-		}
-		else {
+	public FileManager(File fl, File fr){
+		this.lScan = null;
+		this.rScan = null;
+		if(!this.loadLeft(fl)){
 			this.bufLeft = null;
 			this.lpath = null;
+			this.lName = null;
 		}
-		if(pathRight != null){
-			fr = new File(pathRight);
-			if(fr.isFile()){
-				this.rpath = fr.getAbsolutePath();
-				rScan = new Scanner(fl);
-				this.bufRight = new ArrayList<String>();
-				while(rScan.hasNextLine()){
-					this.bufRight.add(rScan.nextLne());
-				}
-				rScan.close();
-			}		
-		}
-		else {
+
+		if(!this.loadRight(fr)){
 			this.bufRight = null;
 			this.rpath = null;
-		}		
-
+			this.rName = null;
+		}			
 	}
-	// public FileManager(File left, File right){
-	// 	//TODO
-	// }	
 
-	public boolean loadLeft(String path){
-		File f = new File(path);
-		Scanner scan = null;
+	public boolean loadLeft(File f){	
 		boolean success;
+		if(this.lScan != null){
+			this.lScan.close();
+		}
 		if(success = f.isFile()){
-			scan = new Scanner(f);
-
-			this.bufLeft.clear();
-			while(scan.hasNextLine()){
-				this.bufLeft.add(scan.nextLine());
+			try {
+				this.lScan = new Scanner(f);
+				this.bufLeft.clear();
+				while(this.lScan.hasNextLine()){
+					this.bufLeft.add(this.lScan.nextLine());
+				}
+				this.lpath = f.getAbsolutePath();
+				this.lName = f.getName();
+				this.lScan.reset();
 			}
-			scan.close();
+			catch (Exception e)
+			{
+				this.lScan = null;
+				success = false;
+			}
+		}
+
+		return success;
+	}
+	public boolean loadRight(File f){
+		boolean success;
+		if(this.rScan != null){
+			this.rScan.close();
+		}
+		if(success = f.isFile()){
+			try {
+				this.rScan = new Scanner(f);
+				this.bufRight.clear();
+				while(rScan.hasNextLine()){
+					this.bufRight.add(rScan.nextLine());
+				}
+				this.rpath = f.getAbsolutePath();
+				this.rName = f.getName();
+				this.rScan.reset();
+			}
+			catch (Exception e)
+			{
+				this.rScan = null;
+				success = false;
+			}
+		}
+
+		return success;
+	}
+	public boolean saveLeft(Collection<String> buf){
+		if(this.lScan != null){
+			this.lScan.close();
+		}
+		File f = new File(lpath);
+		FileWriter fw;
+		ArrayList<String> buflist = new ArrayList<String>(buf);
+		boolean success;
+		try {
+			fw = new FileWriter(f);
+			for(int i = 0; i < buflist.size(); i++){
+				fw.write(buflist.get(i));
+			}
+			fw.close();
+			success = true;
+		}
+		catch(Exception e){
+			success = false;
 		}
 
 		return success;
 	}
 	
-	public boolean loadRight(String path){
-		File f = new File(path);
-		Scanner scan = null;
-		boolean success;
-		if(success = f.isFile()){
-			scan = new Scanner(f);
-
-			this.bufRight.clear();
-			while(scan.hasNextLine()){
-				this.bufRight.add(scan.nextLine());
-			}
-			scan.close();
+	public boolean saveRight(Collection<String> buf){
+		if(this.rScan != null){
+			this.rScan.close();
 		}
-
-		return success;	
-	}
-	public boolean saveLeft(ArrayList<String> buf){
 		File f = new File(lpath);
-		FileWriter fw = new FileWriter(f);
-		for(int i = 0; i < buf.length(); i++){
-			fw.write(buf.get(i));
+		FileWriter fw;
+		boolean success;
+		ArrayList<String> buflist = new ArrayList<String>(buf);
+		try {
+			fw = new FileWriter(f);
+			for(int i = 0; i < buflist.size(); i++){
+				fw.write(buflist.get(i));
+			}
+			fw.close();
+			success = true;
 		}
-		fw.close();
-	}
-	
-	public boolean saveRight(ArrayList<String> buf){
-		File f = new File(rpath);
-		FileWriter fw = new FileWriter(f);
-		for(int i = 0; i < buf.length(); i++){
-			fw.write(buf.get(i));
+		catch(Exception e){
+			success = false;
 		}
-		fw.close();	
+
+		return success;
 	}
 
 	public ArrayList<String> getBufLeft(){
@@ -114,6 +140,13 @@ public class FileManager{
 	}
 	public String getPathRight(){
 		return this.rpath;
+	}
+
+	public String getNameLeft(){
+		return this.lName;
+	}
+	public String getNameRight(){
+		return this.rName;
 	}
 
 	public File getFileLeft(){
