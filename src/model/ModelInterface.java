@@ -24,7 +24,6 @@ public interface ModelInterface {
 
 	public Item getCompareResult(int lr);
 
-	
 	public Item merge(int idx, int lr);
 	public Item merge(int lr);
 	public Item merge(List<Integer> idxList, int lr);

@@ -14,7 +14,6 @@ import java.util.*;
 		this.right = new ArrayList<String>(right);
 		this.lcs = new LongestCommonSubseq(this.left, this.right);
 
-
 		if(this.isIdentical()){
 			this.lChange = null;
 			this.rChange = null;

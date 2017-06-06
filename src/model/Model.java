@@ -57,7 +57,19 @@ public class Model implements ModelInterface{
 
 		return listData;
 	}
+	private String concatData(List<String> data){
+		if(data == null){
+			return "";
+		}
 
+		String buf = new String("");
+
+		for(int i = 0; i < data.size();i++){
+			buf += data.get(i) +( (i == data.size() - 1) ? ("\n") : ("") ); 
+		}
+
+		return buf;
+	}
 
 
 	@Override
@@ -251,11 +263,97 @@ public class Model implements ModelInterface{
 		}
 	}
 	private ArrayList<String> getResultLeft(){
-		
+		if(!this.isCompared()){
+			return "";
+		}
+		//StringBuilder data = new StringBuilder(concatData(this.left.getLines()));
+		ArrayList<String> result = new ArrayList<String>();
+		StringBuilder buf = new StringBuilder();
+		ArrayList<IdxPair> diff = this.algo.getResultLeft();
+		ArrayList<Integer> same = this.algo.getLcsIdxLeft();
+
+		int cntDiff = 0, cntSame = 0;
+
+		for(int i = 0; i < this.left.length();){
+			int chki = i;
+			if(i == diff.get(cntDiff).begin){
+				buf.append(this.concatData(this.left.subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
+				if(diff.get(cntDiff).length < this.algo.getResultRight().get(cntDiff)){
+					for(int j = 0; j < this.algo.getResultRight().get(cntDiff) - diff.get(cntDiff).length; j++){
+						buf.append("\n");
+					}
+				}
+				result.add(buf.toString());
+				i += diff.get(cntDiff).length;
+				cntDiff++;
+			}
+
+			if(i == same.get(cntSame)){
+				buf.append(this.left.get(same.get(cntSame)));
+				if(i + 1 < this.left.length() && i + 1 < diff.get(cntDiff).begin){
+					buf.append("\n");
+					cntSame++,i++;
+				}
+				else {
+					result.add(buf);
+					i++;
+				}
+			}
+
+			if(i == chki){ // unexpected condition
+				return "";
+			}
+		}
+
+		return result;
 	}
 	private ArrayList<String> getResultRight(){
-		
+		if(!this.isCompared()){
+			return "";
+		}
+		//StringBuilder data = new StringBuilder(concatData(this.left.getLines()));
+		ArrayList<String> result = new ArrayList<String>();
+		StringBuilder buf = new StringBuilder();
+		ArrayList<IdxPair> diff = this.algo.getResultRight();
+		ArrayList<Integer> same = this.algo.getLcsIdxRight();
+
+		int cntDiff = 0, cntSame = 0;
+
+		for(int i = 0; i < this.right.length();){
+			int chki = i;
+			if(i == diff.get(cntDiff).begin){
+				buf.append(this.concatData(this.right.subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
+				if(diff.get(cntDiff).length < this.algo.getResultLeft().get(cntDiff)){
+					for(int j = 0; j < this.algo.getResultLeft().get(cntDiff) - diff.get(cntDiff).length; j++){
+						buf.append("\n");
+					}
+				}
+				result.add(buf.toString());
+				i += diff.get(cntDiff).length;
+				cntDiff++;
+			}
+
+			if(i == same.get(cntSame)){
+				buf.append(this.right.get(same.get(cntSame)));
+				if(i + 1 < this.right.length() && i + 1 < diff.get(cntDiff).begin){
+					buf.append("\n");
+					cntSame++,i++;
+				}
+				else {
+					result.add(buf);
+					i++;
+				}
+			}
+
+			if(i == chki){ // unexpected condition
+				return "";
+			}
+		}
+
+		return result;		
 	}
+
+
 
 	public boolean isCompared(){
 		return this.algo != null;
