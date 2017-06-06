@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import view.UI.*;
 import view.UI.DataSet.Item;
 import view.UI.DataSet.MergeCompare;
@@ -68,8 +69,6 @@ public class MainController implements Initializable {
 
         button = new HashMap();
 
-
-
         // init UI
         for(int pos : position){
             fileOpenUI[pos] = new FileOpenUI(pos, Main.getPrimaryStage(), textFields[pos], textAreas[pos]);
@@ -80,8 +79,17 @@ public class MainController implements Initializable {
             button.put(btnFileSave[pos].getId(), fileSaveUI[pos]);
         }
 
-        //DoTest();
+        DoTest();
+
     }
+
+    public void SyncScrollBar() {
+        ScrollBar left = (ScrollBar) listLeft.lookup(".scroll-bar:vertical");
+        ScrollBar right = (ScrollBar) listRight.lookup(".scroll-bar:vertical");
+
+        left.valueProperty().bindBidirectional(right.valueProperty());
+    }
+
 
     public void eventFileOpen(ActionEvent e) {
 
@@ -151,7 +159,6 @@ public class MainController implements Initializable {
     public void eventCompare(ActionEvent e){
         System.out.println("Click:Compare");
 
-
 //        Compare data = model.compare();
         MergeCompare data = new Item();
 
@@ -159,23 +166,30 @@ public class MainController implements Initializable {
             listModels[pos].setAll(data.getListViewItem(pos));
             editorUI[pos].ShowCompareMode();
         }
+    }
 
+    public void evnetMergeToLeft(ActionEvent e){
+        System.out.println("Click:MergeToLeft");
+    }
+
+    public void evnetMergeToRight(ActionEvent e){
+        System.out.println("Click:MergeToRight");
     }
 
     public void handleMouseClick(MouseEvent arg0) {
-//        System.out.println("clicked on " + listView.getSelectionModel().getSelectedItem());
-
-
-
+        System.out.println("clicked on " + listLeft.getSelectionModel().getSelectedItem());
+        System.out.println("clicked on " + listRight.getSelectionModel().getSelectedItem());
     }
 
     public void DoTest(){
+        System.out.println("123");
         ObservableList<String> left = listLeft.getItems();
         ObservableList<String> right = listRight.getItems();
 
-        left.setAll("1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4");
-        right.setAll("1","2","3","4","1","2","3","4","1","2","3","4","1","2","3","4");
-
+        editorUI[0].ShowCompareMode();
+        editorUI[1].ShowCompareMode();
+        left.setAll("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20");
+        right.setAll("\n\n\n","4","5","6","7","8","9","10","11","12","13","14","\n\n\n\n\n\n");
 
     }
 }

@@ -55,7 +55,7 @@
                     <tabs>
                       <Tab closable="false" text="ListView">
                            <content>
-                              <ListView fx:id="listLeft" onMouseClicked="#handleMouseClick" prefHeight="200.0" prefWidth="200.0" visible="false" />
+                              <ListView fx:id="listLeft" onMouseClicked="#handleMouseClick" onScroll="#SyncScrollBar" prefHeight="200.0" prefWidth="200.0" />
                            </content>
                       </Tab>
                       <Tab closable="false" text="TextArea">
@@ -104,7 +104,7 @@
                      <tabs>
                         <Tab closable="false" text="ListView">
                            <content>
-                              <ListView fx:id="listRight" onMouseClicked="#handleMouseClick" prefHeight="200.0" prefWidth="200.0" visible="false" />
+                              <ListView fx:id="listRight" onMouseClicked="#handleMouseClick" onScroll="#SyncScrollBar" prefHeight="200.0" prefWidth="200.0" />
                            </content>
                         </Tab>
                         <Tab closable="false" text="TextArea">

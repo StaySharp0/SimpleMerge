@@ -25,7 +25,8 @@ public class EditorUI implements btnAction {
         this.title = textField;
         this.textArea = textArea;
         this.btnEdit = btnEdit;
-        this.status = status.VIEW;
+
+        ShowViewMode();
     }
 
     public void ShowViewMode(){
