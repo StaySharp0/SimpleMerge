@@ -10,12 +10,16 @@ public class Model implements ModelInterface{
 	private Document left;
 	private Document right;
 	private Algorithm algo;
+	private ArrayList<String> compResultLeft;
+	private ArrayList<String> compResultRight;
 	
 	public Model(){
 		this.fm = new FileManager(null,null);
 		this.left = null;
 		this.right = null;
 		this.algo = null;
+		this.compResultLeft = null;
+		this.compResultRight = null;
 	}
 	public Model(File fl, File fr){
 		this.fm = new FileManager(fl,fr);
@@ -34,7 +38,8 @@ public class Model implements ModelInterface{
 		}
 
 		this.algo = null;
-		//TODO
+		this.compResultLeft = null;
+		this.compResultRight = null;
 	}
 	private ArrayList<String> parseData(String data){
 		if(data == null){
@@ -91,31 +96,27 @@ public class Model implements ModelInterface{
 		if(f.isFile()){
 			if(this.fm.loadLeft(f)){
 				this.left = new Document(this.fm.getBufLeft());
+				if(this.isCompared()){
+					this.algo = null;
+				}
 				return new Item(this.left.getLines());
 			}
-			else {
-				//error
-				return null;
-			}
 		}
-		else {
-			return null;
-		}
+
+		return null;
 	}
 	private Item loadRight(File f){
 		if(f.isFile()){
 			if(this.fm.loadRight(f)){
 				this.right = new Document(this.fm.getBufRight());
+				if(this.isCompared()){
+					this.algo = null;
+				}
 				return new Item(this.right.getLines());
 			}
-			else {
-				//error
-				return null;
-			}
 		}
-		else {
-			return null;
-		}
+
+		return null;
 	}
 //}
 	@Override
@@ -140,14 +141,20 @@ public class Model implements ModelInterface{
 	}
 	@Override
 	public Item save(List<String> data, int lr){
-		//String msg;
 		if(data == null){
 			return null;
 		}
+
 		if(lr == Position.LEFT || lr == Position.ALL){
+			// if(this.fm.getPathLeft() == null){
+			// 	return null;
+			// }
 			this.left = new Document(data, true);
 		}
 		if(lr == Position.RIGHT || lr == Position.ALL){
+			// if(this.fm.getPathRight() == null){
+			// 	return null;
+			// }
 			this.right = new Document(data, true);
 		}
 
@@ -266,6 +273,10 @@ public class Model implements ModelInterface{
 		if(!this.isCompared()){
 			return "";
 		}
+
+		if(this.compResultLeft != null){
+			return this.compResultLeft;
+		}
 		//StringBuilder data = new StringBuilder(concatData(this.left.getLines()));
 		ArrayList<String> result = new ArrayList<String>();
 		StringBuilder buf = new StringBuilder();
@@ -276,7 +287,7 @@ public class Model implements ModelInterface{
 
 		for(int i = 0; i < this.left.length();){
 			int chki = i;
-			if(i == diff.get(cntDiff).begin){
+			if(i == diff.get(cntDiff).begin  && i != diff.get(cntDiff).end){
 				buf.append(this.concatData(this.left.subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
 				if(diff.get(cntDiff).length < this.algo.getResultRight().get(cntDiff)){
 					for(int j = 0; j < this.algo.getResultRight().get(cntDiff) - diff.get(cntDiff).length; j++){
@@ -311,6 +322,10 @@ public class Model implements ModelInterface{
 		if(!this.isCompared()){
 			return "";
 		}
+
+		if(this.compResultRight != null){
+			return this.compResultRight;
+		}
 		//StringBuilder data = new StringBuilder(concatData(this.left.getLines()));
 		ArrayList<String> result = new ArrayList<String>();
 		StringBuilder buf = new StringBuilder();
@@ -321,7 +336,7 @@ public class Model implements ModelInterface{
 
 		for(int i = 0; i < this.right.length();){
 			int chki = i;
-			if(i == diff.get(cntDiff).begin){
+			if(i == diff.get(cntDiff).begin && i != diff.get(cntDiff).end){
 				buf.append(this.concatData(this.right.subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
 				if(diff.get(cntDiff).length < this.algo.getResultLeft().get(cntDiff)){
 					for(int j = 0; j < this.algo.getResultLeft().get(cntDiff) - diff.get(cntDiff).length; j++){
@@ -362,12 +377,27 @@ public class Model implements ModelInterface{
 	@Override
 	public Item merge(List<Integer> idxList, int lr){
 		if(this.isCompared()){
-			if(this.algo.isIdentical()){
-				return new Item();
+			if(!this.algo.isIdentical()){
+				if(lr == Position.LEFT){
+					for(int i = 0; i < idxList.size();i++){
+						this.copyToRight(idxList.get(i).intValue());
+					}
+				}
+				else if(lr == Position.RIGHT){
+					for(int i = 0; i < idxList.size();i++){
+						this.copyToLeft(idxList.get(i).intValue());	
+					}
+				}
+				else {
+					return null;
+				}
+
+				if(this.isCompared()){
+					this.algo = null;
+					this.compare();
+				}
 			}
-
-
-			return new Item(mergeresult);
+			return new Item(this.left.getLines());
 		}
 		else {
 			return null;
@@ -377,35 +407,54 @@ public class Model implements ModelInterface{
 	@Override
 	public Item merge(int idx, int lr){
 		if(this.isCompared()){
-			if(this.algo.isIdentical()){
-				return new Item();
-			}
-
-			return new Item();
+			if(!this.algo.isIdentical()){
+				if(lr == Position.LEFT){
+					this.copyToRight(idx);
+				}
+				else if(lr == Position.RIGHT){
+					this.copyToLeft(idx);
+				}
+				else {
+					return null;
+				}
+				if(this.isCompared()){
+					this.algo = null;
+					this.compare();
+				}
+			} 
+			return new Item(this.left.getLines());
 		}
 		else {
 			return null;
 		}
 	}
 
-	@Override
-	public Item merge(int lr){
-		if(this.isCompared()){
-			if(this.algo.isIdentical()){
-				return new Item();
-			}
+	// @Override
+	// public Item merge(int lr){
+	// 	if(this.isCompared()){
+	// 		if(this.algo.isIdentical()){
+	// 			return new Item();
+	// 		}
 
-			return new Item();
-		}
-		else {
-			return null;
-		}
-	}
+	// 		return new Item();
+	// 	}
+	// 	else {
+	// 		return null;
+	// 	}
+	// }
 
 	private void copyToRight(int idx){
-		//getresultleft()
-		//parsedata()
-		//delete diff. if any -> insert
+		ArrayList<String> compResult = this.getResultLeft();
+		ArrayList<String> dataToCp = this.parseData(compResult.get(idx));
+		int diffIdx = (idx - (this.algo.isFirstAreSame()) ? 1 : 0) / 2;
+		this.right.deleteLine(this.algo.getResultRight().get(diffIdx).begin, this.algo.getResultRight().get(diffIdx).end);
+		this.right.insertLine(this.algo.getResultRight().get(diffIdx).begin, dataToCp);
 	}
-
+	private void copyToLeft(int idx){
+		ArrayList<String> compResult = this.getResultRight();
+		ArrayList<String> dataToCp = this.parseData(compResult.get(idx));
+		int diffIdx = (idx - (this.algo.isFirstAreSame()) ? 1 : 0) / 2;
+		this.left.deleteLine(this.algo.getResultLeft().get(diffIdx).begin, this.algo.getResultLeft().get(diffIdx).end);
+		this.left.insertLine(this.algo.getResultLeft().get(diffIdx).begin, dataToCp);
+	}
 }

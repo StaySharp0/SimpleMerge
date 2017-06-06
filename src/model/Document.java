@@ -51,7 +51,6 @@ class Document{
 		for(int i = beginIdx; i < endIdx; i++){
 			this.deleteLine(i);
 		}
-		this.edited = true;
 	}
 
 	public boolean isEdited(){
