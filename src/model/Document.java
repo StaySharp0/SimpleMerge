@@ -57,4 +57,8 @@ class Document{
 	public boolean isEdited(){
 		return this.edited;
 	}
+
+	public static void main(String args){
+
+	}
 }

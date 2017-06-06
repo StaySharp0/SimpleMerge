@@ -9,9 +9,6 @@ import java.util.*;
 	private ArrayList<IdxPair> lChange;
 	private ArrayList<IdxPair> rChange;
 
-	// private ArrayList<String> resultLeft;
-	// private ArrayList<String> resultRight;
-
 	public Algorithm(List<String> left, List<String> right){
 		this.left = new ArrayList<String>(left);
 		this.right = new ArrayList<String>(right);
@@ -21,8 +18,6 @@ import java.util.*;
 		if(this.isIdentical()){
 			this.lChange = null;
 			this.rChange = null;
-			// this.resultLeft = (ArrayList<String>)left;
-			// this.resultRight = (ArrayList<String>)right;
 		}
 		else if(this.lcs.length() != 0){
 			this.lChange = new ArrayList<IdxPair>();
@@ -52,28 +47,7 @@ import java.util.*;
 				}
 				else /*if(lIdx,distance <= 0 && rIdx.distance <= 0)*/{
 					continue;
-				}
-
-				// if(this.setResult(lIdx, rIdx)){
-				// 	this.
-				// }
-				// else {
-
-				// }
-
-				// this.setResultLeft(lIdx);
-				// this.setResultRight(rIdx);				
-
-				// if(lIdx.distance() > rIdx.distance()){
-				// 	for(int j = 0; j < lIdx.distance() - rIdx.distance(); j++){
-				// 		this.resultLeft.add("");
-				// 	}
-				// }
-				// else if (lIdx.distance() < rIdx.distance()){
-				// 	for(int j = 0; j < rIdx.distance() - lIdx.distance(); j++){
-				// 		this.resultRight.add("");	
-				// 	}
-				// }					
+				}	
 			}
 		}
 		else { // no same line; all changed
@@ -82,77 +56,8 @@ import java.util.*;
 
 			this.lChange.add(new IdxPair(0,this.left.size()));
 			this.rChange.add(new IdxPair(0,this.right.size()));
-
-			// this.setResult(this.lChange.get(0), this.rChange.get(0));
-			// this.setResultLeft(this.lChange.get(0));
-			// this.setResultRight(this.rChange.get(0));
-
-			// if(this.left.size() > this.right.size()){
-			// 	for(int i = 0; i < this.left.size() - this.right.size(); i++){
-			// 		this.resultLeft.add("");
-			// 	}
-			// }
-			// else if (this.left.size() < this.right.size()){
-			// 	for(int i = 0; i < this.right.size() - this.left.size(); i++){
-			// 		this.resultRight.add("");	
-			// 	}
-			// }
 		}
 	}
-	
-
-// private void setResult(IdxPair lIdx, IdxPair rIdx){
-// 		if(lIdx.distance <= 0 && rIdx.distance <= 0){
-// 			return false;
-// 		}
-// 		String lBuf = "";
-// 		String rBuf = "";
-
-// 		for(int i = lIdx.begin; i < lIdx.end; i++){
-// 			lBuf += this.left.get(i);
-// 		}
-// 		for(int i = rIdx.begin; i < rIdx.end; i++){
-// 			rBuf += this.right.get(i);
-// 		}
-
-// 		if(lIdx.distance() > rIdx.distance()){
-// 			for(int j = 0; j < lIdx.distance() - rIdx.distance(); j++){
-// 				rBuf += "\n";
-// 			}
-// 		}
-// 		else if (lIdx.distance() < rIdx.distance()){
-// 			for(int j = 0; j < rIdx.distance() - lIdx.distance(); j++){
-// 				lBuf += "\n";
-// 			}
-// 		}
-// 		this.resultLeft.add(lBuf);
-// 		this.resultRight.add(rBuf);
-
-// 		return true;
-// 	}
-
-	// private void setResultLeft(IdxPair idx){
-	// 	if(idx.distance <= 0){
-	// 		return;
-	// 	}
-	// 	String buf = "";
-
-	// 	for(int i = idx.begin; i < idx.end; i++){
-	// 		buf += this.left.get(i);
-	// 	}
-	// 	this.resultLeft.add(buf);
-	// }
-	// private void setResultRight(IdxPair idx){
-	// 	if(idx.distance <= 0){
-	// 		return;
-	// 	}
-	// 	String buf = "";
-
-	// 	for(int i = idx.begin; i < idx.end; i++){
-	// 		buf += this.right.get(i);	
-	// 	}
-	// 	this.resultLeft.add(buf);
-	// }
 
 	public ArrayList<IdxPair> getResultLeft(){
 		return this.lChange;
@@ -186,5 +91,24 @@ import java.util.*;
 	public int lenLcs(){
 		return this.lcs.length();
 	}
+
+	// public static void main(String args){
+	// 	String lp = "", rp = "";
+	// 	File lf, rf;
+	// 	Scanner lsc, rsc;
+	// 	ArrayList<String> lbuf, rbuf;
+	// 	boolean isSave = false;
+	// 	if(args.length >= 1){	
+	// 		lp = args[0];
+	// 		if(args.length >= 2){	
+	// 			rp = args[1];
+	// 		}
+			
+	// 		lf = new File(lp);
+	// 		rf = new File(rp);
+			
+			
+	// 	}
+	// }
 }
 

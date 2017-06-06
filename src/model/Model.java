@@ -47,7 +47,7 @@ public class Model implements ModelInterface{
 		int newlineIdx = 0;
 		if(data.length() > 0){
 			while((newlineIdx = buf.indexOf("\n",tmpIdx)) > 0){
-				listData.add(buf.substring(tmpIdx, newlineIdx + 1));
+				listData.add(buf.substring(tmpIdx, newlineIdx));
 				tmpIdx = newlineIdx + 1;
 			}
 			if(tmpIdx < buf.length()){
@@ -251,148 +251,10 @@ public class Model implements ModelInterface{
 		}
 	}
 	private ArrayList<String> getResultLeft(){
-		ArrayList<String> result = new ArrayList<String>();
-		ArrayList<String> diffList = null;
-		ArrayList<String> sameList = null;
-		ArrayList<Integer> sameIdxResult = this.algo.getLcsIdxLeft();
-
-		if(this.algo.getResultLeft() != null && this.algo.getResultLeft().size() > 0){
-			diffList = new ArrayList<String>();
-			IdxPair idx;
-			String buf = "";
-			for(int i = 0; i < this.algo.getResultLeft().size(); i++){
-				idx = this.algo.getResultLeft().get(i);
-				for(int j = idx.begin; j < idx.end; j++){
-					buf += this.left.getLine(j);
-				}
-				if  (
-						this.algo.getResultLeft().get(i).distance  <
-						this.algo.getResultRight().get(i).distance 
-					){
-					for (
-							int j = 0;
-							j < (
-									this.algo.getResultRight().get(i).distance -
-									this.algo.getResultLeft().get(i).distance);
-							j++
-						){
-						buf += "\n";
-					}
-				}
-				diffList.add(buf);
-			}
-		}
 		
-		if(sameIdxResult != null && sameIdxResult.size() > 0){
-			sameList = new ArrayList<String>();
-			String buf = "";
-			for(int i = 0; i <= sameIdxResult.size(); i++){
-				if(i == 0 || sameIdxResult.get(i) - sameIdxResult.get(i - 1) == 1){
-					buf += this.left.getLine(sameIdxResult.get(i));
-				}
-				else if(i >= sameIdxResult.size() || sameIdxResult.get(i) - sameIdxResult.get(i - 1) > 1){
-					sameList.add(buf);
-					buf = "";
-					buf += this.left.getLine(sameIdxResult.get(i));	
-				}
-			}
-		}
-
-		if(diffList != null && sameList != null){
-			int cnt = 0;
-			if(diffList.size() > sameList.size() || !this.algo.isFirstAreSame()){
-				result.add(diffList.get(0));
-				cnt++;
-			}
-			for(;cnt < diffList.size();cnt++){
-				result.add(diffList.get(cnt));
-				result.add(sameList.get(cnt - 1));
-			}
-			if(sameList.size() >= diffList.size()){
-				result.add(sameList.get(sameList.size() - 1));
-			}
-		}
-		else if(diffList != null && sameList == null){
-			result = diffList;
-		}
-		else if(sameList != null){
-			result = sameList;
-		}
-		//else{}
-
-		return result;
 	}
 	private ArrayList<String> getResultRight(){
-		ArrayList<String> result = new ArrayList<String>();
-		ArrayList<String> diffList = null;
-		ArrayList<String> sameList = null;
-		ArrayList<Integer> sameIdxResult = this.algo.getLcsIdxRight();
-
-		if(this.algo.getResultRight() != null && this.algo.getResultRight().size() > 0){
-			diffList = new ArrayList<String>();
-			IdxPair idx;
-			String buf = "";
-			for(int i = 0; i < this.algo.getResultRight().size(); i++){
-				idx = this.algo.getResultRight().get(i);
-				for(int j = idx.begin; j < idx.end; j++){
-					buf += this.left.getLine(j);
-				}
-				if  (
-						this.algo.getResultRight().get(i).distance  <
-						this.algo.getResultLeft().get(i).distance 
-					){
-					for (
-							int j = 0;
-							j < (
-									this.algo.getResultLeft().get(i).distance -
-									this.algo.getResultRight().get(i).distance);
-							j++
-						){
-						buf += "\n";
-					}
-				}
-				diffList.add(buf);
-			}
-		}
 		
-		if(sameIdxResult != null && sameIdxResult.size() > 0){
-			sameList = new ArrayList<String>();
-			String buf = "";
-			for(int i = 0; i <= sameIdxResult.size(); i++){
-				if(i == 0 || sameIdxResult.get(i) - sameIdxResult.get(i - 1) == 1){
-					buf += this.left.getLine(sameIdxResult.get(i));
-				}
-				else if(i >= sameIdxResult.size() || sameIdxResult.get(i) - sameIdxResult.get(i - 1) > 1){
-					sameList.add(buf);
-					buf = "";
-					buf += this.left.getLine(sameIdxResult.get(i));	
-				}
-			}
-		}
-
-		if(diffList != null && sameList != null){
-			int cnt = 0;
-			if(diffList.size() > sameList.size() || !this.algo.isFirstAreSame()){
-				result.add(diffList.get(0));
-				cnt++;
-			}
-			for(;cnt < diffList.size();cnt++){
-				result.add(diffList.get(cnt));
-				result.add(sameList.get(cnt - 1));
-			}
-			if(sameList.size() >= diffList.size()){
-				result.add(sameList.get(sameList.size() - 1));
-			}
-		}
-		else if(diffList != null && sameList == null){
-			result = diffList;
-		}
-		else if(sameList != null){
-			result = sameList;
-		}
-		//else{}
-
-		return result;
 	}
 
 	public boolean isCompared(){
@@ -407,8 +269,7 @@ public class Model implements ModelInterface{
 			}
 
 
-
-			return new Item();
+			return new Item(mergeresult);
 		}
 		else {
 			return null;
@@ -443,6 +304,10 @@ public class Model implements ModelInterface{
 		}
 	}
 
-	//private void copyToRight()
+	private void copyToRight(int idx){
+		//getresultleft()
+		//parsedata()
+		//delete diff. if any -> insert
+	}
 
 }

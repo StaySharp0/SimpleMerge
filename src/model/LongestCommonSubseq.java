@@ -211,8 +211,6 @@ public class LongestCommonSubseq<T>{
 
 			ArrayList<String> tmpArrsource = new ArrayList<String>();
 			ArrayList<String> tmpArrtarget = new ArrayList<String>();
-			StringBuilder sb = new StringBuilder("");
-			int begin = 0, end;
 
 			while(ssc.hasNextLine()){
 				tmpArrsource.add(ssc.nextLine());
