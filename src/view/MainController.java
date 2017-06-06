@@ -3,6 +3,7 @@ package view;
 import com.sun.scenario.effect.Merge;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -176,9 +177,13 @@ public class MainController implements Initializable {
         System.out.println("Click:MergeToRight");
     }
 
-    public void handleMouseClick(MouseEvent arg0) {
-        System.out.println("clicked on " + listLeft.getSelectionModel().getSelectedItem());
-        System.out.println("clicked on " + listRight.getSelectionModel().getSelectedItem());
+    public void SyncSelectItem(Event e) {
+
+        ListView target = (ListView)e.getSource();
+        int selected = target.getSelectionModel().getSelectedIndex();
+
+        System.out.println(selected);
+        for(int pos : position) listViews[pos].getSelectionModel().select(selected);
     }
 
     public void DoTest(){
@@ -188,7 +193,7 @@ public class MainController implements Initializable {
 
         editorUI[0].ShowCompareMode();
         editorUI[1].ShowCompareMode();
-        left.setAll("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20");
+        left.setAll("1\n2\n3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20");
         right.setAll("\n\n\n","4","5","6","7","8","9","10","11","12","13","14","\n\n\n\n\n\n");
 
     }
