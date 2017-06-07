@@ -290,8 +290,8 @@ public class Model implements ModelInterface{
 
 
 		String[][] ListData = {
-				(String[]) this.getResultLeft().toArray(),
-				(String[]) this.getResultRight().toArray()
+				(String[]) this.getResultLeft().toArray(new String[this.getResultLeft().size() + 1]),
+				(String[]) this.getResultRight().toArray(new String[this.getResultRight().size() + 1])
 		};
 
 		rtn.setListViewItem(ListData);
