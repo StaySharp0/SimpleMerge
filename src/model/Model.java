@@ -346,6 +346,7 @@ public class Model implements ModelInterface{
 					}
 				}
 				result.add(buf.toString());
+				buf = new StringBuilder();
 				i += diff.get(cntDiff).distance;
 				if(cntDiff < diff.size() - 1){
 					cntDiff++;
@@ -354,16 +355,17 @@ public class Model implements ModelInterface{
 
 			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.left.getLines().get(same.get(cntSame)));
-				if(i + 1 < this.left.length() && (diff == null ||  i + 1 < diff.get(cntDiff).begin)){
+				if(i + 1 < this.left.length()){
 					buf.append("\n");
 					if(cntSame < same.size()){
 						cntSame++;
 					}
 					i++;
 				}
-				else {
+				if(i == this.left.length() - 1 || (!this.algo.isIdentical() && i == diff.get(cntDiff).begin)){
 					result.add(buf.toString());
-					i++;
+					buf = new StringBuilder();
+					i++;	
 				}
 			}
 
@@ -408,16 +410,17 @@ public class Model implements ModelInterface{
 
 			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.right.getLines().get(same.get(cntSame)));
-				if(i + 1 < this.right.length() && (diff == null ||  i + 1 < diff.get(cntDiff).begin))	{
+				if(i + 1 < this.right.length()){
 					buf.append("\n");
 					if(cntSame < same.size()){
 						cntSame++;
 					}
 					i++;
 				}
-				else {
+				if(i == this.right.length() - 1 || (!this.algo.isIdentical() && i == diff.get(cntDiff).begin)){
 					result.add(buf.toString());
-					i++;
+					buf = new StringBuilder();
+					i++;	
 				}
 			}
 
