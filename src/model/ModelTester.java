@@ -58,13 +58,12 @@ public class ModelTester {
 
         //get item
         Item item = model.compare();
-        String[][] ListData = {
-                item.getListViewItem(0),
-                item.getListViewItem(1)
-        };
+        String[][] ListData = new String[2][];
+        ListData[0] = item.getListViewItem(0);
+        ListData[1] = item.getListViewItem(1);
 
         //create expected result
-        boolean test_listActiveOrder = true;    //true - 홀수  false - 짝수
+        int test_listActiveOrder = 1;    //true - 홀수  false - 짝수
         String[][] test_ListData = new String[2][1];
         test_ListData[0][0] = "12345678910";
         test_ListData[1][0] = "12345678910";

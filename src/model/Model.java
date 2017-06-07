@@ -1,5 +1,7 @@
 package model;
 import dataSet.*;//`ll be changed
+import org.junit.Test;
+import org.junit.Assert;
 import view.UI.FileSaveUI;
 import view.UI.Position;//`ll be changed
 import java.io.File;
@@ -426,7 +428,15 @@ public class Model implements ModelInterface{
 		return result;		
 	}
 
+	@Test
+	public void testGetResultLeft(){
+		ArrayList<String> test_Left = new ArrayList<String>();
+		File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s1 left.txt");
+		File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s1 right.txt");
+		Model model = new Model(leftFile, rightFile);
 
+		test_Left.add("12345678910");
+	}
 
 	public boolean isCompared(){
 		return this.algo != null;
