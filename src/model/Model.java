@@ -362,7 +362,9 @@ public class Model implements ModelInterface{
 				if(i == this.left.length() - 1 || (!this.algo.isIdentical() && i == diff.get(cntDiff).begin)){
 					result.add(buf.toString());
 					buf = new StringBuilder();
-					i++;	
+					if(i == this.left.length() - 1){
+						break;
+					}
 				}
 			}
 
@@ -417,7 +419,9 @@ public class Model implements ModelInterface{
 				if(i == this.right.length() - 1 || (!this.algo.isIdentical() && i == diff.get(cntDiff).begin)){
 					result.add(buf.toString());
 					buf = new StringBuilder();
-					i++;	
+					if(i == this.right.length() - 1){
+						break;
+					}
 				}
 			}
 
