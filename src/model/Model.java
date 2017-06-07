@@ -351,7 +351,7 @@ public class Model implements ModelInterface{
 
 			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.left.getLines().get(same.get(cntSame)));
-				if(i + 1 < this.left.length() || (!this.algo.isIdentical() &&  i + 1 < diff.get(cntDiff).begin)){
+				if(i + 1 < this.left.length() && (diff == null ||  i + 1 < diff.get(cntDiff).begin)){
 					buf.append("\n");
 					if(cntSame < same.size()){
 						cntSame++;
@@ -405,7 +405,7 @@ public class Model implements ModelInterface{
 
 			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.right.getLines().get(same.get(cntSame)));
-				if(i + 1 < this.right.length() || (!this.algo.isIdentical() &&  i + 1 < diff.get(cntDiff).begin))	{
+				if(i + 1 < this.right.length() && (diff == null ||  i + 1 < diff.get(cntDiff).begin))	{
 					buf.append("\n");
 					if(cntSame < same.size()){
 						cntSame++;
