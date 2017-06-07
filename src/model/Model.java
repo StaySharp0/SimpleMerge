@@ -441,22 +441,19 @@ public class Model implements ModelInterface{
 		ArrayList<String> test_Left = new ArrayList<String>();
 		File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s2 left.txt");
 		File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s2 right.txt");
-	//	Model model = new Model(leftFile, rightFile);
+		Model modelMock = new Model(leftFile, rightFile);
 
-		Model model = EasyMock.createMock(Model.class);
-
-		EasyMock.expect(model.isCompared()).andReturn(true);
-		EasyMock.replay(model);
 
 		test_Left.add("1\n");
 		test_Left.add("\n");
 		test_Left.add("3\n4\n5\n6\n7\n8\n9\n10");
 
-		Assert.assertEquals(test_Left, model.getResultLeft());
+		Assert.assertEquals(test_Left, modelMock.getResultLeft());
 	}
 
 	public boolean isCompared(){
-		return this.algo != null;
+		return true;
+		//return this.algo != null;
 	}
 
 	@Override
