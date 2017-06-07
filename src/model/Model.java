@@ -357,15 +357,15 @@ public class Model implements ModelInterface{
 					if(cntSame < same.size()){
 						cntSame++;
 					}
-					i++;
-				}
-				if(i == this.left.length() - 1 || (!this.algo.isIdentical() && i == diff.get(cntDiff).begin)){
-					result.add(buf.toString());
-					buf = new StringBuilder();
-					if(i == this.left.length() - 1){
-						break;
+					if((!this.algo.isIdentical() && i + 1 == diff.get(cntDiff).begin)){
+						result.add(buf.toString());
+						buf = new StringBuilder();					
 					}
 				}
+				else {
+					result.add(buf.toString());
+				}
+				i++;
 			}
 
 			if(i == chki){ // unexpected condition
@@ -414,15 +414,15 @@ public class Model implements ModelInterface{
 					if(cntSame < same.size()){
 						cntSame++;
 					}
-					i++;
-				}
-				if(i == this.right.length() - 1 || (!this.algo.isIdentical() && i == diff.get(cntDiff).begin)){
-					result.add(buf.toString());
-					buf = new StringBuilder();
-					if(i == this.right.length() - 1){
-						break;
+					if((!this.algo.isIdentical() && i + 1 == diff.get(cntDiff).begin)){
+						result.add(buf.toString());
+						buf = new StringBuilder();					
 					}
 				}
+				else {
+					result.add(buf.toString());
+				}
+				i++;
 			}
 
 			if(i == chki){ // unexpected condition
