@@ -15,7 +15,7 @@ class Document{
 	}
 
 	public ArrayList<String> getLines(){
-		return (ArrayList<String>)this.lines.clone();
+		return this.lines;
 	}
 
 	public String getLine(int idx){

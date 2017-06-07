@@ -271,7 +271,7 @@ public class Model implements ModelInterface{
 	}
 	private ArrayList<String> getResultLeft(){
 		if(!this.isCompared()){
-			return "";
+			return new ArrayList<String>();
 		}
 
 		if(this.compResultLeft != null){
@@ -288,31 +288,32 @@ public class Model implements ModelInterface{
 		for(int i = 0; i < this.left.length();){
 			int chki = i;
 			if(i == diff.get(cntDiff).begin  && i != diff.get(cntDiff).end){
-				buf.append(this.concatData(this.left.subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
-				if(diff.get(cntDiff).length < this.algo.getResultRight().get(cntDiff)){
-					for(int j = 0; j < this.algo.getResultRight().get(cntDiff) - diff.get(cntDiff).length; j++){
+				buf.append(this.concatData(this.left.getLines().subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
+				if(diff.get(cntDiff).distance < this.algo.getResultRight().get(cntDiff).distance){
+					for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
 						buf.append("\n");
 					}
 				}
 				result.add(buf.toString());
-				i += diff.get(cntDiff).length;
+				i += diff.get(cntDiff).distance;
 				cntDiff++;
 			}
 
 			if(i == same.get(cntSame)){
-				buf.append(this.left.get(same.get(cntSame)));
+				buf.append(this.left.getLines().get(same.get(cntSame)));
 				if(i + 1 < this.left.length() && i + 1 < diff.get(cntDiff).begin){
 					buf.append("\n");
-					cntSame++,i++;
+					cntSame++;
+					i++;
 				}
 				else {
-					result.add(buf);
+					result.add(buf.toString());
 					i++;
 				}
 			}
 
 			if(i == chki){ // unexpected condition
-				return "";
+				return new ArrayList<String>();
 			}
 		}
 
@@ -320,7 +321,7 @@ public class Model implements ModelInterface{
 	}
 	private ArrayList<String> getResultRight(){
 		if(!this.isCompared()){
-			return "";
+			return new ArrayList<String>();
 		}
 
 		if(this.compResultRight != null){
@@ -337,31 +338,32 @@ public class Model implements ModelInterface{
 		for(int i = 0; i < this.right.length();){
 			int chki = i;
 			if(i == diff.get(cntDiff).begin && i != diff.get(cntDiff).end){
-				buf.append(this.concatData(this.right.subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
-				if(diff.get(cntDiff).length < this.algo.getResultLeft().get(cntDiff)){
-					for(int j = 0; j < this.algo.getResultLeft().get(cntDiff) - diff.get(cntDiff).length; j++){
+				buf.append(this.concatData(this.right.getLines().subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
+				if(diff.get(cntDiff).distance < this.algo.getResultLeft().get(cntDiff).distance){
+					for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
 						buf.append("\n");
 					}
 				}
 				result.add(buf.toString());
-				i += diff.get(cntDiff).length;
+				i += diff.get(cntDiff).distance;
 				cntDiff++;
 			}
 
 			if(i == same.get(cntSame)){
-				buf.append(this.right.get(same.get(cntSame)));
+				buf.append(this.right.getLines().get(same.get(cntSame)));
 				if(i + 1 < this.right.length() && i + 1 < diff.get(cntDiff).begin){
 					buf.append("\n");
-					cntSame++,i++;
+					cntSame++;
+					i++;
 				}
 				else {
-					result.add(buf);
+					result.add(buf.toString());
 					i++;
 				}
 			}
 
 			if(i == chki){ // unexpected condition
-				return "";
+				return new ArrayList<String>();
 			}
 		}
 
@@ -446,14 +448,14 @@ public class Model implements ModelInterface{
 	private void copyToRight(int idx){
 		ArrayList<String> compResult = this.getResultLeft();
 		ArrayList<String> dataToCp = this.parseData(compResult.get(idx));
-		int diffIdx = (idx - (this.algo.isFirstAreSame()) ? 1 : 0) / 2;
+		int diffIdx = (idx - (this.algo.isFirstAreSame() ? 1 : 0) )/ 2;
 		this.right.deleteLine(this.algo.getResultRight().get(diffIdx).begin, this.algo.getResultRight().get(diffIdx).end);
 		this.right.insertLine(this.algo.getResultRight().get(diffIdx).begin, dataToCp);
 	}
 	private void copyToLeft(int idx){
 		ArrayList<String> compResult = this.getResultRight();
 		ArrayList<String> dataToCp = this.parseData(compResult.get(idx));
-		int diffIdx = (idx - (this.algo.isFirstAreSame()) ? 1 : 0) / 2;
+		int diffIdx = (idx - (this.algo.isFirstAreSame() ? 1 : 0) )/ 2;
 		this.left.deleteLine(this.algo.getResultLeft().get(diffIdx).begin, this.algo.getResultLeft().get(diffIdx).end);
 		this.left.insertLine(this.algo.getResultLeft().get(diffIdx).begin, dataToCp);
 	}
