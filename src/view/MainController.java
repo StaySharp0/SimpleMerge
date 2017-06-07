@@ -81,7 +81,7 @@ public class MainController implements Initializable {
             button.put(btnFileSave[pos].getId(), fileSaveUI[pos]);
         }
 
-        DoTest();
+        //DoTest();
 
     }
 
@@ -131,10 +131,9 @@ public class MainController implements Initializable {
 
             System.out.println("FileEdit callback");
 
-            // JUNIT test 필요
-            // Item data = Model.edit((String)source, pos));
+            Item rtn = model.edit((String) source, pos);
 
-            return new Item();
+            return rtn;
         });
     }
 
@@ -143,23 +142,22 @@ public class MainController implements Initializable {
         // Get Button
         Control target = (Control)e.getSource();
         btnAction ui = button.get(target.getId());
+        int pos = ui.getPosition();
 
         // Call event
         Boolean status = ui.onAction((source) -> {
             System.out.println("Click:LeftFileSave");
 
-            // JUNIT test 필요
-            // Item data = Model.save((String)source, pos));
-
-            return new Item();
+            return model.save((String) source, pos);
         });
+
+        editorUI[pos].ShowViewMode();
     }
 
     public void eventCompare(ActionEvent e){
         System.out.println("Click:Compare");
 
-//        Compare data = model.compare();
-        MergeCompare data = new Item();
+        MergeCompare data = model.compare();
 
         for(int pos : position){
             listModels[pos].setAll(data.getListViewItem(pos));

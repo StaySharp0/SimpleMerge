@@ -1,5 +1,6 @@
 package model;
 import dataSet.*;//`ll be changed
+import view.UI.FileSaveUI;
 import view.UI.Position;//`ll be changed
 import java.io.File;
 import java.util.List;
@@ -153,6 +154,8 @@ public class Model implements ModelInterface{
 	}
 	@Override
 	public Item save(List<String> data, int lr){
+		FileEditSave rtn = new Item();
+
 		if(data == null){
 			return null;
 		}
@@ -171,10 +174,17 @@ public class Model implements ModelInterface{
 		}
 
 		if(lr == Position.LEFT || lr == Position.ALL){
-			while(this.saveLeft());
+			while(!this.saveLeft());
+
+			rtn.setFileName(fm.getNameLeft());
+
+			return (Item)rtn;
 		}
 		if(lr == Position.RIGHT || lr == Position.ALL){
-			while(this.saveRight());
+			while(!this.saveRight());
+
+			rtn.setFileName(fm.getNameRight());
+			return (Item)rtn;
 		}
 
 		return null;

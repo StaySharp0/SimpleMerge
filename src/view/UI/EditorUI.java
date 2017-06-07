@@ -41,6 +41,7 @@ public class EditorUI implements btnAction {
     public void ShowEditMode(){
         status = status.EDIT;
         textArea.setEditable(true);
+        title.setText("Edit: "+title.getText());
         tabPane.getSelectionModel().select(1);
 
         btnEdit.getStyleClass().remove("view");
@@ -58,19 +59,18 @@ public class EditorUI implements btnAction {
 
     @Override
     public Boolean onAction(EventCallback cb) {
+        FileEditSave data = cb.callbackMethod(textArea.getText());
+
         switch (status){
             case VIEW: // view -> edit
                 ShowEditMode();
                 break;
             case EDIT: // edit -> view
                 ShowViewMode();
+
+                if(data == null) return false;
+                title.setText(data.getFileName());
         }
-
-        FileEditSave data = cb.callbackMethod(textArea.getText());
-
-        if(data == null) return false;
-
-        title.setText(data.getFileName());
 
         return true;
     }
