@@ -10,6 +10,8 @@ public class Model implements ModelInterface{
 	private FileManager fm;
 	private Document left;
 	private Document right;
+	private Document oleft;
+	private Document oright;
 	private Algorithm algo;
 	private ArrayList<String> compResultLeft;
 	private ArrayList<String> compResultRight;
@@ -18,6 +20,8 @@ public class Model implements ModelInterface{
 		this.fm = new FileManager(null,null);
 		this.left = null;
 		this.right = null;
+		this.oleft = null;
+		this.oright = null;
 		this.algo = null;
 		this.compResultLeft = null;
 		this.compResultRight = null;
@@ -143,10 +147,10 @@ public class Model implements ModelInterface{
 
 	public Item save(int lr){
 		if(lr == Position.LEFT || lr == Position.ALL){
-			while(this.saveLeft());
+			while(!this.saveLeft());
 		}
 		if(lr == Position.RIGHT || lr == Position.ALL){
-			while(this.saveRight());
+			while(!this.saveRight());
 		}
 
 		return null;
@@ -237,9 +241,12 @@ public class Model implements ModelInterface{
 	private boolean editLeft(List<String> data){
 		boolean isEdited = false;
 
-		if(data.size() == this.left.length()){
+		if(!this.left.isEdited() && this.oleft == null){
+			this.oleft = new Document(this.left.getLines());
+		}
+		if(data.size() == this.oleft.length()){
 			for(int i = 0; i < data.size(); i++){
-				if(!data.get(i).equals(this.left.getLine(i))){
+				if(!data.get(i).equals(this.oleft.getLine(i))){
 					isEdited = true;
 					this.left.setLine(i,data.get(i));
 				}
@@ -255,9 +262,12 @@ public class Model implements ModelInterface{
 	private boolean editRight(List<String> data){
 		boolean isEdited = false;
 
+		if(!this.right.isEdited() && this.oright == null){
+			this.oright = new Document(this.right.getLines());
+		}
 		if(data.size() == this.right.length()){
 			for(int i = 0; i < data.size(); i++){
-				if(!data.get(i).equals(this.right.getLine(i))){
+				if(!data.get(i).equals(this.oright.getLine(i))){
 					isEdited = true;
 					this.right.setLine(i,data.get(i));
 				}
