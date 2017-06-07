@@ -102,11 +102,9 @@ public class MainController implements Initializable {
 
         // Call event
         Boolean status = ui.onAction((source) -> {
-
             System.out.println("FileOpen callback");
-            Item rtn = model.load((File) source, pos);
 
-            return rtn;
+            return model.load((File) source, pos);
         });
 
 
@@ -128,12 +126,9 @@ public class MainController implements Initializable {
 
         // Call event
         Boolean status = ui.onAction((source) -> {
-
             System.out.println("FileEdit callback");
 
-            Item rtn = model.edit((String) source, pos);
-
-            return rtn;
+            return model.edit((String) source, pos);
         });
     }
 
