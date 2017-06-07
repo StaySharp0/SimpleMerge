@@ -18,10 +18,8 @@ public class Finder {
         finder = new FileChooser();
         finder.setTitle("Open Resource File");
         finder.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("All Files", "*.*"),
             new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-            new FileChooser.ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac")
+            new FileChooser.ExtensionFilter("All Files", "*.*")
         );
     }
 
