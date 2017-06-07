@@ -80,6 +80,9 @@ public class Model implements ModelInterface{
 
 	@Override
 	public Item load(File f, int lr){
+		if(f == null){
+			return null;
+		}
 		if(lr == Position.LEFT){
 			return this.loadLeft(f);
 		}
@@ -96,7 +99,7 @@ public class Model implements ModelInterface{
 	private Item loadLeft(File f){
 		FileOpen rtn = new Item();
 
-		if(f.isFile()){
+		if(f != null && f.isFile()){
 			if(this.fm.loadLeft(f)){
 				this.left = new Document(this.fm.getBufLeft());
 				if(this.isCompared()){
@@ -115,7 +118,7 @@ public class Model implements ModelInterface{
 	private Item loadRight(File f){
 		FileOpen rtn = new Item();
 
-		if(f.isFile()){
+		if(f != null && f.isFile()){
 			if(this.fm.loadRight(f)){
 				this.right = new Document(this.fm.getBufRight());
 				if(this.isCompared()){
