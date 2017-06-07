@@ -64,7 +64,7 @@ public class ModelTester {
 
         //create expected result
         int test_listActiveOrder = 1;    //true - 홀수  false - 짝수
-        String[][] test_ListData = new String[2][];
+        String[][] test_ListData = new String[2][1];
         test_ListData[0][0] = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
         test_ListData[1][0] = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
 
