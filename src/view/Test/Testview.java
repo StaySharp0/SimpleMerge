@@ -1,7 +1,8 @@
 package view.Test;
 
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import view.*;
+import view.Main;
 import com.google.common.util.concurrent.SettableFuture;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
@@ -16,24 +17,28 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assume.assumeTrue;
+
+import  org.junit.Assert.*;
 import static org.loadui.testfx.Assertions.assertNodeExists;
 
-
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 //import sample.ClickApplication;
 
 //import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertTrue;
+import org.junit.rules.TestName;
+import org.junit.Rule;
 
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Testview extends GuiTest {
     private static final SettableFuture<Stage> stageFuture = SettableFuture.create();
 
-    /**
-     * The type Test program info window.
-     */
     protected static class TestProgramInfoWindow extends Main {
-        /**
-         * Instantiates a new Test program info window.
-         */
         public TestProgramInfoWindow() {
             super();
         }
@@ -64,22 +69,32 @@ public class Testview extends GuiTest {
         return stage.getScene().getRoot();
     }
 
+    @Rule
+    public TestName testName = new TestName();
+
     @Test
-    public void testOpenFileMain(){
+    public void test01OpenFileMain(){
+
+        System.out.println(testName.getMethodName());
         String file1 = "firstfile.txt";
         String file2 = "secondfile.txt";
 
         System.out.println("왼쪽 파일을 선택한다");
-        assertTrue(GuiTest.find("#btnLeftFileEdit").isDisable());
-        assertTrue(GuiTest.find("#btnLeftFileSave").isDisable());
-        assertTrue(GuiTest.find("#btnRightFileEdit").isDisable());
-        assertTrue(GuiTest.find("#btnRightFileSave").isDisable());
+        if(GuiTest.find("#btnLeftFileEdit").isDisable()) {
+            assertTrue(GuiTest.find("#btnLeftFileEdit").isDisable());
+            assertTrue(GuiTest.find("#btnLeftFileSave").isDisable());
+        }
+        if(GuiTest.find("#btnRightFileEdit").isDisable()) {
+            assertTrue(GuiTest.find("#btnRightFileEdit").isDisable());
+            assertTrue(GuiTest.find("#btnRightFileSave").isDisable());
+        }
 
         click("#btnLeftFileOpen");
         type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
         type("Users\\503\\Desktop\\SimpleMerge-GUI\\src\\view").type(KeyCode.ENTER);
         type(file1).type(KeyCode.ENTER);
         //assertTrue(((TextField)GuiTest.find("#fieldLeftFile")).getText().equals("filename1"));
+//verifythat
 
         //콜백받는거 확인 //TODO
         //assertEquals("", "FileOpen callback");
@@ -109,23 +124,22 @@ public class Testview extends GuiTest {
 
 
     @Test
-    public void testOpenFileSide(){
+    public void test03OpenFileSide(){
 
     }
 
     @Test
-    public void testListClick(){
+    public void test04ListClick(){
 
     }
 
     @Test
-    public void testTextAreaSwitch(){
+    public void test02TextAreaSwitch(){
         String file1 = "firstfile.txt";
         String file2 = "secondfile.txt";
-
-        //TODO
-        //edit 버튼을 누를 시 제대로 판이 바뀌는지 확인할 것.
-        assertFalse(GuiTest.find("#fieldLeftFile").isDisable());
+        click("#btnLeftFileEdit");click("#btnRightFileEdit");click("#btnLeftFileEdit");
+        click("#btnLeftFileEdit");
+        click("#btnRightFileEdit");
 
 
         if(GuiTest.find("#btnLeftFileEdit").isDisable()){
@@ -135,7 +149,11 @@ public class Testview extends GuiTest {
             type(file1).type(KeyCode.ENTER);
         }
 
-
+        System.out.println("edit 버튼을 누를 시 수정 가능한지 확인");
+        assertFalse(GuiTest.find("#fieldLeftFile").isDisable());
+        click("#btnLeftFileEdit");
+        System.out.println("edit 버튼을 다시 누를 시 수정 불가능한지 확인");
+        assertFalse(GuiTest.find("#fieldLeftFile").isDisable());
 
         if(GuiTest.find("#btnRightFileEdit").isDisable()){
             click("#btnRightFileOpen");
