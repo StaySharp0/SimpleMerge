@@ -1,26 +1,25 @@
 package view;
 
-import com.sun.scenario.effect.Merge;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
+import model.Model;
+import model.ModelInterface;
 import view.UI.*;
-import view.UI.DataSet.Item;
-import view.UI.DataSet.MergeCompare;
+import dataSet.Item;
+import dataSet.MergeCompare;
 
+import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-
+    ModelInterface model;
 
     // init FXML Objects
     @FXML private Button    btnLeftFileOpen, btnRightFileOpen,
@@ -57,6 +56,8 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("init");
+
+        model = new Model();
 
         // FXML value -> position array
         btnFileOpen = new Button[]  { btnLeftFileOpen, btnRightFileOpen };
@@ -103,12 +104,9 @@ public class MainController implements Initializable {
         Boolean status = ui.onAction((source) -> {
 
             System.out.println("FileOpen callback");
-            
-            // JUNIT test 필요
-            // Item data = Model.load((File)source,pos));
+            Item rtn = model.load((File) source, pos);
 
-//            return data;
-            return new Item();
+            return rtn;
         });
 
 
@@ -187,7 +185,6 @@ public class MainController implements Initializable {
     }
 
     public void DoTest(){
-        System.out.println("123");
         ObservableList<String> left = listLeft.getItems();
         ObservableList<String> right = listRight.getItems();
 

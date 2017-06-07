@@ -1,10 +1,9 @@
 package view.UI;
 
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import view.UI.DataSet.FileOpen;
+import dataSet.FileOpen;
 
 import java.io.File;
 

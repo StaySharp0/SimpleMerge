@@ -1,7 +1,7 @@
 package model;
 
-import view.UI.DataSet.Item;//`ll be changed
-import view.UI.Position;//`ll be changed
+import dataSet.Item;//`ll be changed
+
 import java.util.List;
 import java.io.File;
 
@@ -19,7 +19,7 @@ public interface ModelInterface {
 	
 	public Item compare();
 
-	public Item getCompareResult(int lr);
+//	public Item getCompareResult(int lr);
 
 	public Item merge(int idx, int lr);
 	public Item merge(List<Integer> idxList, int lr);

@@ -1,5 +1,5 @@
 package model;
-import view.UI.DataSet.*;//`ll be changed
+import dataSet.*;//`ll be changed
 import view.UI.Position;//`ll be changed
 import java.io.File;
 import java.util.List;
@@ -70,7 +70,7 @@ public class Model implements ModelInterface{
 		String buf = new String("");
 
 		for(int i = 0; i < data.size();i++){
-			buf += data.get(i) +( (i == data.size() - 1) ? ("\n") : ("") ); 
+			buf += data.get(i) +( (i != data.size() - 1) ? ("\n") : ("") );
 		}
 
 		return buf;
@@ -93,26 +93,38 @@ public class Model implements ModelInterface{
 // load sub-methods
 //{
 	private Item loadLeft(File f){
+		FileOpen rtn = new Item();
+
 		if(f.isFile()){
 			if(this.fm.loadLeft(f)){
 				this.left = new Document(this.fm.getBufLeft());
 				if(this.isCompared()){
 					this.algo = null;
 				}
-				return new Item(this.left.getLines());
+
+				rtn.setFileName(f.getName());
+				rtn.setTextData(this.concatData(this.left.getLines()));
+
+				return (Item) rtn;
 			}
 		}
 
 		return null;
 	}
 	private Item loadRight(File f){
+		FileOpen rtn = new Item();
+
 		if(f.isFile()){
 			if(this.fm.loadRight(f)){
 				this.right = new Document(this.fm.getBufRight());
 				if(this.isCompared()){
 					this.algo = null;
 				}
-				return new Item(this.right.getLines());
+
+				rtn.setFileName(f.getName());
+				rtn.setTextData(this.concatData(this.right.getLines()));
+
+				return (Item) rtn;
 			}
 		}
 
@@ -133,7 +145,7 @@ public class Model implements ModelInterface{
 			while(this.saveRight());
 		}
 
-		return new Item();
+		return null;
 	}
 	@Override
 	public Item save(String data, int lr){
@@ -165,7 +177,7 @@ public class Model implements ModelInterface{
 			while(this.saveRight());
 		}
 
-		return new Item();
+		return null;
 	}
 // save sub-methods
 //{
@@ -183,8 +195,9 @@ public class Model implements ModelInterface{
 		return this.edit(this.parseData(data), lr);
 	}
 	public Item edit(List<String> data, int lr){
-		String name;
-		boolean isEdited;
+		String name = "";
+		boolean isEdited = false;
+		FileEditSave rtn = new Item();
 
 		if(lr == Position.LEFT){
 			name = this.fm.getNameLeft();
@@ -203,7 +216,9 @@ public class Model implements ModelInterface{
 			this.algo = null;
 		}
 
-		return new Item(name);
+		rtn.setFileName(name);
+
+		return (Item) rtn;
 	}
 
 	private boolean editLeft(List<String> data){
@@ -245,30 +260,40 @@ public class Model implements ModelInterface{
 //}
 	@Override
 	public Item compare(){
+		MergeCompare rtn = new Item();
 		if(!this.isCompared()){
 			this.algo = new Algorithm(this.left.getLines(), this.right.getLines());
 		}
 
-		return new Item(this.getResultLeft(), this.getResultRight(), this.algo.isFirstAreSame());
-		//return new Item(this.algo.isFirstAreSame());
+
+		String[][] ListData = {
+				(String[]) this.getResultLeft().toArray(),
+				(String[]) this.getResultRight().toArray()
+		};
+
+		rtn.setListViewItem(ListData);
+		rtn.setListActiveOrder(this.algo.isFirstAreSame());
+
+		return (Item) rtn;
 	}
-	@Override
-	public Item getCompareResult(int lr){
-		if(this.isCompared()){
-			if(lr == Position.LEFT){
-				return new Item(this.getResultLeft());
-			}
-			else if(lr == Position.RIGHT){
-				return new Item(this.getResultRight());
-			}
-			else if(lr == Position.ALL){
-				return new Item(this.getResultLeft(), this.getResultRight());
-			}
-		}
-		else {
-			return null;
-		}
-	}
+
+//	@Override
+//	public Item getCompareResult(int lr){
+//		if(this.isCompared()){
+//			if(lr == Position.LEFT){
+//				return new Item(this.getResultLeft());
+//			}
+//			else if(lr == Position.RIGHT){
+//				return new Item(this.getResultRight());
+//			}
+//			else if(lr == Position.ALL){
+//				return new Item(this.getResultLeft(), this.getResultRight());
+//			}
+//		}
+//		else {
+//			return null;
+//		}
+//	}
 	private ArrayList<String> getResultLeft(){
 		if(!this.isCompared()){
 			return new ArrayList<String>();
@@ -378,6 +403,7 @@ public class Model implements ModelInterface{
 
 	@Override
 	public Item merge(List<Integer> idxList, int lr){
+
 		if(this.isCompared()){
 			if(!this.algo.isIdentical()){
 				if(lr == Position.LEFT){
@@ -394,12 +420,14 @@ public class Model implements ModelInterface{
 					return null;
 				}
 
-				if(this.isCompared()){
-					this.algo = null;
-					this.compare();
-				}
+//				if(this.isCompared()){
+//					this.algo = null;
+//					return this.compare();
+//				}
+				this.algo = null;
+				return this.compare();
 			}
-			return new Item(this.left.getLines());
+			return null;
 		}
 		else {
 			return null;
@@ -419,12 +447,16 @@ public class Model implements ModelInterface{
 				else {
 					return null;
 				}
-				if(this.isCompared()){
-					this.algo = null;
-					this.compare();
-				}
-			} 
-			return new Item(this.left.getLines());
+
+//				if(this.isCompared()){
+//					this.algo = null;
+//					return this.compare();
+//				}
+				this.algo = null;
+
+				return this.compare();
+			}
+			return null;
 		}
 		else {
 			return null;

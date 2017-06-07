@@ -16,13 +16,13 @@ class FileManager{
 	public FileManager(File fl, File fr){
 		this.lScan = null;
 		this.rScan = null;
-		if(!this.loadLeft(fl)){
+		if(fl != null && !this.loadLeft(fl)){
 			this.bufLeft = null;
 			this.lpath = null;
 			this.lName = null;
 		}
 
-		if(!this.loadRight(fr)){
+		if(fr != null && !this.loadRight(fr)){
 			this.bufRight = null;
 			this.rpath = null;
 			this.rName = null;
