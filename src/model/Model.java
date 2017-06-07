@@ -292,7 +292,6 @@ public class Model implements ModelInterface{
 		String[][] ListData = {
 				this.getResultLeft().toArray(new String[this.getResultLeft().size() + 1]),
 				this.getResultRight().toArray(new String[this.getResultRight().size() + 1])
-
 		};
 
 		rtn.setListViewItem(ListData);
@@ -352,7 +351,7 @@ public class Model implements ModelInterface{
 
 			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.left.getLines().get(same.get(cntSame)));
-				if(i + 1 < this.left.length() && !this.algo.isIdentical() &&  i + 1 < diff.get(cntDiff).begin){
+				if(i + 1 < this.left.length() || (!this.algo.isIdentical() &&  i + 1 < diff.get(cntDiff).begin)){
 					buf.append("\n");
 					if(cntSame < same.size()){
 						cntSame++;
@@ -406,7 +405,7 @@ public class Model implements ModelInterface{
 
 			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.right.getLines().get(same.get(cntSame)));
-				if(i + 1 < this.right.length() && !this.algo.isIdentical() &&  i + 1 < diff.get(cntDiff).begin){
+				if(i + 1 < this.right.length() || (!this.algo.isIdentical() &&  i + 1 < diff.get(cntDiff).begin)){
 					buf.append("\n");
 					if(cntSame < same.size()){
 						cntSame++;
