@@ -1,5 +1,6 @@
 package model;
 import dataSet.*;//`ll be changed
+import org.easymock.EasyMock;
 import org.junit.Test;
 import org.junit.Assert;
 import view.UI.FileSaveUI;
@@ -431,11 +432,17 @@ public class Model implements ModelInterface{
 	@Test
 	public void testGetResultLeft(){
 		ArrayList<String> test_Left = new ArrayList<String>();
-		File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s1 left.txt");
-		File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s1 right.txt");
+		File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s2 left.txt");
+		File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s2 right.txt");
 		Model model = new Model(leftFile, rightFile);
 
-		test_Left.add("12345678910");
+		EasyMock.expect(model.isCompared()).andReturn(true);
+
+		test_Left.add("1\n");
+		test_Left.add("\n");
+		test_Left.add("3\n4\n5\n6\n7\n8\n9\n10");
+
+		Assert.assertEquals(test_Left, model.getResultLeft());
 	}
 
 	public boolean isCompared(){
