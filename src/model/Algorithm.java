@@ -1,5 +1,6 @@
 package model;
 import java.util.*;
+import java.io.File;
 
  class Algorithm {
  	final private ArrayList<String> left;
@@ -91,23 +92,59 @@ import java.util.*;
 		return this.lcs.length();
 	}
 
-	// public static void main(String args){
-	// 	String lp = "", rp = "";
-	// 	File lf, rf;
-	// 	Scanner lsc, rsc;
-	// 	ArrayList<String> lbuf, rbuf;
-	// 	boolean isSave = false;
-	// 	if(args.length >= 1){	
-	// 		lp = args[0];
-	// 		if(args.length >= 2){	
-	// 			rp = args[1];
-	// 		}
+	public static void main(String[] args){
+		String lp = "", rp = "";
+		File lf, rf;
+		Scanner lsc, rsc;
+		ArrayList<String> lbuf, rbuf;
+		boolean isSave = false;
+		if(args.length >= 2){	
+			lp = args[0];
+			rp = args[1];
 			
-	// 		lf = new File(lp);
-	// 		rf = new File(rp);
+			lf = new File(lp);
+			rf = new File(rp);
+			try {
+				lsc = new Scanner(lf);
+				rsc = new Scanner(rf);
+				lbuf = new ArrayList<String>();
+				rbuf = new ArrayList<String>();
+
+				while(lsc.hasNextLine()){
+					lbuf.add(lsc.nextLine());
+				}
+				while(rsc.hasNextLine()){
+					rbuf.add(rsc.nextLine());
+				}
+
+				Algorithm algo = new Algorithm(lbuf,rbuf);
+				if(algo.getResultLeft() != null && algo.getResultRight() != null){
+					if(algo.getResultLeft().size() != algo.getResultRight().size()){
+						System.out.println("Error!");
+						System.exit(0);	
+					}
+					if(algo.getResultLeft() != null && algo.getResultRight() != null){
+						for(int i = 0; i < algo.getResultLeft().size(); i++){
+							System.out.println("" + algo.getResultLeft().get(i).begin + ", " + algo.getResultLeft().get(i).end);
+							for(int j = algo.getResultLeft().get(i).begin; j < algo.getResultLeft().get(i).end; j++){
+								System.out.println("< " + algo.left.get(j));
+							}
+							System.out.println("" + algo.getResultRight().get(i).begin + ", " + algo.getResultRight().get(i).end);
+							for(int j = algo.getResultRight().get(i).begin; j < algo.getResultRight().get(i).end; j++){
+								System.out.println("> " + algo.right.get(j));
+							}
+						}
+					}
+				}
+				else if(algo.isIdentical()){
+					System.out.println("identical!");
+				}
+			}
+			catch(Exception e){
+				System.out.println("Exception on file io : " + e.toString());
+			}			
 			
-			
-	// 	}
-	// }
+		}
+	}
 }
 
