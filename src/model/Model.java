@@ -437,9 +437,12 @@ public class Model implements ModelInterface{
 		ArrayList<String> test_Left = new ArrayList<String>();
 		File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s2 left.txt");
 		File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s2 right.txt");
-		Model model = new Model(leftFile, rightFile);
+	//	Model model = new Model(leftFile, rightFile);
+
+		Model model = EasyMock.createMock(Model.class);
 
 		EasyMock.expect(model.isCompared()).andReturn(true);
+		EasyMock.replay(model);
 
 		test_Left.add("1\n");
 		test_Left.add("\n");
