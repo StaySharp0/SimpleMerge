@@ -31,7 +31,7 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <TextField fx:id="fieldLeftFile" editable="false" text="filename" />
+                        <TextField fx:id="fieldLeftFile" editable="false" />
                         <Button fx:id="btnLeftFileOpen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileOpen" prefHeight="25.0" prefWidth="25.0" GridPane.columnIndex="1">
                            <styleClass>
                               <String fx:value="btnFile" />
@@ -60,7 +60,7 @@
                       </Tab>
                       <Tab closable="false" text="TextArea">
                            <content>
-                              <TextArea fx:id="textAreaLeft" editable="false" prefHeight="200.0" prefWidth="200.0" text="asdfasfd" />
+                              <TextArea fx:id="textAreaLeft" editable="false" prefHeight="200.0" prefWidth="200.0" />
                            </content>
                       </Tab>
                     </tabs>
@@ -80,7 +80,7 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <TextField fx:id="fieldRightFile" editable="false" text="filename" />
+                        <TextField fx:id="fieldRightFile" editable="false" />
                         <Button fx:id="btnRightFileOpen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eventFileOpen" prefHeight="25.0" prefWidth="25.0" GridPane.columnIndex="1">
                            <styleClass>
                               <String fx:value="btnFile" />
@@ -109,7 +109,7 @@
                         </Tab>
                         <Tab closable="false" text="TextArea">
                            <content>
-                              <TextArea fx:id="textAreaRight" editable="false" prefHeight="200.0" prefWidth="200.0" text="asdfasfd" />
+                              <TextArea fx:id="textAreaRight" editable="false" prefHeight="200.0" prefWidth="200.0" />
                            </content>
                         </Tab>
                      </tabs>

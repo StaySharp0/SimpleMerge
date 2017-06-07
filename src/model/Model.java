@@ -10,6 +10,8 @@ public class Model implements ModelInterface{
 	private FileManager fm;
 	private Document left;
 	private Document right;
+	private Document oleft;
+	private Document oright;
 	private Algorithm algo;
 	private ArrayList<String> compResultLeft;
 	private ArrayList<String> compResultRight;
@@ -18,6 +20,8 @@ public class Model implements ModelInterface{
 		this.fm = new FileManager(null,null);
 		this.left = null;
 		this.right = null;
+		this.oleft = null;
+		this.oright = null;
 		this.algo = null;
 		this.compResultLeft = null;
 		this.compResultRight = null;
@@ -80,6 +84,9 @@ public class Model implements ModelInterface{
 
 	@Override
 	public Item load(File f, int lr){
+		if(f == null){
+			return null;
+		}
 		if(lr == Position.LEFT){
 			return this.loadLeft(f);
 		}
@@ -96,7 +103,7 @@ public class Model implements ModelInterface{
 	private Item loadLeft(File f){
 		FileOpen rtn = new Item();
 
-		if(f.isFile()){
+		if(f != null && f.isFile()){
 			if(this.fm.loadLeft(f)){
 				this.left = new Document(this.fm.getBufLeft());
 				if(this.isCompared()){
@@ -115,7 +122,7 @@ public class Model implements ModelInterface{
 	private Item loadRight(File f){
 		FileOpen rtn = new Item();
 
-		if(f.isFile()){
+		if(f != null && f.isFile()){
 			if(this.fm.loadRight(f)){
 				this.right = new Document(this.fm.getBufRight());
 				if(this.isCompared()){
@@ -140,10 +147,10 @@ public class Model implements ModelInterface{
 
 	public Item save(int lr){
 		if(lr == Position.LEFT || lr == Position.ALL){
-			while(this.saveLeft());
+			while(!this.saveLeft());
 		}
 		if(lr == Position.RIGHT || lr == Position.ALL){
-			while(this.saveRight());
+			while(!this.saveRight());
 		}
 
 		return null;
@@ -234,9 +241,12 @@ public class Model implements ModelInterface{
 	private boolean editLeft(List<String> data){
 		boolean isEdited = false;
 
-		if(data.size() == this.left.length()){
+		if(!this.left.isEdited() && this.oleft == null){
+			this.oleft = new Document(this.left.getLines());
+		}
+		if(data.size() == this.oleft.length()){
 			for(int i = 0; i < data.size(); i++){
-				if(!data.get(i).equals(this.left.getLine(i))){
+				if(!data.get(i).equals(this.oleft.getLine(i))){
 					isEdited = true;
 					this.left.setLine(i,data.get(i));
 				}
@@ -252,9 +262,12 @@ public class Model implements ModelInterface{
 	private boolean editRight(List<String> data){
 		boolean isEdited = false;
 
+		if(!this.right.isEdited() && this.oright == null){
+			this.oright = new Document(this.right.getLines());
+		}
 		if(data.size() == this.right.length()){
 			for(int i = 0; i < data.size(); i++){
-				if(!data.get(i).equals(this.right.getLine(i))){
+				if(!data.get(i).equals(this.oright.getLine(i))){
 					isEdited = true;
 					this.right.setLine(i,data.get(i));
 				}
@@ -322,7 +335,7 @@ public class Model implements ModelInterface{
 
 		for(int i = 0; i < this.left.length();){
 			int chki = i;
-			if(i == diff.get(cntDiff).begin  && i != diff.get(cntDiff).end){
+			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin  && i != diff.get(cntDiff).end){
 				buf.append(this.concatData(this.left.getLines().subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
 				if(diff.get(cntDiff).distance < this.algo.getResultRight().get(cntDiff).distance){
 					for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
@@ -331,14 +344,18 @@ public class Model implements ModelInterface{
 				}
 				result.add(buf.toString());
 				i += diff.get(cntDiff).distance;
-				cntDiff++;
+				if(cntDiff < diff.size() - 1){
+					cntDiff++;
+				}
 			}
 
-			if(i == same.get(cntSame)){
+			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.left.getLines().get(same.get(cntSame)));
 				if(i + 1 < this.left.length() && i + 1 < diff.get(cntDiff).begin){
 					buf.append("\n");
-					cntSame++;
+					if(cntSame < same.size()){
+						cntSame++;
+					}
 					i++;
 				}
 				else {
@@ -372,7 +389,7 @@ public class Model implements ModelInterface{
 
 		for(int i = 0; i < this.right.length();){
 			int chki = i;
-			if(i == diff.get(cntDiff).begin && i != diff.get(cntDiff).end){
+			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin && i != diff.get(cntDiff).end){
 				buf.append(this.concatData(this.right.getLines().subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
 				if(diff.get(cntDiff).distance < this.algo.getResultLeft().get(cntDiff).distance){
 					for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
@@ -381,14 +398,18 @@ public class Model implements ModelInterface{
 				}
 				result.add(buf.toString());
 				i += diff.get(cntDiff).distance;
-				cntDiff++;
+				if(cntDiff < diff.size() - 1){
+					cntDiff++;
+				}
 			}
 
-			if(i == same.get(cntSame)){
+			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.right.getLines().get(same.get(cntSame)));
 				if(i + 1 < this.right.length() && i + 1 < diff.get(cntDiff).begin){
 					buf.append("\n");
-					cntSame++;
+					if(cntSame < same.size()){
+						cntSame++;
+					}
 					i++;
 				}
 				else {
