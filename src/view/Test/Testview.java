@@ -73,13 +73,13 @@ public class Testview extends GuiTest {
     public TestName testName = new TestName();
 
     @Test
-    public void test01OpenFileMain(){
+    public void test01OpenFileTest(){
 
         System.out.println(testName.getMethodName());
         String file1 = "firstfile.txt";
         String file2 = "secondfile.txt";
 
-        System.out.println("왼쪽 파일을 선택한다");
+
         if(GuiTest.find("#btnLeftFileEdit").isDisable()) {
             assertTrue(GuiTest.find("#btnLeftFileEdit").isDisable());
             assertTrue(GuiTest.find("#btnLeftFileSave").isDisable());
@@ -89,11 +89,22 @@ public class Testview extends GuiTest {
             assertTrue(GuiTest.find("#btnRightFileSave").isDisable());
         }
 
+        System.out.println("왼쪽 파일에서 아무 파일도 선택하지 않는다");
+        click("#btnLeftFileOpen");
+        type(KeyCode.ESCAPE);
+        assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), "");
+        click("#btnLeftFileEdit");
+        assertTrue(GuiTest.find("#btnLeftFileEdit").isDisable());
+        click("#btnLeftFileSave");
+        assertTrue(GuiTest.find("#btnLeftFileSave").isDisable());
+
+        System.out.println("왼쪽 파일을 선택한다");
         click("#btnLeftFileOpen");
         type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
         type("Users\\503\\Desktop\\SimpleMerge-GUI\\src\\view").type(KeyCode.ENTER);
         type(file1).type(KeyCode.ENTER);
-        //assertTrue(((TextField)GuiTest.find("#fieldLeftFile")).getText().equals("filename1"));
+        System.out.println(((TextField)GuiTest.find("#fieldLeftFile")).getText()+"를 불러옵니다");
+        assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), file1);
 //verifythat
 
         //콜백받는거 확인 //TODO
@@ -104,14 +115,22 @@ public class Testview extends GuiTest {
         assertFalse(GuiTest.find("#btnLeftFileSave").isDisable());
 
 
-        System.out.println("오른쪽 파일을 선택한다");
-
+        System.out.println("오른쪽 파일에서 아무 파일도 선택하지 않는다");
         click("#btnRightFileOpen");
+        type(KeyCode.ESCAPE);
+        assertEquals(((TextField)GuiTest.find("#fieldRightFile")).getText(), "");
+        click("#btnRightFileEdit");
+        assertTrue(GuiTest.find("#btnRightFileEdit").isDisable());
+        click("#btnRightFileSave");
+        assertTrue(GuiTest.find("#btnRightFileSave").isDisable());
 
+        System.out.println("오른쪽 파일을 선택한다");
+        click("#btnRightFileOpen");
         type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
         type("Users\\503\\Desktop\\SimpleMerge-GUI\\src\\view").type(KeyCode.ENTER);
         type(file2).type(KeyCode.ENTER);
-        //assertTrue(((TextField)GuiTest.find("#fieldRightFile")).getText().equals("filename2"));
+        System.out.println(((TextField)GuiTest.find("#fieldRightFile")).getText()+"를 불러옵니다");
+        assertEquals(((TextField)GuiTest.find("#fieldRightFile")).getText(), file2);
         //콜백받는거 확인 //TODO
         //assertEquals("", "FileOpen callback");
 
@@ -134,12 +153,13 @@ public class Testview extends GuiTest {
     }
 
     @Test
-    public void test02TextAreaSwitch(){
+    public void test02EditFileTest(){
         String file1 = "firstfile.txt";
         String file2 = "secondfile.txt";
-        click("#btnLeftFileEdit");click("#btnRightFileEdit");click("#btnLeftFileEdit");
         click("#btnLeftFileEdit");
         click("#btnRightFileEdit");
+        click("#btnLeftFileSave");
+        click("#btnRightFileSave");
 
 
         if(GuiTest.find("#btnLeftFileEdit").isDisable()){
@@ -149,12 +169,34 @@ public class Testview extends GuiTest {
             type(file1).type(KeyCode.ENTER);
         }
 
-        System.out.println("edit 버튼을 누를 시 수정 가능한지 확인");
+        System.out.println("edit 버튼을 누를 시 수정 가능한지 확인합니다");
         assertFalse(GuiTest.find("#fieldLeftFile").isDisable());
+        assertFalse(GuiTest.find("#textAreaLeft").isDisable());
+        click("#btnLeftFileEdit");
+        System.out.println("파일명 앞에 Edit: 이 붙는지 확인합니다");
+        assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), "Edit: "+file1);
+        System.out.println("텍스트 <Left file>을 추가합니다");
+        click("#textAreaLeft");
+        type(KeyCode.ENTER).type("Left file");
+        System.out.println("파일명 앞에 *이 붙는지 확인합니다");
+        click("#btnLeftFileEdit");
+        assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), "*"+file1);
+        System.out.println("edit 버튼을 다시 누를 시 수정 불가능한지 확인합니다");
+        click("#btnLeftFileEdit");
+        //assertTrue(GuiTest.find("#fieldLeftFile").isDisable());
+        System.out.println("save를 누를 시 파일명 앞에 *이 사라지는지 확인합니다");
+        click("#btnLeftFileSave");
+        assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), file1);
+        //System.out.println("Edit을 여러번 누를 시 파일명 앞에 *이 그대로인지 확인합니다");
+        //click("#btnLeftFileEdit");
+        //sclick("#btnLeftFileEdit");
+        //assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), "*"+file1);
         click("#btnLeftFileEdit");
         System.out.println("edit 버튼을 다시 누를 시 수정 불가능한지 확인");
         assertFalse(GuiTest.find("#fieldLeftFile").isDisable());
 
+        //TODO
+        //오른쪽에 대해 다시 한번 반복할 것. .txt 파일만 받는지 확인할것
         if(GuiTest.find("#btnRightFileEdit").isDisable()){
             click("#btnRightFileOpen");
             type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
@@ -162,9 +204,6 @@ public class Testview extends GuiTest {
             type(file2).type(KeyCode.ENTER);
         }
 
-
-        click("#btnLeftFileEdit");
-        click("#btnRightFileEdit");
 
 
 
