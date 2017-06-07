@@ -325,7 +325,7 @@ public class Model implements ModelInterface{
 
 		for(int i = 0; i < this.left.length();){
 			int chki = i;
-			if(i == diff.get(cntDiff).begin  && i != diff.get(cntDiff).end){
+			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin  && i != diff.get(cntDiff).end){
 				buf.append(this.concatData(this.left.getLines().subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
 				if(diff.get(cntDiff).distance < this.algo.getResultRight().get(cntDiff).distance){
 					for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
@@ -334,14 +334,18 @@ public class Model implements ModelInterface{
 				}
 				result.add(buf.toString());
 				i += diff.get(cntDiff).distance;
-				cntDiff++;
+				if(cntDiff < diff.size() - 1){
+					cntDiff++;
+				}
 			}
 
-			if(i == same.get(cntSame)){
+			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.left.getLines().get(same.get(cntSame)));
 				if(i + 1 < this.left.length() && i + 1 < diff.get(cntDiff).begin){
 					buf.append("\n");
-					cntSame++;
+					if(cntSame < same.size()){
+						cntSame++;
+					}
 					i++;
 				}
 				else {
@@ -375,7 +379,7 @@ public class Model implements ModelInterface{
 
 		for(int i = 0; i < this.right.length();){
 			int chki = i;
-			if(i == diff.get(cntDiff).begin && i != diff.get(cntDiff).end){
+			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin && i != diff.get(cntDiff).end){
 				buf.append(this.concatData(this.right.getLines().subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
 				if(diff.get(cntDiff).distance < this.algo.getResultLeft().get(cntDiff).distance){
 					for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
@@ -384,14 +388,18 @@ public class Model implements ModelInterface{
 				}
 				result.add(buf.toString());
 				i += diff.get(cntDiff).distance;
-				cntDiff++;
+				if(cntDiff < diff.size() - 1){
+					cntDiff++;
+				}
 			}
 
-			if(i == same.get(cntSame)){
+			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.right.getLines().get(same.get(cntSame)));
 				if(i + 1 < this.right.length() && i + 1 < diff.get(cntDiff).begin){
 					buf.append("\n");
-					cntSame++;
+					if(cntSame < same.size()){
+						cntSame++;
+					}
 					i++;
 				}
 				else {
