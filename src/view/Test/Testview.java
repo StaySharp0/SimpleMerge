@@ -1,5 +1,6 @@
 package view.Test;
 
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import view.Main;
@@ -18,15 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assume.assumeTrue;
 
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
-
 import static org.junit.Assert.assertTrue;
 import org.junit.rules.TestName;
 import org.junit.Rule;
 
-
-//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Testview extends GuiTest {
     private static final SettableFuture<Stage> stageFuture = SettableFuture.create();
 
@@ -149,7 +145,33 @@ public class Testview extends GuiTest {
 
     @Test
     public void test04ListClick(){
-        System.out.println("아직 미구현");
+        String file1 = "s1 left.txt";
+        String file2 = "s1 right.txt";
+        //if(((TextField) GuiTest.find("#fieldLeftFile")).getText() == "") {
+        System.out.println("왼쪽 파일을 선택한다");
+        click("#btnLeftFileOpen");
+        type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
+        //type("Users\\503\\Desktop\\SimpleMerge-GUI\\src\\view").type(KeyCode.ENTER);
+        type("\\Users\\503\\Downloads\\samples").type(KeyCode.ENTER);
+        type(file1).type(KeyCode.ENTER);
+        System.out.println(((TextField) GuiTest.find("#fieldLeftFile")).getText() + "를 불러옵니다");
+        assertEquals(((TextField) GuiTest.find("#fieldLeftFile")).getText(), file1);
+        // }
+
+        System.out.println("오른쪽 파일을 선택한다");
+        click("#btnRightFileOpen");
+        type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
+        //type("Users\\503\\Desktop\\SimpleMerge-GUI\\src\\view").type(KeyCode.ENTER);
+        type("\\Users\\503\\Downloads\\samples").type(KeyCode.ENTER);
+        type(file2).type(KeyCode.ENTER);
+        System.out.println(((TextField)GuiTest.find("#fieldRightFile")).getText()+"를 불러옵니다");
+        assertEquals(((TextField)GuiTest.find("#fieldRightFile")).getText(), file2);
+
+
+        click("#btnCompare");
+        ListView<?> list = find("#listLeft");
+        list.getSelectionModel().select(3);
+        click(list);
     }
 
     @Test

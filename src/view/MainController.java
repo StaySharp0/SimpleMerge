@@ -1,6 +1,5 @@
 package view;
 
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
