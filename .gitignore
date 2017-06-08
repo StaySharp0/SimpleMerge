@@ -19,3 +19,5 @@ hs_err_pid*
 # .idea, .DS_store
 .*
 out/
+
+lib/
