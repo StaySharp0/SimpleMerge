@@ -6,7 +6,9 @@ import java.io.File;
  	final private ArrayList<String> left;
  	final private ArrayList<String> right;
 	private LongestCommonSubseq<String> lcs;
-	
+
+	private ArrayList<Integer> lMatch;
+	private ArrayList<Integer> rMatch;
 	private ArrayList<IdxPair> lChange;
 	private ArrayList<IdxPair> rChange;
 
@@ -22,32 +24,44 @@ import java.io.File;
 		else if(this.lcs.length() != 0){
 			this.lChange = new ArrayList<IdxPair>();
 			this.rChange = new ArrayList<IdxPair>();
-			ArrayList<Integer> lcsLIdx = this.lcs.getSourceIdxList();
-			ArrayList<Integer> lcsRIdx = this.lcs.getTargetIdxList();
+			this.lMatch = new ArrayList<Integer>();
+			this.rMatch = new ArrayList<Integer>();
+			ArrayList<String> lcs = this.lcs.getLcsList();
+			ArrayList<String> tmpl = this.left;
+			ArrayList<String> tmpr = this.right;
 			IdxPair lIdx, rIdx;
+			int ld = 0, rd = 0;
 
-			for(int i = 0; i <= this.lcs.length(); i++){
-//{				
+			for(int i = 0; i <= this.lcs.length(); i++){				
 				if(i == 0){
-					lIdx = new IdxPair(0,lcsLIdx.get(i));
-					rIdx = new IdxPair(0,lcsRIdx.get(i));
+					lIdx = new IdxPair(0,this.left.indexOf(lcs.get(i)));
+					rIdx = new IdxPair(0,this.right.indexOf(lcs.get(i)));
 				}
 				else if(i == this.lcs.length()){
-					lIdx = new IdxPair(lcsLIdx.get(i - 1) + 1, this.left.size());
-					rIdx = new IdxPair(lcsRIdx.get(i - 1) + 1, this.right.size());
+					lIdx = new IdxPair(this.left.lastIndexOf(lcs.get(i - 1)) + 1, this.left.size());
+					rIdx = new IdxPair(this.right.lastIndexOf(lcs.get(i - 1)) + 1, this.right.size());
 				}
 				else {
-					lIdx = new IdxPair(lcsLIdx.get(i - 1) + 1, lcsLIdx.get(i));
-					rIdx = new IdxPair(lcsRIdx.get(i - 1) + 1, lcsRIdx.get(i));
+					lIdx = new IdxPair(i + ld, i + ld + tmpl.indexOf(lcs.get(i)));
+					rIdx = new IdxPair(i + rd, i + rd + tmpr.indexOf(lcs.get(i)));
 				}
-//}
+
 				if(lIdx.distance > 0 || rIdx.distance > 0){
 					this.lChange.add(lIdx);
 					this.rChange.add(rIdx);
+					ld += lIdx.distance;
+					rd += rIdx.distance;
 				}
-				else /*if(lIdx,distance <= 0 && rIdx.distance <= 0)*/{
-					continue;
-				}	
+
+				if(i < this.lcs.length()){
+					if(tmpl.indexOf(lcs.get(i)) < tmpl.size()){
+						tmpl = new ArrayList<String>(tmpl.subList(tmpl.indexOf(lcs.get(i)) + 1, tmpl.size()));
+					}
+					if(tmpr.indexOf(lcs.get(i)) < tmpr.size()){
+						tmpr = new ArrayList<String>(tmpr.subList(tmpr.indexOf(lcs.get(i)) + 1, tmpr.size()));
+					}
+				}
+				
 			}
 		}
 		else { // no same line; all changed
@@ -67,10 +81,10 @@ import java.io.File;
 	}
 
 	public ArrayList<Integer> getLcsIdxLeft(){
-		return this.lcs.getSourceIdxList();
+		return this.lMatch;
 	}
 	public ArrayList<Integer> getLcsIdxRight(){
-		return this.lcs.getTargetIdxList();
+		return this.rMatch;
 	}
 
 	public boolean isFirstAreSame(){
