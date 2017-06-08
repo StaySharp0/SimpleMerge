@@ -172,12 +172,14 @@ public class Model implements ModelInterface{
 			// 	return null;
 			// }
 			this.left = new Document(data, false);
+			this.oleft = null;
 		}
 		if(lr == Position.RIGHT || lr == Position.ALL){
 			// if(this.fm.getPathRight() == null){
-			// 	return null;
+			// 	return null;	
 			// }
 			this.right = new Document(data, false);
+			this.oright = null;
 		}
 
 		if(lr == Position.LEFT || lr == Position.ALL){
