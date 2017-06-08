@@ -172,12 +172,14 @@ public class Model implements ModelInterface{
 			// 	return null;
 			// }
 			this.left = new Document(data, false);
+			this.oleft = null;
 		}
 		if(lr == Position.RIGHT || lr == Position.ALL){
 			// if(this.fm.getPathRight() == null){
-			// 	return null;
+			// 	return null;	
 			// }
 			this.right = new Document(data, false);
+			this.oright = null;
 		}
 
 		if(lr == Position.LEFT || lr == Position.ALL){
@@ -265,7 +267,7 @@ public class Model implements ModelInterface{
 		if(!this.right.isEdited() && this.oright == null){
 			this.oright = new Document(this.right.getLines());
 		}
-		if(data.size() == this.right.length()){
+		if(data.size() == this.oright.length()){
 			for(int i = 0; i < data.size(); i++){
 				if(!data.get(i).equals(this.oright.getLine(i))){
 					isEdited = true;
@@ -371,7 +373,7 @@ public class Model implements ModelInterface{
 				buf.append(this.left.getLines().get(same.get(cntSame)));
 				if(i + 1 < this.left.length()){
 					buf.append("\n");
-					if(cntSame < same.size()){
+					if(cntSame < same.size() - 1){
 						cntSame++;
 					}
 					if((!this.algo.isIdentical() && i + 1 == diff.get(cntDiff).begin)){
@@ -444,7 +446,7 @@ public class Model implements ModelInterface{
 				buf.append(this.right.getLines().get(same.get(cntSame)));
 				if(i + 1 < this.right.length()){
 					buf.append("\n");
-					if(cntSame < same.size()){
+					if(cntSame < same.size() - 1){
 						cntSame++;
 					}
 					if((!this.algo.isIdentical() && i + 1 == diff.get(cntDiff).begin)){
@@ -479,12 +481,12 @@ public class Model implements ModelInterface{
 			if(!this.algo.isIdentical()){
 				if(lr == Position.LEFT){
 					for(int i = 0; i < idxList.size();i++){
-						this.copyToRight(idxList.get(i).intValue());
+						this.copyToLeft(idxList.get(i).intValue());
 					}
 				}
 				else if(lr == Position.RIGHT){
 					for(int i = 0; i < idxList.size();i++){
-						this.copyToLeft(idxList.get(i).intValue());	
+						this.copyToRight(idxList.get(i).intValue());	
 					}
 				}
 				else {
@@ -510,10 +512,10 @@ public class Model implements ModelInterface{
 		if(this.isCompared()){
 			if(!this.algo.isIdentical()){
 				if(lr == Position.LEFT){
-					this.copyToRight(idx);
+					this.copyToLeft(idx);
 				}
 				else if(lr == Position.RIGHT){
-					this.copyToLeft(idx);
+					this.copyToRight(idx);
 				}
 				else {
 					return null;
@@ -524,7 +526,6 @@ public class Model implements ModelInterface{
 //					return this.compare();
 //				}
 				this.algo = null;
-
 				return this.compare();
 			}
 			return null;
