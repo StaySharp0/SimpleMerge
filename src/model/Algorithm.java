@@ -44,7 +44,9 @@ import java.io.File;
 				else {
 					lIdx = new IdxPair(i + ld, i + ld + tmpl.indexOf(lcs.get(i)));
 					rIdx = new IdxPair(i + rd, i + rd + tmpr.indexOf(lcs.get(i)));
+
 				}
+
 
 				if(lIdx.distance > 0 || rIdx.distance > 0){
 					this.lChange.add(lIdx);
@@ -54,6 +56,8 @@ import java.io.File;
 				}
 
 				if(i < this.lcs.length()){
+					this.lMatch.add(lIdx.end);
+					this.rMatch.add(rIdx.end);
 					if(tmpl.indexOf(lcs.get(i)) < tmpl.size()){
 						tmpl = new ArrayList<String>(tmpl.subList(tmpl.indexOf(lcs.get(i)) + 1, tmpl.size()));
 					}
@@ -153,6 +157,13 @@ import java.io.File;
 				else if(algo.isIdentical()){
 					System.out.println("identical!");
 				}
+
+				// for(int i = 0; i < algo.getLcsIdxLeft().size(); i++){
+				// 	System.out.println(lbuf.get(algo.getLcsIdxLeft().get(i)));
+				// }
+				// for(int i = 0; i < algo.getLcsIdxRight().size(); i++){
+				// 	System.out.println(rbuf.get(algo.getLcsIdxRight().get(i)));	
+				// }
 			}
 			catch(Exception e){
 				System.out.println("Exception on file io : " + e.toString());
