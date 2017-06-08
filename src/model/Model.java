@@ -395,7 +395,7 @@ public class Model implements ModelInterface{
 			}
 		}
 
-		if(!this.algo.isIdentical() && this.left.length() < this.right.length() && cntDiff < this.algo.getResultRight().size()){
+		if(!this.algo.isIdentical() && this.left.length() < this.right.length() && cntDiff < this.algo.getResultRight().size() - 1){
 			buf = new StringBuilder();
 			for(int i = 0; i < this.algo.getResultRight().get(this.algo.getResultRight().size() - 1).distance;i++){
 				buf.append("\u23CE");
@@ -478,7 +478,7 @@ public class Model implements ModelInterface{
 				return new ArrayList<String>();
 			}
 		}
-		if(!this.algo.isIdentical() && this.right.length() < this.left.length() && cntDiff < this.algo.getResultLeft().size()){
+		if(!this.algo.isIdentical() && this.right.length() < this.left.length() && cntDiff < this.algo.getResultLeft().size() - 1){
 			buf = new StringBuilder();
 			for(int i = 0; i < this.algo.getResultLeft().get(this.algo.getResultLeft().size() - 1).distance;i++){
 				buf.append("\u23CE");
