@@ -137,43 +137,6 @@ public class Testview extends GuiTest {
     }
 
 
-
-    @Test
-    public void test03OpenFileSide(){
-        System.out.println("아직 미구현");
-    }
-
-    @Test
-    public void test04ListClick(){
-        String file1 = "s1 left.txt";
-        String file2 = "s1 right.txt";
-        //if(((TextField) GuiTest.find("#fieldLeftFile")).getText() == "") {
-        System.out.println("왼쪽 파일을 선택한다");
-        click("#btnLeftFileOpen");
-        type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
-        //type("Users\\503\\Desktop\\SimpleMerge-GUI\\src\\view").type(KeyCode.ENTER);
-        type("\\Users\\503\\Downloads\\samples").type(KeyCode.ENTER);
-        type(file1).type(KeyCode.ENTER);
-        System.out.println(((TextField) GuiTest.find("#fieldLeftFile")).getText() + "를 불러옵니다");
-        assertEquals(((TextField) GuiTest.find("#fieldLeftFile")).getText(), file1);
-        // }
-
-        System.out.println("오른쪽 파일을 선택한다");
-        click("#btnRightFileOpen");
-        type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
-        //type("Users\\503\\Desktop\\SimpleMerge-GUI\\src\\view").type(KeyCode.ENTER);
-        type("\\Users\\503\\Downloads\\samples").type(KeyCode.ENTER);
-        type(file2).type(KeyCode.ENTER);
-        System.out.println(((TextField)GuiTest.find("#fieldRightFile")).getText()+"를 불러옵니다");
-        assertEquals(((TextField)GuiTest.find("#fieldRightFile")).getText(), file2);
-
-
-        click("#btnCompare");
-        ListView<?> list = find("#listLeft");
-        list.getSelectionModel().select(3);
-        click(list);
-    }
-
     @Test
     public void test02EditFileTest(){
         String file1 = "s1 left.txt";
@@ -255,6 +218,51 @@ public class Testview extends GuiTest {
 
 
 
+    }
+
+
+    @Test
+    public void test03OpenFileSide(){
+        System.out.println("아직 미구현");
+    }
+
+    @Test
+    public void test04ListClick(){
+        String file1 = "s2 left.txt";
+        String file2 = "s2 right.txt";
+        //if(((TextField) GuiTest.find("#fieldLeftFile")).getText() == "") {
+        System.out.println("왼쪽 파일을 선택한다");
+        click("#btnLeftFileOpen");
+        type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
+        //type("Users\\503\\Desktop\\SimpleMerge-GUI\\src\\view").type(KeyCode.ENTER);
+        type("\\Users\\503\\Downloads\\samples").type(KeyCode.ENTER);
+        type(file1).type(KeyCode.ENTER);
+        System.out.println(((TextField) GuiTest.find("#fieldLeftFile")).getText() + "를 불러옵니다");
+        assertEquals(((TextField) GuiTest.find("#fieldLeftFile")).getText(), file1);
+        // }
+
+        System.out.println("오른쪽 파일을 선택한다");
+        click("#btnRightFileOpen");
+        type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
+        //type("Users\\503\\Desktop\\SimpleMerge-GUI\\src\\view").type(KeyCode.ENTER);
+        type("\\Users\\503\\Downloads\\samples").type(KeyCode.ENTER);
+        type(file2).type(KeyCode.ENTER);
+        System.out.println(((TextField)GuiTest.find("#fieldRightFile")).getText()+"를 불러옵니다");
+        assertEquals(((TextField)GuiTest.find("#fieldRightFile")).getText(), file2);
+
+
+        System.out.println("Compare 버튼이 눌리는지 확인합니다");
+        assertFalse(GuiTest.find("#btnCompare").isDisable());
+        click("#btnCompare");
+
+        ListView list = find("#listLeft");
+        list.getSelectionModel().select(0);
+
+        click(list.getSelectionModel().getSelectedItems());
+        moveBy(0, 15);
+        click();
+        moveBy(0, 50);
+        click();
     }
 
 }
