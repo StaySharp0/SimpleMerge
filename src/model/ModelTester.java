@@ -33,7 +33,7 @@ public class ModelTester {
 
     @Test
     public void testCompare(){
-        int caseNum = 5;
+        int caseNum = 1;
         File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s" + caseNum + " left.txt");
         File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s" + caseNum + " right.txt");
         TestCase test = new TestCase();
