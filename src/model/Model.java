@@ -360,7 +360,6 @@ public class Model implements ModelInterface{
 					for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance; j++){
 						buf.append("\n");
 					}
-					i++;
 				}
 
 				if(cntDiff < diff.size() - 1){
@@ -433,7 +432,6 @@ public class Model implements ModelInterface{
 					for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance; j++){
 						buf.append("\n");
 					}
-					i++;
 				}
 
 				if(cntDiff < diff.size() - 1){
