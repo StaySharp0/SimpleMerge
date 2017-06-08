@@ -498,6 +498,8 @@ public class Model implements ModelInterface{
 //					return this.compare();
 //				}
 				this.algo = null;
+				this.compResultLeft = null;
+				this.compResultRight = null;
 				return this.compare();
 			}
 			return null;
@@ -526,6 +528,8 @@ public class Model implements ModelInterface{
 //					return this.compare();
 //				}
 				this.algo = null;
+				this.compResultLeft = null;
+				this.compResultRight = null;
 				return this.compare();
 			}
 			return null;
