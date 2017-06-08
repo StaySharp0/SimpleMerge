@@ -338,25 +338,34 @@ public class Model implements ModelInterface{
 
 		for(int i = 0; i < this.left.length();){
 			int chki = i;
-			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin && i != diff.get(cntDiff).end){
-				for(int j = diff.get(cntDiff).begin; j < diff.get(cntDiff).end; j++){
-					buf.append(this.left.getLines().get(j));
-					if(j + 1 < this.left.length()){
-						buf.append("\n");
+			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin){
+				if(i != diff.get(cntDiff).end){
+					for(int j = diff.get(cntDiff).begin; j < diff.get(cntDiff).end; j++){
+						buf.append(this.left.getLines().get(j));
+						if(j + 1 < this.left.length()){
+							buf.append("\n");
+						}
 					}
-				}
-				if(diff.get(cntDiff).distance < this.algo.getResultRight().get(cntDiff).distance){
-					for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
-						buf.append("\n");
+					if(diff.get(cntDiff).distance < this.algo.getResultRight().get(cntDiff).distance){
+						for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
+							buf.append("\n");
+						}
 					}
+					result.add(buf.toString());
+					buf = new StringBuilder("");
+					i += diff.get(cntDiff).distance;
+					
 				}
-				result.add(buf.toString());
-				buf = new StringBuilder("");
-				i += diff.get(cntDiff).distance;
+				else /*if(diff.get(cntDiff).begin == diff.get(cntDiff).end)*/{
+					result.add("\n");
+					i++;
+				}
+
 				if(cntDiff < diff.size() - 1){
-					cntDiff++;
+						cntDiff++;
 				}
 			}
+
 
 			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.left.getLines().get(same.get(cntSame)));
@@ -401,23 +410,31 @@ public class Model implements ModelInterface{
 
 		for(int i = 0; i < this.right.length();){
 			int chki = i;
-			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin && i != diff.get(cntDiff).end){
-				for(int j = diff.get(cntDiff).begin; j < diff.get(cntDiff).end; j++){
-					buf.append(this.right.getLines().get(j));
-					if(j + 1 < this.right.length()){
-						buf.append("\n");
+			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin){
+				if(i != diff.get(cntDiff).end){
+					for(int j = diff.get(cntDiff).begin; j < diff.get(cntDiff).end; j++){
+						buf.append(this.right.getLines().get(j));
+						if(j + 1 < this.right.length()){
+							buf.append("\n");
+						}
 					}
-				}
-				if(diff.get(cntDiff).distance < this.algo.getResultLeft().get(cntDiff).distance){
-					for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
-						buf.append("\n");
+					if(diff.get(cntDiff).distance < this.algo.getResultLeft().get(cntDiff).distance){
+						for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
+							buf.append("\n");
+						}
 					}
+					result.add(buf.toString());
+					buf = new StringBuilder("");
+					i += diff.get(cntDiff).distance;
+					
 				}
-				result.add(buf.toString());
-				buf = new StringBuilder("");
-				i += diff.get(cntDiff).distance;
+				else /*if(diff.get(cntDiff).begin == diff.get(cntDiff).end)*/{
+					result.add("\n");
+					i++;
+				}
+
 				if(cntDiff < diff.size() - 1){
-					cntDiff++;
+						cntDiff++;
 				}
 			}
 
