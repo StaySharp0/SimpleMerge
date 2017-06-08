@@ -481,12 +481,12 @@ public class Model implements ModelInterface{
 			if(!this.algo.isIdentical()){
 				if(lr == Position.LEFT){
 					for(int i = 0; i < idxList.size();i++){
-						this.copyToRight(idxList.get(i).intValue());
+						this.copyToLeft(idxList.get(i).intValue());
 					}
 				}
 				else if(lr == Position.RIGHT){
 					for(int i = 0; i < idxList.size();i++){
-						this.copyToLeft(idxList.get(i).intValue());	
+						this.copyToRight(idxList.get(i).intValue());	
 					}
 				}
 				else {
@@ -512,10 +512,10 @@ public class Model implements ModelInterface{
 		if(this.isCompared()){
 			if(!this.algo.isIdentical()){
 				if(lr == Position.LEFT){
-					this.copyToRight(idx);
+					this.copyToLeft(idx);
 				}
 				else if(lr == Position.RIGHT){
-					this.copyToLeft(idx);
+					this.copyToRight(idx);
 				}
 				else {
 					return null;
@@ -526,7 +526,6 @@ public class Model implements ModelInterface{
 //					return this.compare();
 //				}
 				this.algo = null;
-
 				return this.compare();
 			}
 			return null;
