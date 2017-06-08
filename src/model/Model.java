@@ -172,12 +172,14 @@ public class Model implements ModelInterface{
 			// 	return null;
 			// }
 			this.left = new Document(data, false);
+			this.oleft = null;
 		}
 		if(lr == Position.RIGHT || lr == Position.ALL){
 			// if(this.fm.getPathRight() == null){
-			// 	return null;
+			// 	return null;	
 			// }
 			this.right = new Document(data, false);
+			this.oright = null;
 		}
 
 		if(lr == Position.LEFT || lr == Position.ALL){
@@ -371,7 +373,7 @@ public class Model implements ModelInterface{
 				buf.append(this.left.getLines().get(same.get(cntSame)));
 				if(i + 1 < this.left.length()){
 					buf.append("\n");
-					if(cntSame < same.size()){
+					if(cntSame < same.size() - 1){
 						cntSame++;
 					}
 					if((!this.algo.isIdentical() && i + 1 == diff.get(cntDiff).begin)){
@@ -444,7 +446,7 @@ public class Model implements ModelInterface{
 				buf.append(this.right.getLines().get(same.get(cntSame)));
 				if(i + 1 < this.right.length()){
 					buf.append("\n");
-					if(cntSame < same.size()){
+					if(cntSame < same.size() - 1){
 						cntSame++;
 					}
 					if((!this.algo.isIdentical() && i + 1 == diff.get(cntDiff).begin)){
