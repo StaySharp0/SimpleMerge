@@ -42,9 +42,9 @@ public class MainController implements Initializable {
 
     private HashMap<String,btnAction> button;
 
-    private FileOpenUI[] fileOpenUI = new FileOpenUI[2];
-    private EditorUI[] editorUI = new EditorUI[2];
-    private FileSaveUI[] fileSaveUI = new FileSaveUI[2];
+    private btnAction[] fileOpenUI = new FileOpenUI[2];
+    private ScreenMode[] editorUI = new EditorUI[2];
+    private btnAction[] fileSaveUI = new FileSaveUI[2];
 
 
     // condition value
@@ -79,7 +79,7 @@ public class MainController implements Initializable {
             editorUI[pos] = new EditorUI(pos, tabPanes[pos], textFields[pos], textAreas[pos], btnFileEdit[pos]);
             fileSaveUI[pos] = new FileSaveUI(pos, textFields[pos], textAreas[pos]);
             button.put(btnFileOpen[pos].getId(), fileOpenUI[pos]);
-            button.put(btnFileEdit[pos].getId(), editorUI[pos]);
+            button.put(btnFileEdit[pos].getId(), (btnAction) editorUI[pos]);
             button.put(btnFileSave[pos].getId(), fileSaveUI[pos]);
         }
 

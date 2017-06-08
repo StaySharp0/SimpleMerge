@@ -11,7 +11,7 @@ import dataSet.FileEditSave;
  */
 enum Status { VIEW, EDIT, COMPARE };
 
-public class EditorUI implements btnAction {
+public class EditorUI implements btnAction, ScreenMode {
     private TextField title;
     private Button btnEdit;
     private int position;
