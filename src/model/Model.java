@@ -265,7 +265,7 @@ public class Model implements ModelInterface{
 		if(!this.right.isEdited() && this.oright == null){
 			this.oright = new Document(this.right.getLines());
 		}
-		if(data.size() == this.right.length()){
+		if(data.size() == this.oright.length()){
 			for(int i = 0; i < data.size(); i++){
 				if(!data.get(i).equals(this.oright.getLine(i))){
 					isEdited = true;
