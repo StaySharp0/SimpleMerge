@@ -120,19 +120,22 @@ public class TestEditFile extends GuiTest {
         click("#btnRightFileEdit");
         //assertTrue(GuiTest.find("#fieldRightFile").isDisable());
 
+
+        System.out.println("Edit을 여러번 누를 시 파일명 앞에 *이 그대로인지 확인합니다");
+        click("#btnLeftFileEdit");
+        assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), "*"+file1);
+        click("#btnLeftFileEdit");
+        assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), "Edit: *"+file1);
+        click("#btnRightFileEdit");
+        assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), "*"+file2);
+        click("#btnRightFileEdit");
+        assertEquals(((TextField)GuiTest.find("#fieldRightFile")).getText(), "Edit: *"+file2);
+
         System.out.println("save를 누를 시 파일명 앞에 *이 사라지는지 확인합니다");
         click("#btnLeftFileSave");
         assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), file1);
         click("#btnRightFileSave");
         assertEquals(((TextField)GuiTest.find("#fieldRightFile")).getText(), file2);
-
-        System.out.println("Edit을 여러번 누를 시 파일명 앞에 *이 그대로인지 확인합니다");
-        click("#btnLeftFileEdit");
-        click("#btnLeftFileEdit");
-        assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), "*"+file1);
-        click("#btnRightFileEdit");
-        click("#btnRightFileEdit");
-        assertEquals(((TextField)GuiTest.find("#fieldRightFile")).getText(), "*"+file2);
 
         System.out.println("edit 버튼을 다시 누를 시 수정 불가능한지 확인");
         click("#btnLeftFileEdit");
