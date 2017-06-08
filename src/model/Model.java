@@ -344,8 +344,8 @@ public class Model implements ModelInterface{
 						if 	(	
 								 j + 1 < this.left.length() || 
 								(	j + 1 == this.left.length() && 
-									same.get(same.size() - 1) < diff.get(diff.size() - 1).begin &&
-									diff.get(diff.size() - 1).distance == 0)
+									same.get(same.size() - 1) < this.algo.getResultRight().get(this.algo.getResultRight().size() - 1).begin &&
+									this.algo.getResultRight().get(this.algo.getResultRight().size() - 1).distance > 0)
 						   	){
 							buf.append("\n");
 						}
@@ -435,8 +435,8 @@ public class Model implements ModelInterface{
 						if 	(
 								j + 1 < this.right.length() ||
 								(	j + 1 == this.right.length() && 
-									same.get(same.size() - 1) < diff.get(diff.size() - 1).begin &&
-									diff.get(diff.size() - 1).distance == 0)
+									same.get(same.size() - 1) < this.algo.getResultLeft().get(this.algo.getResultLeft().size() - 1).begin &&
+									this.algo.getResultLeft().get(this.algo.getResultLeft().size() - 1).distance > 0)
 							){
 							buf.append("\n");
 						}
