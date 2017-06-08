@@ -141,7 +141,7 @@ public class TestCase {
                     "   print max(10,2.4);\n" +
                     "   print func1(3,4);\n" +
                     "\n" +
-                    "end. ";
+                    "end. \n";
             comparedList[1][0] = "mainprog illegal;\n" +
                     "\n" +
                     "procedure proc1 (a : integer; b,c : integer);\n" +
@@ -176,7 +176,7 @@ public class TestCase {
                     "   print max(10,2.4);\n" +
                     "   print func1(3,4);\n" +
                     "\n" +
-                    "end. ";
+                    "end. \n";
 
         }
         else if(caseNum == 7){
@@ -219,7 +219,7 @@ public class TestCase {
                     "   print func1(3,4);\n" +
                     "\n";
             comparedList[0][7] = "\u23CE\n\u23CE\n";
-            comparedList[0][8] = "end. ";
+            comparedList[0][8] = "end. \n";
 //\u23CE\n
             comparedList[1][0] = "mainprog illegal;\n" +
                     "\n";
@@ -258,7 +258,7 @@ public class TestCase {
                     "   print func1(3,4);\n" +
                     "\n";
             comparedList[1][7] = "\n   print x;\n";
-            comparedList[1][8] = "end. ";
+            comparedList[1][8] = "end. \n";
         }
         else if(caseNum == 8){
             ListActiveOrder = 0;
@@ -304,7 +304,7 @@ public class TestCase {
                     "   print max(10,2.4);\n" +
                     "   print func1(3,4);\n" +
                     "\n" +
-                    "end. ";
+                    "end. \n";
 
             comparedList[1][0] = "\23CE\n\23CE\n";
             comparedList[1][1] = "mainprog illegal;\n\n";
@@ -347,7 +347,7 @@ public class TestCase {
                     "   print max(10,2.4);\n" +
                     "   print func1(3,4);\n" +
                     "\n" +
-                    "end. ";
+                    "end. \n";
         }
 
         return true;
