@@ -1,5 +1,6 @@
 package view;
 
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -50,6 +51,9 @@ public class MainController implements Initializable {
 
     // condition value
     private Boolean[] condLoadFile = { false, false };
+    private Boolean condCompare = false;
+    private int condActiveOrder;
+    private int selectedIndex;
 
     private int[] position = { Position.LEFT, Position.RIGHT };
 
@@ -81,7 +85,6 @@ public class MainController implements Initializable {
             button.put(btnFileSave[pos].getId(), fileSaveUI[pos]);
         }
 
-        //DoTest();
 
     }
 
@@ -91,7 +94,6 @@ public class MainController implements Initializable {
 
         left.valueProperty().bindBidirectional(right.valueProperty());
     }
-
 
     public void eventFileOpen(ActionEvent e) {
 
@@ -107,6 +109,7 @@ public class MainController implements Initializable {
             return model.load((File) source, pos);
         });
 
+        if(condLoadFile[pos]) return; //현재 불러온 파일이 있지만 다시 불러오기를 실패한 경우
 
         editorUI[pos].ShowViewMode();
         condLoadFile[pos] = status;
@@ -130,6 +133,10 @@ public class MainController implements Initializable {
 
             return model.edit((String) source, pos);
         });
+
+        condCompare = false;
+        btnMtoRight.setDisable(!condCompare);
+        btnMtoLeft.setDisable(!condCompare);
     }
 
     public void eventFileSave(ActionEvent e) {
@@ -145,46 +152,74 @@ public class MainController implements Initializable {
 
             return model.save((String) source, pos);
         });
-
-        editorUI[pos].ShowViewMode();
     }
 
     public void eventCompare(ActionEvent e){
         System.out.println("Click:Compare");
 
+        // model Data update
+        for(int pos : position) model.edit(textAreas[pos].getText(),pos);
         MergeCompare data = model.compare();
 
-        for(int pos : position){
-            listModels[pos].setAll(data.getListViewItem(pos));
-            editorUI[pos].ShowCompareMode();
-        }
+        updateListView(data);
     }
 
     public void evnetMergeToLeft(ActionEvent e){
         System.out.println("Click:MergeToLeft");
+
+        if(!condCompare) return;
+
+        MergeCompare data = model.merge(selectedIndex,Position.LEFT);
+
+        updateListView(data);
     }
 
     public void evnetMergeToRight(ActionEvent e){
         System.out.println("Click:MergeToRight");
+
+        if(!condCompare) return;
+
+        MergeCompare data = model.merge(selectedIndex,Position.RIGHT);
+
+        updateListView(data);
     }
 
     public void SyncSelectItem(Event e) {
 
         ListView target = (ListView)e.getSource();
-        int selected = target.getSelectionModel().getSelectedIndex();
+        selectedIndex = target.getSelectionModel().getSelectedIndex();
 
-        System.out.println(selected);
-        for(int pos : position) listViews[pos].getSelectionModel().select(selected);
+        for(int pos : position) listViews[pos].getSelectionModel().select(selectedIndex);
+
+        // Active Merge Button
+        boolean flag = !(selectedIndex % 2 == condActiveOrder); // 틀린 Index가 맞는 경우 true(setDisable 때문에 역을 함)
+        btnMtoLeft.setDisable(flag);
+        btnMtoRight.setDisable(flag);
     }
 
-    public void DoTest(){
-        ObservableList<String> left = listLeft.getItems();
-        ObservableList<String> right = listRight.getItems();
+    private void updateListView(MergeCompare data) {
 
-        editorUI[0].ShowCompareMode();
-        editorUI[1].ShowCompareMode();
-        left.setAll("1\n2\n3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20");
-        right.setAll("\n\n\n","4","5","6","7","8","9","10","11","12","13","14","\n\n\n\n\n\n");
+        if( data == null ) {
+            System.out.println("err: Compare");
 
+            condCompare = false;
+            return;
+        }
+
+        condCompare = true;
+        condActiveOrder = data.getListActiveOrder();
+
+        for (int pos : position) {
+            listModels[pos].setAll(data.getListViewItem(pos));
+            editorUI[pos].ShowCompareMode();
+
+            listViews[pos].getStyleClass().removeAll();
+            if (condActiveOrder == 1) {           // 홀수번째가 틀린경우
+                listViews[pos].getStyleClass().add("odd");
+            } else if (condActiveOrder == 0) {    //짝수번째가 틀린경우
+                listViews[pos].getStyleClass().add("even");
+            }
+            System.out.println(listViews[pos].getStyleClass().getClass());
+        }
     }
 }
