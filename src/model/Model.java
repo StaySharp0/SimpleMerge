@@ -270,7 +270,7 @@ public class Model implements ModelInterface{
 		if(!this.right.isEdited() && this.oright == null){
 			this.oright = new Document(this.right.getLines());
 		}
-		if(data.size() == this.right.length()){
+		if(data.size() == this.oright.length()){
 			for(int i = 0; i < data.size(); i++){
 				if(!data.get(i).equals(this.oright.getLine(i))){
 					isEdited = true;
@@ -350,7 +350,7 @@ public class Model implements ModelInterface{
 					}
 					if(diff.get(cntDiff).distance < this.algo.getResultRight().get(cntDiff).distance){
 						for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
-							buf.append("\n");
+							buf.append("\u23CE\n");
 						}
 					}
 					result.add(buf.toString());
@@ -360,7 +360,7 @@ public class Model implements ModelInterface{
 				}
 				else if(diff.get(cntDiff).begin == diff.get(cntDiff).end && this.algo.getResultRight().get(cntDiff).distance > 0){
 					for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance; j++){
-						buf.append("\n");
+						buf.append("\u23CE\n");
 					}
 					result.add(buf.toString());
 					buf = new StringBuilder("");
@@ -393,6 +393,17 @@ public class Model implements ModelInterface{
 			if(i == chki){ // unexpected condition
 				return new ArrayList<String>();
 			}
+		}
+
+		if(!this.algo.isIdentical() && this.left.length() < this.right.length() && cntDiff < this.algo.getResultRight().size()){
+			buf = new StringBuilder();
+			for(int i = 0; i < this.algo.getResultRight().get(this.algo.getResultRight().size() - 1).distance;i++){
+				buf.append("\u23CE");
+				if(i < this.algo.getResultRight().get(this.algo.getResultRight().size() - 1).end - 1){
+					buf.append("\n");
+				}
+			}
+			result.add(buf.toString());
 		}
 
 		return result;
@@ -467,6 +478,17 @@ public class Model implements ModelInterface{
 				return new ArrayList<String>();
 			}
 		}
+		if(!this.algo.isIdentical() && this.left.length() < this.right.length() && cntDiff < this.algo.getResultLeft().size()){
+			buf = new StringBuilder();
+			for(int i = 0; i < this.algo.getResultLeft().get(this.algo.getResultLeft().size() - 1).distance;i++){
+				buf.append("\u23CE");
+				if(i < this.algo.getResultLeft().get(this.algo.getResultLeft().size() - 1).end - 1){
+					buf.append("\n");
+				}
+			}
+			result.add(buf.toString());
+		}
+
 
 		return result;		
 	}
