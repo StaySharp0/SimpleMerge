@@ -17,9 +17,10 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
-public class TestListClick extends GuiTest {
+public class TestCompareFile extends GuiTest {
     private static final SettableFuture<Stage> stageFuture = SettableFuture.create();
 
     protected static class TestProgramInfoWindow extends Main {
@@ -39,7 +40,7 @@ public class TestListClick extends GuiTest {
     public void setupStage() throws Throwable {
         assumeTrue(!UserInputDetector.instance.hasDetectedUserInput());
 
-        FXTestUtils.launchApp(TestListClick.TestProgramInfoWindow.class); // You can add start parameters here
+        FXTestUtils.launchApp(TestCompareFile.TestProgramInfoWindow.class); // You can add start parameters here
         try {
             stage = targetWindow(stageFuture.get(25, TimeUnit.SECONDS));
             FXTestUtils.bringToFront(stage);
@@ -54,10 +55,14 @@ public class TestListClick extends GuiTest {
     }
 
     @Test
-    public void test04ListClick(){
+    public void TestListClick(){
         String file1 = "s2 left.txt";
         String file2 = "s2 right.txt";
-        //if(((TextField) GuiTest.find("#fieldLeftFile")).getText() == "") {
+
+        System.out.println("Compare 버튼이 안 눌리는지 확인합니다");
+        assertTrue(GuiTest.find("#btnCompare").isDisable());
+        click("#btnCompare");
+
         System.out.println("왼쪽 파일을 선택한다");
         click("#btnLeftFileOpen");
         type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
@@ -66,7 +71,10 @@ public class TestListClick extends GuiTest {
         type(file1).type(KeyCode.ENTER);
         System.out.println(((TextField) GuiTest.find("#fieldLeftFile")).getText() + "를 불러옵니다");
         assertEquals(((TextField) GuiTest.find("#fieldLeftFile")).getText(), file1);
-        // }
+
+        System.out.println("Compare 버튼이 안 눌리는지 확인합니다");
+        assertTrue(GuiTest.find("#btnCompare").isDisable());
+        click("#btnCompare");
 
         System.out.println("오른쪽 파일을 선택한다");
         click("#btnRightFileOpen");
@@ -88,7 +96,7 @@ public class TestListClick extends GuiTest {
         click(list.getSelectionModel().getSelectedItems());
         moveBy(0, 15);
         click();
-        moveBy(0, 50);
+        moveBy(0, 30);
         click();
     }
 
