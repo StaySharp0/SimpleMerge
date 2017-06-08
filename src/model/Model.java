@@ -484,7 +484,7 @@ public class Model implements ModelInterface{
 				return new ArrayList<String>();
 			}
 		}
-		
+
 		if(!this.algo.isIdentical() && this.right.length() < this.left.length()){
 			buf = new StringBuilder();
 			for(int i = 0; i < this.algo.getResultLeft().get(this.algo.getResultLeft().size() - 1).distance;i++){
