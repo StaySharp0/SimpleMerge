@@ -544,7 +544,12 @@ public class Model implements ModelInterface{
 		ArrayList<String> compResult = this.getResultLeft();
 		ArrayList<String> data = this.parseData(compResult.get(idx));
 
+//		System.out.println(data);
+
 		int diffIdx = (idx - (this.algo.isFirstAreSame() ? 1 : 0) )/ 2;
+
+//		System.out.println(this.algo.getResultLeft().get(diffIdx).begin+" "+this.algo.getResultLeft().get(diffIdx).end);
+//		System.out.println(this.right.getLines());
 
 		this.right.deleteLine(this.algo.getResultLeft().get(diffIdx).begin, this.algo.getResultLeft().get(diffIdx).end);
 		this.right.insertLine(this.algo.getResultLeft().get(diffIdx).begin, data);
@@ -553,9 +558,14 @@ public class Model implements ModelInterface{
 		ArrayList<String> compResult = this.getResultRight();
 		ArrayList<String> data = this.parseData(compResult.get(idx));
 
+//		System.out.println(data);
+
 		int diffIdx = (idx - (this.algo.isFirstAreSame() ? 1 : 0) )/ 2;
 
-		this.right.deleteLine(this.algo.getResultRight().get(diffIdx).begin, this.algo.getResultRight().get(diffIdx).end);
-		this.right.insertLine(this.algo.getResultRight().get(diffIdx).begin, data);
+//		System.out.println(this.algo.getResultRight().get(diffIdx).begin+" "+this.algo.getResultRight().get(diffIdx).end);
+//		System.out.println(this.right.getLines());
+
+		this.left.deleteLine(this.algo.getResultRight().get(diffIdx).begin, this.algo.getResultRight().get(diffIdx).end);
+		this.left.insertLine(this.algo.getResultRight().get(diffIdx).begin, data);
 	}
 }
