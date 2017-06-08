@@ -39,7 +39,7 @@ public class TestListClick extends GuiTest {
     public void setupStage() throws Throwable {
         assumeTrue(!UserInputDetector.instance.hasDetectedUserInput());
 
-        FXTestUtils.launchApp(Testview.TestProgramInfoWindow.class); // You can add start parameters here
+        FXTestUtils.launchApp(TestListClick.TestProgramInfoWindow.class); // You can add start parameters here
         try {
             stage = targetWindow(stageFuture.get(25, TimeUnit.SECONDS));
             FXTestUtils.bringToFront(stage);

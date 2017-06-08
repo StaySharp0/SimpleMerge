@@ -40,7 +40,7 @@ public class TestOpenFile extends GuiTest {
     public void setupStage() throws Throwable {
         assumeTrue(!UserInputDetector.instance.hasDetectedUserInput());
 
-        FXTestUtils.launchApp(Testview.TestProgramInfoWindow.class); // You can add start parameters here
+        FXTestUtils.launchApp(TestOpenFile.TestProgramInfoWindow.class); // You can add start parameters here
         try {
             stage = targetWindow(stageFuture.get(25, TimeUnit.SECONDS));
             FXTestUtils.bringToFront(stage);
@@ -55,8 +55,9 @@ public class TestOpenFile extends GuiTest {
     }
 
     @Test
-    public void test01OpenFileTest(){
+    public void TestOpenFile(){
 
+        System.out.println("웨아안ㄴ나난나나난");
         String file1 = "s1 left.txt";
         String file2 = "s1 right.txt";
 
