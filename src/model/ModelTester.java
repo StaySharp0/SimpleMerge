@@ -48,10 +48,11 @@ public class ModelTester {
 
 		return (Item) rtn;
      */
+    //이슈1 : 문서 맨 끝의 개행문자가 생략되는 문제
     @Test
     public void testCompare(){
-        File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s3 left.txt");
-        File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s3 right.txt");
+        File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s5 left.txt");
+        File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s5 right.txt");
 
         //initialize model with testing input
         model = new Model(leftFile, rightFile);
@@ -64,13 +65,32 @@ public class ModelTester {
 
         //create expected result
         int test_listActiveOrder = 1;    //true - 홀수  false - 짝수
-        String[][] test_ListData = new String[2][3];
+        String[][] test_ListData = new String[2][12];
         test_ListData[0][0] = "1\n";
-        test_ListData[0][1] = "\n\n\n";
-        test_ListData[0][2] = "2\n3\n4\n5\n6\n7\n8\n9\n10";
+        test_ListData[0][1] = "1\n1\n1\n\n\n";
+        test_ListData[0][2] = "2\n";
+        test_ListData[0][3] = "2\n2\n2\n2\n\n\n";
+        test_ListData[0][4] = "3\n";
+        test_ListData[0][5] = "3\n3\n\n";
+        test_ListData[0][6] = "4\n";
+        test_ListData[0][7] = "4\n\n\n";
+        test_ListData[0][8] = "5\n";
+        test_ListData[0][9] = "5\n5\n5\n";
+        test_ListData[0][10] = "6\n7\n8\n9\n10\n";
+        test_ListData[0][11] = "1\n1";
+
         test_ListData[1][0] = "1\n";
-        test_ListData[1][1] = "\n";
-        test_ListData[1][2] = "2\n3\n4\n5\n6\n7\n8\n9\n10";
+        test_ListData[1][1] = "\n\n\n\n\n";
+        test_ListData[1][2] = "2\n";
+        test_ListData[1][3] = "\n\n\n\n\n\n";
+        test_ListData[1][4] = "3\n";
+        test_ListData[1][5] = "\n\n\n";
+        test_ListData[1][6] = "4\n";
+        test_ListData[1][7] = "\n\n\n";
+        test_ListData[1][8] = "5\n";
+        test_ListData[1][9] = "\n\n\n";
+        test_ListData[1][10] = "6\n7\n8\n9\n10\n";
+        test_ListData[1][11] = "\n\n";
 
         Assert.assertEquals(test_listActiveOrder, item.getListActiveOrder());
         Assert.assertEquals(test_ListData, ListData);
