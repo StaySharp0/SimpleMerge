@@ -436,7 +436,7 @@ public class Model implements ModelInterface{
 					}
 					if(diff.get(cntDiff).distance < this.algo.getResultLeft().get(cntDiff).distance){
 						for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
-							buf.append("\n");
+							buf.append("\u23CE\n");
 						}
 					}
 					result.add(buf.toString());
@@ -445,7 +445,7 @@ public class Model implements ModelInterface{
 				}
 				else if(diff.get(cntDiff).begin == diff.get(cntDiff).end && this.algo.getResultLeft().get(cntDiff).distance > 0){
 					for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance; j++){
-						buf.append("\n");
+						buf.append("\u23CE\n");
 					}
 					result.add(buf.toString());
 					buf = new StringBuilder("");
@@ -478,7 +478,7 @@ public class Model implements ModelInterface{
 				return new ArrayList<String>();
 			}
 		}
-		if(!this.algo.isIdentical() && this.left.length() < this.right.length() && cntDiff < this.algo.getResultLeft().size()){
+		if(!this.algo.isIdentical() && this.right.length() < this.left.length() && cntDiff < this.algo.getResultLeft().size()){
 			buf = new StringBuilder();
 			for(int i = 0; i < this.algo.getResultLeft().get(this.algo.getResultLeft().size() - 1).distance;i++){
 				buf.append("\u23CE");
