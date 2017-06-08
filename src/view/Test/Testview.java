@@ -18,23 +18,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assume.assumeTrue;
 
-import  org.junit.Assert.*;
-import static org.loadui.testfx.Assertions.assertNodeExists;
-
 import org.junit.FixMethodOrder;
-import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-//import sample.ClickApplication;
 
-//import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertTrue;
 import org.junit.rules.TestName;
 import org.junit.Rule;
 
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Testview extends GuiTest {
     private static final SettableFuture<Stage> stageFuture = SettableFuture.create();
 
@@ -138,6 +130,10 @@ public class Testview extends GuiTest {
         assertFalse(GuiTest.find("#btnRightFileEdit").isDisable());
         assertFalse(GuiTest.find("#btnRightFileSave").isDisable());
 
+        //TODO
+        //.txt 파일만 받는지 확인할것
+
+
     }
 
 
@@ -228,9 +224,6 @@ public class Testview extends GuiTest {
         click("#btnRightFileEdit");
         assertFalse(GuiTest.find("#fieldLeftFile").isDisable());
         assertFalse(GuiTest.find("#fieldRightFile").isDisable());
-
-        //TODO
-        //.txt 파일만 받는지 확인할것
 
 
 
