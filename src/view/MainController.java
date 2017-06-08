@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import model.Model;
 import model.ModelInterface;
 import view.UI.*;
-import dataSet.Item;
 import dataSet.MergeCompare;
 
 import java.io.File;
@@ -212,7 +211,7 @@ public class MainController implements Initializable {
             listModels[pos].setAll(data.getListViewItem(pos));
             editorUI[pos].ShowCompareMode();
 
-            listViews[pos].getStyleClass().removeAll();
+            listViews[pos].getStyleClass().removeAll("odd","even");
             if (condActiveOrder == 1) {           // 홀수번째가 틀린경우
                 listViews[pos].getStyleClass().add("odd");
             } else if (condActiveOrder == 0) {    //짝수번째가 틀린경우
