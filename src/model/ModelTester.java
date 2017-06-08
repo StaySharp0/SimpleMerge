@@ -50,8 +50,8 @@ public class ModelTester {
      */
     @Test
     public void testCompare(){
-        File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s2 left.txt");
-        File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s2 right.txt");
+        File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s3 left.txt");
+        File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s3 right.txt");
 
         //initialize model with testing input
         model = new Model(leftFile, rightFile);
@@ -66,11 +66,11 @@ public class ModelTester {
         int test_listActiveOrder = 1;    //true - 홀수  false - 짝수
         String[][] test_ListData = new String[2][3];
         test_ListData[0][0] = "1\n";
-        test_ListData[0][1] = "\n";
-        test_ListData[0][2] = "3\n4\n5\n6\n7\n8\n9\n10";
+        test_ListData[0][1] = "\n\n\n";
+        test_ListData[0][2] = "2\n3\n4\n5\n6\n7\n8\n9\n10";
         test_ListData[1][0] = "1\n";
-        test_ListData[1][1] = "2\n";
-        test_ListData[1][2] = "3\n4\n5\n6\n7\n8\n9\n10";
+        test_ListData[1][1] = "\n";
+        test_ListData[1][2] = "2\n3\n4\n5\n6\n7\n8\n9\n10";
 
         Assert.assertEquals(test_listActiveOrder, item.getListActiveOrder());
         Assert.assertEquals(test_ListData, ListData);
