@@ -31,24 +31,6 @@ public class ModelTester {
 
     }
 
-      //public Item compare();
-    /*
-		MergeCompare rtn = new Item();
-		if(!this.isCompared()){
-			this.algo = new Algorithm(this.left.getLines(), this.right.getLines());
-		}
-
-		String[][] ListData = {
-				(String[]) this.getResultLeft().toArray(),
-				(String[]) this.getResultRight().toArray()
-		};
-
-		rtn.setListViewItem(ListData);
-		rtn.setListActiveOrder(this.algo.isFirstAreSame());
-
-		return (Item) rtn;
-     */
-    //이슈1 : 문서 맨 끝의 개행문자가 생략되는 문제
     @Test
     public void testCompare(){
         int caseNum = 5;
