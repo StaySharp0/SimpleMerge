@@ -56,6 +56,8 @@ public class ModelTester {
         TestCase test = new TestCase();
         int caseNum = 8;
 
+        test.initTestCompare(caseNum);
+
         //initialize model with testing input
         model = new Model(leftFile, rightFile);
 
@@ -66,8 +68,8 @@ public class ModelTester {
         ListData[1] = item.getListViewItem(1);
 
         //create expected result
-        int test_listActiveOrder = test.getListActiveOrder(caseNum);    //true - 홀수  false - 짝수
-        String[][] test_ListData = test.getComparedList(caseNum);
+        int test_listActiveOrder = test.getListActiveOrder();    //true - 홀수  false - 짝수
+        String[][] test_ListData = test.getComparedList();
 
         Assert.assertEquals(test_listActiveOrder, item.getListActiveOrder());
         Assert.assertEquals(test_ListData, ListData);

@@ -20,8 +20,8 @@ public class TestCase {
             ListActiveOrder = 1;    //true - 홀수  false - 짝수
 
             comparedList = new String[2][1];
-            comparedList[0][0] = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
-            comparedList[1][0] = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
+            comparedList[0][0] = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n";
+            comparedList[1][0] = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n";
         }
         else if(caseNum == 2){
             ListActiveOrder = 1;    //true - 홀수  false - 짝수
@@ -29,18 +29,18 @@ public class TestCase {
             comparedList = new String[2][3];
             comparedList[0][0] = "1\n";
             comparedList[0][1] = "\n";
-            comparedList[0][2] = "3\n4\n5\n6\n7\n8\n9\n10";
+            comparedList[0][2] = "3\n4\n5\n6\n7\n8\n9\n10\n";
 
             comparedList[1][0] = "1\n";
             comparedList[1][1] = "2\n";
-            comparedList[1][2] = "3\n4\n5\n6\n7\n8\n9\n10";
+            comparedList[1][2] = "3\n4\n5\n6\n7\n8\n9\n10\n";
         }
         else if(caseNum == 3){
             ListActiveOrder = 1;
             comparedList = new String[2][3];
             comparedList[0][0] = "1\n";
             comparedList[0][1] = "\n\n\n";
-            comparedList[0][2] = "2\n3\n4\n5\n6\n7\n8\n9\n10";
+            comparedList[0][2] = "2\n3\n4\n5\n6\n7\n8\n9\n10\n";
 
             comparedList[1][0] = "1\n";
             comparedList[1][1] = "\n";
@@ -88,7 +88,7 @@ public class TestCase {
              comparedList[0][8] = "5\n";
              comparedList[0][9] = "5\n5\n5\n";
              comparedList[0][10] = "6\n7\n8\n9\n10\n";
-             comparedList[0][11] = "1\n1";
+             comparedList[0][11] = "1\n1\n";
 
              comparedList[1][0] = "1\n";
              comparedList[1][1] = "\u23CE\n\u23CE\n\u23CE\n\u23CE\n\u23CE\n";
