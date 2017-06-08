@@ -174,13 +174,13 @@ public class Model implements ModelInterface{
 			// if(this.fm.getPathLeft() == null){
 			// 	return null;
 			// }
-			this.left = new Document(data, true);
+			this.left = new Document(data, false);
 		}
 		if(lr == Position.RIGHT || lr == Position.ALL){
 			// if(this.fm.getPathRight() == null){
 			// 	return null;
 			// }
-			this.right = new Document(data, true);
+			this.right = new Document(data, false);
 		}
 
 		if(lr == Position.LEFT || lr == Position.ALL){
