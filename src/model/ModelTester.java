@@ -51,8 +51,10 @@ public class ModelTester {
     //이슈1 : 문서 맨 끝의 개행문자가 생략되는 문제
     @Test
     public void testCompare(){
-        File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s7 left.txt");
-        File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s7 right.txt");
+        File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s8 left.txt");
+        File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s8 right.txt");
+        TestCase test = new TestCase();
+        int caseNum = 8;
 
         //initialize model with testing input
         model = new Model(leftFile, rightFile);
@@ -64,87 +66,8 @@ public class ModelTester {
         ListData[1] = item.getListViewItem(1);
 
         //create expected result
-        int test_listActiveOrder = 1;    //true - 홀수  false - 짝수
-        String[][] test_ListData = new String[2][9];
-
-        test_ListData[0][0] = "mainprog illegal;\n" +
-                "\n";
-        test_ListData[0][1] = "procedure proc1 (a : integer; b,c : integer);\n";
-        test_ListData[0][2] = "var d,e:string;\n" +
-                "begin\n" +
-                "\ta := 10;\n" +
-                "\tb := 20;\n" +
-                "\tc := 30;\n" +
-                "end\n" +
-                "\n" +
-                "function max (a: integer; b: integer) : integer; \n" +
-                "var r,y:float;\n";
-        test_ListData[0][3] = "\u23CE\n";
-        test_ListData[0][4] = "begin\n" +
-                "\tif a >= b then return a; \n" +
-                "\telse return b;\n" +
-                "end\n" +
-                "\n" +
-                "function func1(a,b : integer) : float;\n" +
-                "var fval : float;\n" +
-                "begin\n" +
-                "\treturn a;\n" +
-                "end\n" +
-                "\n" +
-                "\n" +
-                "begin\n" +
-                "\n" +
-                "   proc1(10,20.0,30.0);\n" +
-                "   proc1(10,20);\n";
-        test_ListData[0][5] = "\u23CE\n";
-        test_ListData[0][6] = "\n" +
-                "   a := 33;\n" +
-                "   print a;\n" +
-                "   print max(10,2.4);\n" +
-                "   print func1(3,4);\n" +
-                "\n";
-        test_ListData[0][7] = "\u23CE\n\u23CE\n";
-        test_ListData[0][8] = "end. ";
-//\u23CE\n
-        test_ListData[1][0] = "mainprog illegal;\n" +
-                "\n";
-        test_ListData[1][1] = "procedure proc1 (a : integer; b,c : integer; d: string);\n";
-        test_ListData[1][2] = "var d,e:string;\n" +
-                "begin\n" +
-                "\ta := 10;\n" +
-                "\tb := 20;\n" +
-                "\tc := 30;\n" +
-                "end\n" +
-                "\n" +
-                "function max (a: integer; b: integer) : integer; \n" +
-                "var r,y:float;\n";
-        test_ListData[1][3] = "var z;";
-        test_ListData[1][4] = "begin\n" +
-                "\tif a >= b then return a; \n" +
-                "\telse return b;\n" +
-                "end\n" +
-                "\n" +
-                "function func1(a,b : integer) : float;\n" +
-                "var fval : float;\n" +
-                "begin\n" +
-                "\treturn a;\n" +
-                "end\n" +
-                "\n" +
-                "\n" +
-                "begin\n" +
-                "\n" +
-                "   proc1(10,20.0,30.0);\n" +
-                "   proc1(10,20);\n";
-        test_ListData[1][5] = "   proc1(10)";
-        test_ListData[1][6] = "\n" +
-                "   a := 33;\n" +
-                "   print a;\n" +
-                "   print max(10,2.4);\n" +
-                "   print func1(3,4);\n" +
-                "\n";
-        test_ListData[1][7] = "\n   print x;\n";
-        test_ListData[1][8] = "end. ";
-
+        int test_listActiveOrder = test.getListActiveOrder(caseNum);    //true - 홀수  false - 짝수
+        String[][] test_ListData = test.getComparedList(caseNum);
 
         Assert.assertEquals(test_listActiveOrder, item.getListActiveOrder());
         Assert.assertEquals(test_ListData, ListData);
