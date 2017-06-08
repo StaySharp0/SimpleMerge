@@ -32,7 +32,7 @@ class Document{
 	}
 
 	public void insertLine(int idx, String newLine){
-		this.lines.add(newLine);
+		this.lines.add(idx,newLine);
 		this.edited = true;
 	}
 

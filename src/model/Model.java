@@ -468,12 +468,12 @@ public class Model implements ModelInterface{
 			if(!this.algo.isIdentical()){
 				if(lr == Position.LEFT){
 					for(int i = 0; i < idxList.size();i++){
-						this.copyToLeft(idxList.get(i).intValue());
+						this.LeftToRight(idxList.get(i).intValue());
 					}
 				}
 				else if(lr == Position.RIGHT){
 					for(int i = 0; i < idxList.size();i++){
-						this.copyToRight(idxList.get(i).intValue());	
+						this.RightToLeft(idxList.get(i).intValue());
 					}
 				}
 				else {
@@ -501,10 +501,10 @@ public class Model implements ModelInterface{
 		if(this.isCompared()){
 			if(!this.algo.isIdentical()){
 				if(lr == Position.LEFT){
-					this.copyToLeft(idx);
+					this.LeftToRight(idx);
 				}
 				else if(lr == Position.RIGHT){
-					this.copyToRight(idx);
+					this.RightToLeft(idx);
 				}
 				else {
 					return null;
@@ -540,18 +540,22 @@ public class Model implements ModelInterface{
 	// 	}
 	// }
 
-	private void copyToRight(int idx){
+	private void LeftToRight(int idx){
 		ArrayList<String> compResult = this.getResultLeft();
-		ArrayList<String> dataToCp = this.parseData(compResult.get(idx));
+		ArrayList<String> data = this.parseData(compResult.get(idx));
+
 		int diffIdx = (idx - (this.algo.isFirstAreSame() ? 1 : 0) )/ 2;
-		this.right.deleteLine(this.algo.getResultRight().get(diffIdx).begin, this.algo.getResultRight().get(diffIdx).end);
-		this.right.insertLine(this.algo.getResultRight().get(diffIdx).begin, dataToCp);
+
+		this.right.deleteLine(this.algo.getResultLeft().get(diffIdx).begin, this.algo.getResultLeft().get(diffIdx).end);
+		this.right.insertLine(this.algo.getResultLeft().get(diffIdx).begin, data);
 	}
-	private void copyToLeft(int idx){
+	private void RightToLeft(int idx){
 		ArrayList<String> compResult = this.getResultRight();
-		ArrayList<String> dataToCp = this.parseData(compResult.get(idx));
+		ArrayList<String> data = this.parseData(compResult.get(idx));
+
 		int diffIdx = (idx - (this.algo.isFirstAreSame() ? 1 : 0) )/ 2;
-		this.left.deleteLine(this.algo.getResultLeft().get(diffIdx).begin, this.algo.getResultLeft().get(diffIdx).end);
-		this.left.insertLine(this.algo.getResultLeft().get(diffIdx).begin, dataToCp);
+
+		this.right.deleteLine(this.algo.getResultRight().get(diffIdx).begin, this.algo.getResultRight().get(diffIdx).end);
+		this.right.insertLine(this.algo.getResultRight().get(diffIdx).begin, data);
 	}
 }

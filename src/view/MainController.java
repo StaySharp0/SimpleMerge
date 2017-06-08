@@ -209,6 +209,7 @@ public class MainController implements Initializable {
 
         for (int pos : position) {
             listModels[pos].setAll(data.getListViewItem(pos));
+            textAreas[pos].setText(data.getTextItem(pos));
             editorUI[pos].ShowCompareMode();
 
             listViews[pos].getStyleClass().removeAll("odd","even");
@@ -217,7 +218,6 @@ public class MainController implements Initializable {
             } else if (condActiveOrder == 0) {    //짝수번째가 틀린경우
                 listViews[pos].getStyleClass().add("even");
             }
-            System.out.println(listViews[pos].getStyleClass().getClass());
         }
     }
 }
