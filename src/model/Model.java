@@ -341,7 +341,10 @@ public class Model implements ModelInterface{
 				if(i < diff.get(cntDiff).end){
 					for(int j = diff.get(cntDiff).begin; j < diff.get(cntDiff).end; j++){
 						buf.append(this.left.getLines().get(j));
-						if(j + 1 < this.left.length()){
+						if 	(	
+								 j + 1 < this.left.length() || 
+								(j + 1 == this.left.length() && same.get(same.size() - 1) < diff.get(diff.size() - 1).begin)
+						   	){
 							buf.append("\n");
 						}
 					}
@@ -392,11 +395,11 @@ public class Model implements ModelInterface{
 			}
 		}
 
-		if(!this.algo.isIdentical() && this.left.length() < this.right.length() && cntDiff < this.algo.getResultRight().size() - 1){
+		if(!this.algo.isIdentical() && this.left.length() < this.right.length()){
 			buf = new StringBuilder();
 			for(int i = 0; i < this.algo.getResultRight().get(this.algo.getResultRight().size() - 1).distance;i++){
 				buf.append("\u23CE");
-				if(i < this.algo.getResultRight().get(this.algo.getResultRight().size() - 1).end - 1){
+				if(i < this.algo.getResultRight().get(this.algo.getResultRight().size() - 1).distance - 1){
 					buf.append("\n");
 				}
 			}
@@ -427,7 +430,10 @@ public class Model implements ModelInterface{
 				if(i < diff.get(cntDiff).end){
 					for(int j = diff.get(cntDiff).begin; j < diff.get(cntDiff).end; j++){
 						buf.append(this.right.getLines().get(j));
-						if(j + 1 < this.right.length()){
+						if 	(
+								j + 1 < this.right.length() ||
+								(j + 1 == this.right.length() && same.get(same.size() - 1) < diff.get(diff.size() - 1).begin)
+							){
 							buf.append("\n");
 						}
 					}
@@ -475,11 +481,11 @@ public class Model implements ModelInterface{
 				return new ArrayList<String>();
 			}
 		}
-		if(!this.algo.isIdentical() && this.right.length() < this.left.length() && cntDiff < this.algo.getResultLeft().size() - 1){
+		if(!this.algo.isIdentical() && this.right.length() < this.left.length()){
 			buf = new StringBuilder();
 			for(int i = 0; i < this.algo.getResultLeft().get(this.algo.getResultLeft().size() - 1).distance;i++){
 				buf.append("\u23CE");
-				if(i < this.algo.getResultLeft().get(this.algo.getResultLeft().size() - 1).end - 1){
+				if(i < this.algo.getResultLeft().get(this.algo.getResultLeft().size() - 1).distance - 1){
 					buf.append("\n");
 				}
 			}
