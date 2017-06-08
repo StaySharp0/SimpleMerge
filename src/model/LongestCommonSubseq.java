@@ -37,90 +37,35 @@ public class LongestCommonSubseq<T>{
 	private void run(){
 		int sl = this.source.length;
 		int tl = this.target.length;
-		int iBegin = 0, iEnd = sl;
-		int jBegin = 0, jEnd = tl;
-		int cntFront = 0, cntBack = 0;
+		// int iBegin = 0, iEnd = sl;
+		// int jBegin = 0, jEnd = tl;
+		// int cntFront = 0, cntBack = 0;
 
 		//optimization for same values from first/last
 		//not implemented yet
 
-		int lenArr[][] = new int[iEnd - iBegin + 1][jEnd - jBegin + 1]; // JAVA initializes this array by 0 automatically.
+		this.lcsIndexSource = new ArrayList<Integer>(this.lenLcs);
+		this.lcsIndexTarget = new ArrayList<Integer>(this.lenLcs);
+
+		int lenArr[][] = new int[sl + 1][tl + 1]; // JAVA initializes this array by 0 automatically.
 		int i,j;
+		int tmplen = 0;
+		this.lenLcs = 0;
 
-		//length of LCS
-		for(i = iBegin + 1; i <= iEnd; i++) {
-			for(j = jBegin + 1; j <= jEnd; j++) {
+		for(i = 1; i <= sl; i++) {
+			for(j = 1; j <= tl; j++) {
 				if(this.source[i - 1].equals(this.target[j - 1])){
-					lenArr[i - iBegin][j - jBegin] = lenArr[i - iBegin - 1][j - jBegin - 1] + 1;
+					tmplen = (lenArr[i][j] = lenArr[i - 1][j - 1] + 1);
+					if(tmplen > this.lenLcs){
+						this.lenLcs = tmplen;
+						this.lcsIndexSource.add(i - 1);
+						this.lcsIndexTarget.add(j - 1);
+					}
 				}
 				else {
-					lenArr[i - iBegin][j - jBegin] 	= (
-						lenArr[i - iBegin - 1][j - jBegin] 
-						> lenArr[i - iBegin][j - jBegin - 1]
-						) 
-					? lenArr[i - iBegin - 1][j - jBegin] 
-					: lenArr[i - iBegin][j - jBegin - 1]; 
+					lenArr[i][j] = (lenArr[i - 1][j] > lenArr[i][j - 1]) ? lenArr[i - 1][j]	: lenArr[i][j - 1]; 
 				}
 			}
-		}
-
-		this.lenLcs = cntFront + lenArr[sl][tl] + cntBack;
-		//find members of LCS
-		if(this.lenLcs > 0){
-			this.lcsIndexSource = new ArrayList<Integer>(this.lenLcs);
-			this.lcsIndexTarget = new ArrayList<Integer>(this.lenLcs);
-
-
-			for(i = sl, j = tl; i <= sl - iEnd && j <= tl - jEnd; i--, j--){
-				this.lcsIndexSource.add(new Integer(i));
-				this.lcsIndexSource.add(new Integer(j));
-			}
-
-			i = iEnd;
-			j = jEnd;
-			int cnt = cntFront;
-
-			while(i > iBegin && j > jBegin && cnt < this.lenLcs - cntBack){
-				if(this.source[i - 1].equals(this.target[j - 1])) {
-					this.lcsIndexSource.add(new Integer(i - 1));
-					this.lcsIndexTarget.add(new Integer(j - 1));	
-					if(i > iBegin) i--;
-					if(j > jBegin) j--;
-					cnt++;
-				}				
-				else if ( 
-							(lenArr[i - iBegin - 1][j - jBegin] > 	
-						 	lenArr[i - iBegin][j - jBegin - 1])
-						) 
-				{
-				 	i--;
-				}
-				else {
-					j--;
-				}
-			}
-
-			for(i = cntFront - 1; i > 0; i--){
-				this.lcsIndexSource.add(new Integer(i));
-				this.lcsIndexTarget.add(new Integer(i));
-			}
-			Stack<Integer> ss = new Stack<Integer>();
-			Stack<Integer> st = new Stack<Integer>();
-			for(i = 0; i < this.lenLcs; i++){
-				ss.push(this.lcsIndexSource.get(i));
-				st.push(this.lcsIndexTarget.get(i));
-			}
-			this.lcsIndexSource.clear();
-			this.lcsIndexTarget.clear();
-
-			for(i = 0; i < this.lenLcs; i++){
-				this.lcsIndexSource.add(ss.pop());
-				this.lcsIndexTarget.add(st.pop());
-			}
-		}
-		else
-		{
-			this.setNullLcs();
 		}
 	}
 
