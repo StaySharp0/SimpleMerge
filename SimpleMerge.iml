@@ -10,5 +10,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="org.loadui:testFx:3.1.2" level="project" />
+    <orderEntry type="library" name="org.easymock:easymock:3.4" level="project" />
   </component>
 </module>
