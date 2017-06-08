@@ -125,8 +125,8 @@
             <Button fx:id="btnProjectOpen" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="btnMenu" />
             <Button fx:id="btnProjectSave" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="btnMenu" />
             <Button fx:id="btnCompare" disable="true" mnemonicParsing="false" onAction="#eventCompare" prefHeight="35.0" prefWidth="35.0" styleClass="btnMenu" />
-            <Button fx:id="btnMtoLeft" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="btnMenu" />
-            <Button fx:id="btnMtoRight" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="btnMenu" />
+            <Button fx:id="btnMtoLeft" disable="true" mnemonicParsing="false" onAction="#evnetMergeToLeft" prefHeight="35.0" prefWidth="35.0" styleClass="btnMenu" />
+            <Button fx:id="btnMtoRight" disable="true" mnemonicParsing="false" onAction="#evnetMergeToRight" prefHeight="35.0" prefWidth="35.0" styleClass="btnMenu" />
          </children>
       </FlowPane>
    </top>

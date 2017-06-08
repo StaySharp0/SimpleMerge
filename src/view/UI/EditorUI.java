@@ -9,15 +9,17 @@ import dataSet.FileEditSave;
 /**
  * Created by yongjunkim on 2017. 5. 27..
  */
-enum Status { VIEW, EDIT };
+enum Status { VIEW, EDIT, COMPARE };
 
-public class EditorUI implements btnAction {
+public class EditorUI implements btnAction, ScreenMode {
     private TextField title;
     private Button btnEdit;
     private int position;
     private TextArea textArea;
     private TabPane tabPane;
     private Status status;
+    private final String prefix = "Edit: ";
+
 
     public EditorUI(int pos, TabPane tabPane, TextField textField, TextArea textArea, Button btnEdit){
         this.position = pos;
@@ -31,25 +33,50 @@ public class EditorUI implements btnAction {
 
     public void ShowViewMode(){
         status = status.VIEW;
-        textArea.setEditable(false);
         tabPane.getSelectionModel().select(1);
+
+        textArea.setEditable(false);
+
+        btnEdit.getStyleClass().remove("view");
+        btnEdit.getStyleClass().add("edit");
+
+        SetFileName();
+    }
+    public void ShowEditMode(){
+        status = status.EDIT;
+        tabPane.getSelectionModel().select(1);
+
+        textArea.setEditable(true);
 
         btnEdit.getStyleClass().remove("edit");
         btnEdit.getStyleClass().add("view");
 
-    }
-    public void ShowEditMode(){
-        status = status.EDIT;
-        textArea.setEditable(true);
-        title.setText("Edit: "+title.getText());
-        tabPane.getSelectionModel().select(1);
-
-        btnEdit.getStyleClass().remove("view");
-        btnEdit.getStyleClass().add("edit");
+        SetFileName();
     }
 
     public void ShowCompareMode(){
+        status = status.COMPARE;
         tabPane.getSelectionModel().select(0);
+
+        btnEdit.getStyleClass().remove("view");
+        btnEdit.getStyleClass().add("edit");
+
+        SetFileName();
+    }
+
+    private void SetFileName(){
+
+        String fileName = title.getText();
+        String[] tmp = fileName.split(prefix);
+
+        switch (status){
+            case EDIT:
+                if(tmp.length == 1) title.setText(prefix+fileName);
+                break;
+            default:
+                if(tmp.length == 2) title.setText(tmp[1]);
+        }
+
     }
 
     @Override
@@ -62,13 +89,15 @@ public class EditorUI implements btnAction {
         FileEditSave data = cb.callbackMethod(textArea.getText());
 
         switch (status){
-            case VIEW: // view -> edit
+            case COMPARE:   // compare -> edit
+            case VIEW:      // view -> edit
                 ShowEditMode();
                 break;
-            case EDIT: // edit -> view
+            case EDIT:      // edit -> view
                 ShowViewMode();
 
                 if(data == null) return false;
+
                 title.setText(data.getFileName());
         }
 

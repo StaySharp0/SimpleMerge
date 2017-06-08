@@ -16,14 +16,15 @@
 5. ListView: all items will start with text-fill black. But on mouse over and/or selected it will change to white.
 */
 
-/*.list-cell.odd-active:filled:odd*/
-.list-cell:filled:odd{
+.list-view.even .list-cell:filled:even,
+.list-view.odd .list-cell:filled:odd {
     -fx-background-color: #efcb05;
 }
 
-.list-cell:filled:selected:focused, .list-cell:filled:selected {
-    -fx-background-color: #ef7673;
-    -fx-text-fill: black; /* 5 */
+.list-cell:filled:selected:focused,
+.list-cell:filled:selected {
+    -fx-background-color: #ef7673!important;
+    -fx-text-fill: black!important;
 }
 
 /*.list-cell { -fx-text-fill: black; !* 5 *! }*/
@@ -47,7 +48,8 @@
     -fx-background-position: center center
 }
 .btnFile.fileOpen{ -fx-background-image: url("icon/open.png") }
-.btnFile.fileEdit{ -fx-background-image: url("icon/edit.png") }
+.btnFile.fileEdit.edit{ -fx-background-image: url("icon/edit.png") }
+.btnFile.fileEdit.view{ -fx-background-image: url("icon/view.png") }
 .btnFile.fileSave{ -fx-background-image: url("icon/save.png") }
 
 .btnMenu{
