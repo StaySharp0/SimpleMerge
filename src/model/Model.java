@@ -290,8 +290,8 @@ public class Model implements ModelInterface{
 
 
 		String[][] ListData = {
-				(String[]) this.getResultLeft().toArray(),
-				(String[]) this.getResultRight().toArray()
+				this.getResultLeft().toArray(new String[this.getResultLeft().size()]),
+				this.getResultRight().toArray(new String[this.getResultRight().size()])
 		};
 
 		rtn.setListViewItem(ListData);
@@ -335,33 +335,54 @@ public class Model implements ModelInterface{
 
 		for(int i = 0; i < this.left.length();){
 			int chki = i;
-			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin  && i != diff.get(cntDiff).end){
-				buf.append(this.concatData(this.left.getLines().subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
-				if(diff.get(cntDiff).distance < this.algo.getResultRight().get(cntDiff).distance){
-					for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
+			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin){
+				if(i < diff.get(cntDiff).end){
+					for(int j = diff.get(cntDiff).begin; j < diff.get(cntDiff).end; j++){
+						buf.append(this.left.getLines().get(j));
+						if(j + 1 < this.left.length()){
+							buf.append("\n");
+						}
+					}
+					if(diff.get(cntDiff).distance < this.algo.getResultRight().get(cntDiff).distance){
+						for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
+							buf.append("\n");
+						}
+					}
+					result.add(buf.toString());
+					buf = new StringBuilder("");
+					i += diff.get(cntDiff).distance;
+					
+				}
+				else if(diff.get(cntDiff).begin == diff.get(cntDiff).end && this.algo.getResultRight().get(cntDiff).distance > 0){
+					for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance; j++){
 						buf.append("\n");
 					}
+					result.add(buf.toString());
+					buf = new StringBuilder("");
 				}
-				result.add(buf.toString());
-				i += diff.get(cntDiff).distance;
+
 				if(cntDiff < diff.size() - 1){
 					cntDiff++;
 				}
 			}
 
+
 			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.left.getLines().get(same.get(cntSame)));
-				if(i + 1 < this.left.length() && i + 1 < diff.get(cntDiff).begin){
+				if(i + 1 < this.left.length()){
 					buf.append("\n");
 					if(cntSame < same.size()){
 						cntSame++;
 					}
-					i++;
+					if((!this.algo.isIdentical() && i + 1 == diff.get(cntDiff).begin)){
+						result.add(buf.toString());
+						buf = new StringBuilder();					
+					}
 				}
 				else {
 					result.add(buf.toString());
-					i++;
 				}
+				i++;
 			}
 
 			if(i == chki){ // unexpected condition
@@ -389,15 +410,31 @@ public class Model implements ModelInterface{
 
 		for(int i = 0; i < this.right.length();){
 			int chki = i;
-			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin && i != diff.get(cntDiff).end){
-				buf.append(this.concatData(this.right.getLines().subList(diff.get(cntDiff).begin, diff.get(cntDiff).end)));
-				if(diff.get(cntDiff).distance < this.algo.getResultLeft().get(cntDiff).distance){
-					for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
+			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin){
+				if(i < diff.get(cntDiff).end){
+					for(int j = diff.get(cntDiff).begin; j < diff.get(cntDiff).end; j++){
+						buf.append(this.right.getLines().get(j));
+						if(j + 1 < this.right.length()){
+							buf.append("\n");
+						}
+					}
+					if(diff.get(cntDiff).distance < this.algo.getResultLeft().get(cntDiff).distance){
+						for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
+							buf.append("\n");
+						}
+					}
+					result.add(buf.toString());
+					buf = new StringBuilder("");
+					i += diff.get(cntDiff).distance;
+				}
+				else if(diff.get(cntDiff).begin == diff.get(cntDiff).end && this.algo.getResultLeft().get(cntDiff).distance > 0){
+					for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance; j++){
 						buf.append("\n");
 					}
+					result.add(buf.toString());
+					buf = new StringBuilder("");
 				}
-				result.add(buf.toString());
-				i += diff.get(cntDiff).distance;
+
 				if(cntDiff < diff.size() - 1){
 					cntDiff++;
 				}
@@ -405,17 +442,20 @@ public class Model implements ModelInterface{
 
 			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.right.getLines().get(same.get(cntSame)));
-				if(i + 1 < this.right.length() && i + 1 < diff.get(cntDiff).begin){
+				if(i + 1 < this.right.length()){
 					buf.append("\n");
 					if(cntSame < same.size()){
 						cntSame++;
 					}
-					i++;
+					if((!this.algo.isIdentical() && i + 1 == diff.get(cntDiff).begin)){
+						result.add(buf.toString());
+						buf = new StringBuilder("");					
+					}
 				}
 				else {
 					result.add(buf.toString());
-					i++;
 				}
+				i++;
 			}
 
 			if(i == chki){ // unexpected condition

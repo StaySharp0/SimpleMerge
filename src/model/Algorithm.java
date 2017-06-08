@@ -75,8 +75,8 @@ import java.io.File;
 
 	public boolean isFirstAreSame(){
 		return 	(
-				 	(this.lChange == null || this.lChange.get(0).begin == 0) &&
-				 	(this.rChange == null || this.rChange.get(0).begin == 0)
+				 	(this.lChange == null || this.lChange.get(0).begin != 0) &&
+				 	(this.rChange == null || this.rChange.get(0).begin != 0)
 				 );
 
 	}
