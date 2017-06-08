@@ -17,11 +17,7 @@ import java.io.File;
 		this.right = new ArrayList<String>(right);
 		this.lcs = new LongestCommonSubseq(this.left, this.right);
 
-		if(this.isIdentical()){
-			this.lChange = null;
-			this.rChange = null;
-		}
-		else if(this.lcs.length() != 0){
+		if(this.lcs.length() != 0){
 			this.lChange = new ArrayList<IdxPair>();
 			this.rChange = new ArrayList<IdxPair>();
 			this.lMatch = new ArrayList<Integer>();
@@ -74,6 +70,10 @@ import java.io.File;
 
 			this.lChange.add(new IdxPair(0,this.left.size()));
 			this.rChange.add(new IdxPair(0,this.right.size()));
+		}
+		if(this.isIdentical()){
+			this.lChange = null;
+			this.rChange = null;
 		}
 	}
 
