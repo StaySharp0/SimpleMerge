@@ -357,6 +357,8 @@ public class Model implements ModelInterface{
 					for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance; j++){
 						buf.append("\n");
 					}
+					result.add(buf.toString());
+					buf = new StringBuilder("");
 				}
 
 				if(cntDiff < diff.size() - 1){
@@ -429,6 +431,8 @@ public class Model implements ModelInterface{
 					for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance; j++){
 						buf.append("\n");
 					}
+					result.add(buf.toString());
+					buf = new StringBuilder("");
 				}
 
 				if(cntDiff < diff.size() - 1){
