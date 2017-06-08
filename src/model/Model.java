@@ -343,7 +343,9 @@ public class Model implements ModelInterface{
 						buf.append(this.left.getLines().get(j));
 						if 	(	
 								 j + 1 < this.left.length() || 
-								(j + 1 == this.left.length() && same.get(same.size() - 1) < diff.get(diff.size() - 1).begin)
+								(	j + 1 == this.left.length() && 
+									same.get(same.size() - 1) < diff.get(diff.size() - 1).begin &&
+									diff.get(diff.size() - 1).distance > 0)
 						   	){
 							buf.append("\n");
 						}
@@ -432,7 +434,9 @@ public class Model implements ModelInterface{
 						buf.append(this.right.getLines().get(j));
 						if 	(
 								j + 1 < this.right.length() ||
-								(j + 1 == this.right.length() && same.get(same.size() - 1) < diff.get(diff.size() - 1).begin)
+								(	j + 1 == this.right.length() && 
+									same.get(same.size() - 1) < diff.get(diff.size() - 1).begin &&
+									diff.get(diff.size() - 1).distance > 0)
 							){
 							buf.append("\n");
 						}
