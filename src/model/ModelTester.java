@@ -51,7 +51,7 @@ public class ModelTester {
     //이슈1 : 문서 맨 끝의 개행문자가 생략되는 문제
     @Test
     public void testCompare(){
-        int caseNum = 7;
+        int caseNum = 5;
         File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s" + caseNum + " left.txt");
         File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s" + caseNum + " right.txt");
         TestCase test = new TestCase();

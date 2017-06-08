@@ -93,7 +93,7 @@ public class TestCase {
              comparedList[1][0] = "1\n";
              comparedList[1][1] = "\u23CE\n\u23CE\n\u23CE\n\u23CE\n\u23CE\n";
              comparedList[1][2] = "2\n";
-             comparedList[1][3] = "\u23CE\n\u23CE\n\u23CE\n\u23CE\n\u23CE\n\u23CE\n\u23CE";
+             comparedList[1][3] = "\u23CE\n\u23CE\n\u23CE\n\u23CE\n\u23CE\n\u23CE\n";
              comparedList[1][4] = "3\n";
              comparedList[1][5] = "\u23CE\n\u23CE\n\u23CE\n";
              comparedList[1][6] = "4\n";
@@ -349,7 +349,30 @@ public class TestCase {
                     "\n" +
                     "end. ";
         }
+        else if(caseNum == 9){
+            ListActiveOrder = 1;
 
+            comparedList = new String[2][9];
+            comparedList[0][0] = "A\nAA\nAAA\n";
+            comparedList[0][1] = " AAAA\n";
+            comparedList[0][2] = "AAAAA\n";
+            comparedList[0][3] = "  AAAAAA\n";
+            comparedList[0][4] = "AAAAAAA\nAAAAAA\nAAAAA\nAAAA\nAAA\nAA\nA\nA\n";
+            comparedList[0][5] = "\n\n\n\n";
+            comparedList[0][6] = "A\nA\n";
+            comparedList[0][7] = "\n\n";
+            comparedList[0][8] = "A";
+
+            comparedList[1][0] = "A\nAA\nAAA\n";
+            comparedList[1][1] = "AAAA\n";
+            comparedList[1][2] = "AAAAA\n";
+            comparedList[1][3] = "AAAAAA\n";
+            comparedList[1][4] = "AAAAAAA\nAAAAAA\nAAAAA\nAAAA\nAAA\nAA\nA\nA\n";
+            comparedList[1][5] = "\u23CE\n\u23CE\n\u23CE\n\u23CE\n";
+            comparedList[1][6] = "A\nA\n";
+            comparedList[1][7] = "\u23CE\n\u23CE\n";
+            comparedList[1][8] = "A";
+        }
         return true;
     }
 
