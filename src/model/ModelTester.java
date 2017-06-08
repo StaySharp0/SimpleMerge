@@ -51,8 +51,8 @@ public class ModelTester {
     //이슈1 : 문서 맨 끝의 개행문자가 생략되는 문제
     @Test
     public void testCompare(){
-        File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s5 left.txt");
-        File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s5 right.txt");
+        File leftFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s7 left.txt");
+        File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s7 right.txt");
 
         //initialize model with testing input
         model = new Model(leftFile, rightFile);
@@ -65,32 +65,86 @@ public class ModelTester {
 
         //create expected result
         int test_listActiveOrder = 1;    //true - 홀수  false - 짝수
-        String[][] test_ListData = new String[2][12];
-        test_ListData[0][0] = "1\n";
-        test_ListData[0][1] = "1\n1\n1\n\n\n";
-        test_ListData[0][2] = "2\n";
-        test_ListData[0][3] = "2\n2\n2\n2\n\n\n";
-        test_ListData[0][4] = "3\n";
-        test_ListData[0][5] = "3\n3\n\n";
-        test_ListData[0][6] = "4\n";
-        test_ListData[0][7] = "4\n\n\n";
-        test_ListData[0][8] = "5\n";
-        test_ListData[0][9] = "5\n5\n5\n";
-        test_ListData[0][10] = "6\n7\n8\n9\n10\n";
-        test_ListData[0][11] = "1\n1";
+        String[][] test_ListData = new String[2][9];
 
-        test_ListData[1][0] = "1\n";
-        test_ListData[1][1] = "\n\n\n\n\n";
-        test_ListData[1][2] = "2\n";
-        test_ListData[1][3] = "\n\n\n\n\n\n";
-        test_ListData[1][4] = "3\n";
-        test_ListData[1][5] = "\n\n\n";
-        test_ListData[1][6] = "4\n";
-        test_ListData[1][7] = "\n\n\n";
-        test_ListData[1][8] = "5\n";
-        test_ListData[1][9] = "\n\n\n";
-        test_ListData[1][10] = "6\n7\n8\n9\n10\n";
-        test_ListData[1][11] = "\n\n";
+        test_ListData[0][0] = "mainprog illegal;\n" +
+                "\n";
+        test_ListData[0][1] = "procedure proc1 (a : integer; b,c : integer);\n";
+        test_ListData[0][2] = "var d,e:string;\n" +
+                "begin\n" +
+                "\ta := 10;\n" +
+                "\tb := 20;\n" +
+                "\tc := 30;\n" +
+                "end\n" +
+                "\n" +
+                "function max (a: integer; b: integer) : integer; \n" +
+                "var r,y:float;\n";
+        test_ListData[0][3] = "\u23CE\n";
+        test_ListData[0][4] = "begin\n" +
+                "\tif a >= b then return a; \n" +
+                "\telse return b;\n" +
+                "end\n" +
+                "\n" +
+                "function func1(a,b : integer) : float;\n" +
+                "var fval : float;\n" +
+                "begin\n" +
+                "\treturn a;\n" +
+                "end\n" +
+                "\n" +
+                "\n" +
+                "begin\n" +
+                "\n" +
+                "   proc1(10,20.0,30.0);\n" +
+                "   proc1(10,20);\n";
+        test_ListData[0][5] = "\u23CE\n";
+        test_ListData[0][6] = "\n" +
+                "   a := 33;\n" +
+                "   print a;\n" +
+                "   print max(10,2.4);\n" +
+                "   print func1(3,4);\n" +
+                "\n";
+        test_ListData[0][7] = "\u23CE\n\u23CE\n";
+        test_ListData[0][8] = "end. ";
+//\u23CE\n
+        test_ListData[1][0] = "mainprog illegal;\n" +
+                "\n";
+        test_ListData[1][1] = "procedure proc1 (a : integer; b,c : integer; d: string);\n";
+        test_ListData[1][2] = "var d,e:string;\n" +
+                "begin\n" +
+                "\ta := 10;\n" +
+                "\tb := 20;\n" +
+                "\tc := 30;\n" +
+                "end\n" +
+                "\n" +
+                "function max (a: integer; b: integer) : integer; \n" +
+                "var r,y:float;\n";
+        test_ListData[1][3] = "var z;";
+        test_ListData[1][4] = "begin\n" +
+                "\tif a >= b then return a; \n" +
+                "\telse return b;\n" +
+                "end\n" +
+                "\n" +
+                "function func1(a,b : integer) : float;\n" +
+                "var fval : float;\n" +
+                "begin\n" +
+                "\treturn a;\n" +
+                "end\n" +
+                "\n" +
+                "\n" +
+                "begin\n" +
+                "\n" +
+                "   proc1(10,20.0,30.0);\n" +
+                "   proc1(10,20);\n";
+        test_ListData[1][5] = "   proc1(10)";
+        test_ListData[1][6] = "\n" +
+                "   a := 33;\n" +
+                "   print a;\n" +
+                "   print max(10,2.4);\n" +
+                "   print func1(3,4);\n" +
+                "\n";
+        test_ListData[1][7] = "\n   print x;\n";
+        test_ListData[1][8] = "end. ";
+
 
         Assert.assertEquals(test_listActiveOrder, item.getListActiveOrder());
         Assert.assertEquals(test_ListData, ListData);
