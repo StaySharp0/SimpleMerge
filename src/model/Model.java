@@ -443,6 +443,8 @@ public class Model implements ModelInterface{
 		File rightFile = new File("C:\\Users\\Jisu\\Desktop\\samples\\s2 right.txt");
 		Model modelMock = new Model(leftFile, rightFile);
 
+		Algorithm algoTest = EasyMock.createMock(Algorithm.class);
+
 
 		test_Left.add("1\n");
 		test_Left.add("\n");
@@ -452,8 +454,14 @@ public class Model implements ModelInterface{
 	}
 
 	public boolean isCompared(){
-		return true;
-		//return this.algo != null;
+		return this.algo != null;
+	}
+	//temporary for testing
+	public Algorithm getAlgo(){
+		return algo;
+	}
+	public void setAlgo(Algorithm algo){
+	    this.algo = algo;
 	}
 
 	@Override

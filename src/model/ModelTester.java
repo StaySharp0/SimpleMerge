@@ -63,7 +63,7 @@ public class ModelTester {
         ListData[1] = item.getListViewItem(1);
 
         //create expected result
-        int test_listActiveOrder = 0;    //true - 홀수  false - 짝수
+        int test_listActiveOrder = 1;    //true - 홀수  false - 짝수
         String[][] test_ListData = new String[2][3];
         test_ListData[0][0] = "1\n";
         test_ListData[0][1] = "\n";
