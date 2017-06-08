@@ -3,6 +3,7 @@ import dataSet.*;//`ll be changed
 import view.UI.FileSaveUI;
 import view.UI.Position;//`ll be changed
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -51,21 +52,7 @@ public class Model implements ModelInterface{
 			return null;
 		}
 
-		StringBuilder buf = new StringBuilder(data);
-		ArrayList<String> listData = new ArrayList<String>();
-		int tmpIdx = 0;
-		int newlineIdx = 0;
-		if(data.length() > 0){
-			while((newlineIdx = buf.indexOf("\n",tmpIdx)) > 0){
-				listData.add(buf.substring(tmpIdx, newlineIdx));
-				tmpIdx = newlineIdx + 1;
-			}
-			if(tmpIdx < buf.length()){
-				listData.add(buf.substring(tmpIdx, buf.length()));
-			}
-		}
-
-		return listData;
+		return new ArrayList<String>(Arrays.asList(data.split("\n")));
 	}
 	private String concatData(List<String> data){
 		if(data == null){
