@@ -12,10 +12,13 @@ import java.io.File;
 	private ArrayList<IdxPair> lChange;
 	private ArrayList<IdxPair> rChange;
 
+	private Integer compLen;
+
 	public Algorithm(List<String> left, List<String> right){
 		this.left = new ArrayList<String>(left);
 		this.right = new ArrayList<String>(right);
 		this.lcs = new LongestCommonSubseq(this.left, this.right);
+		this.compLen = null;
 
 		if(this.lcs.length() != 0){
 			this.lChange = new ArrayList<IdxPair>();
@@ -61,7 +64,7 @@ import java.io.File;
 						tmpr = new ArrayList<String>(tmpr.subList(tmpr.indexOf(lcs.get(i)) + 1, tmpr.size()));
 					}
 				}
-				
+
 			}
 		}
 		else { // no same line; all changed
@@ -75,6 +78,7 @@ import java.io.File;
 			this.lChange = null;
 			this.rChange = null;
 		}
+		this.totalLength();
 	}
 
 	public ArrayList<IdxPair> getResultLeft(){
@@ -108,6 +112,23 @@ import java.io.File;
 
 	public int lenLcs(){
 		return this.lcs.length();
+	}
+
+	public int totalLength(){
+		if(this.compLen == null){
+			this.compLen = new Integer(0);
+			this.compLen += this.lenLcs();
+			if(!this.isIdentical()){
+				for(int i = 0; i < this.lChange.size(); i++){
+					this.compLen += 
+					(this.lChange.get(i).distance > this.rChange.get(i).distance) ?
+						(this.lChange.get(i).distance) :
+						(this.rChange.get(i).distance);
+				}
+			}
+		}
+		
+		return compLen;
 	}
 
 	public static void main(String[] args){
@@ -157,7 +178,7 @@ import java.io.File;
 				else if(algo.isIdentical()){
 					System.out.println("identical!");
 				}
-
+				System.out.println("len : " + algo.totalLength());
 				// for(int i = 0; i < algo.getLcsIdxLeft().size(); i++){
 				// 	System.out.println(lbuf.get(algo.getLcsIdxLeft().get(i)));
 				// }
