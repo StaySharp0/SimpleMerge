@@ -37,8 +37,11 @@
     /*-fx-background-color: #00f; !* 2 *!*/
     /*-fx-text-fill: white; !* 5 *!*/
 /*}*/
+.text-area {
+    -fx-font-size: 1.1em;
+}
 .list-cell{
-    -fx-font-size: 1.25em;
+    -fx-font-size: 1.1em;
     -fx-padding: 0 1em 0 1em;
 }
 
