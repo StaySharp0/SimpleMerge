@@ -10,6 +10,7 @@ public class Item implements FileOpen, FileEditSave, MergeCompare{
     private String textData;
     private String[][] listViewItem;
     private String[] textItem;
+    private String[] fileNames;
     private boolean listActiveOrder;
 
 
@@ -38,6 +39,16 @@ public class Item implements FileOpen, FileEditSave, MergeCompare{
     @Override
     public String[] getListViewItem(int position) {
         return listViewItem[position];
+    }
+
+    @Override
+    public void setFileName(String[] data) {
+        this.fileNames = data;
+    }
+
+    @Override
+    public String getFileName(int position) {
+        return fileNames[position];
     }
 
     @Override

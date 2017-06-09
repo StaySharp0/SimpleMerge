@@ -266,7 +266,7 @@ public class Model implements ModelInterface{
 			isEdited = true;
 		}
 
-        this.left = new Document(data);
+        this.left = new Document(data,isEdited);
 		
 		return isEdited;
 	}
@@ -287,7 +287,7 @@ public class Model implements ModelInterface{
 			isEdited = true;
 		}
 
-        this.right = new Document(data);
+        this.right = new Document(data,isEdited);
 		
 		return isEdited;
 	}
@@ -307,7 +307,10 @@ public class Model implements ModelInterface{
 			this.algo = new Algorithm(arrLeft,arrRight);
 		}
 
-
+        String[] FileNames = {
+                ((this.left.isEdited()) ? "* " :"") + this.fm.getNameLeft(),
+                ((this.right.isEdited()) ? "* " :"") + this.fm.getNameRight(),
+        };
 		String[][] ListData = {
 				this.getResultLeft().toArray(new String[this.getResultLeft().size()]),
 				this.getResultRight().toArray(new String[this.getResultRight().size()])
@@ -320,6 +323,7 @@ public class Model implements ModelInterface{
 		rtn.setListViewItem(ListData);
 		rtn.setListActiveOrder(this.algo.isFirstAreSame());
 		rtn.setTextItem(TextData);
+		rtn.setFileName(FileNames);
 
 		return (Item) rtn;
 	}

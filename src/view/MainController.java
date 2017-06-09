@@ -221,6 +221,7 @@ public class MainController implements Initializable {
             }
 
             textAreas[pos].setText(data.getTextItem(pos));
+            textFields[pos].setText(data.getFileName(pos));
         }
 
         btnMtoLeft.setDisable(true);
