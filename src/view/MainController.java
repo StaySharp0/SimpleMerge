@@ -57,7 +57,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("init");
+//        System.out.println("init");
 
         model = new Model();
 
@@ -102,7 +102,7 @@ public class MainController implements Initializable {
 
         // Call event
         Boolean status = ui.onAction((source) -> {
-            System.out.println("FileOpen callback");
+//            System.out.println("FileOpen callback");
 
             return model.load((File) source, pos);
         });
@@ -127,7 +127,7 @@ public class MainController implements Initializable {
 
         // Call event
         Boolean status = ui.onAction((source) -> {
-            System.out.println("FileEdit callback");
+//            System.out.println("FileEdit callback");
 
             return model.edit((String) source, pos);
         });
@@ -146,7 +146,7 @@ public class MainController implements Initializable {
 
         // Call event
         Boolean status = ui.onAction((source) -> {
-            System.out.println("Click:LeftFileSave");
+//            System.out.println("Click:LeftFileSave");
 
             return model.save((String) source, pos);
         });
@@ -155,7 +155,7 @@ public class MainController implements Initializable {
     }
 
     public void eventCompare(ActionEvent e){
-        System.out.println("Click:Compare");
+//        System.out.println("Click:Compare");
 
         // model Data update
         for(int pos : position) model.edit(textAreas[pos].getText(),pos);
@@ -165,7 +165,7 @@ public class MainController implements Initializable {
     }
 
     public void evnetMergeToLeft(ActionEvent e){
-        System.out.println("Click:MergeToLeft");
+//        System.out.println("Click:MergeToLeft");
 
         if(!condCompare) return;
 
@@ -175,7 +175,7 @@ public class MainController implements Initializable {
     }
 
     public void evnetMergeToRight(ActionEvent e){
-        System.out.println("Click:MergeToRight");
+//        System.out.println("Click:MergeToRight");
 
         if(!condCompare) return;
 
@@ -200,7 +200,7 @@ public class MainController implements Initializable {
     private void updateListView(MergeCompare data) {
 
         if( data == null ) {
-            System.out.println("err: Compare");
+//            System.out.println("err: Compare");
 
             condCompare = false;
             return;
