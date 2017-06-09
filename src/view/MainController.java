@@ -150,6 +150,8 @@ public class MainController implements Initializable {
 
             return model.save((String) source, pos);
         });
+
+        editorUI[pos].ShowViewMode();
     }
 
     public void eventCompare(ActionEvent e){
