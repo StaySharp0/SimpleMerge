@@ -14,6 +14,7 @@ import org.loadui.testfx.utils.UserInputDetector;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.hamcrest.Matchers.endsWith;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assume.assumeTrue;
@@ -56,8 +57,6 @@ public class TestOpenFile extends GuiTest {
 
     @Test
     public void TestOpenFile(){
-
-        System.out.println("웨아안ㄴ나난나나난");
         String file1 = "s1 left.txt";
         String file2 = "s1 right.txt";
 
@@ -89,10 +88,6 @@ public class TestOpenFile extends GuiTest {
         type(file1).type(KeyCode.ENTER);
         System.out.println(((TextField)GuiTest.find("#fieldLeftFile")).getText()+"를 불러옵니다");
         assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), file1);
-        //verifythat
-
-        //콜백받는거 확인 //TODO
-        //assertEquals("", "FileOpen callback");
 
         System.out.println("선택후 왼쪽 Save, Edit 작동하는 것 확인");
         assertFalse(GuiTest.find("#btnLeftFileEdit").isDisable());
@@ -117,15 +112,16 @@ public class TestOpenFile extends GuiTest {
         type(file2).type(KeyCode.ENTER);
         System.out.println(((TextField)GuiTest.find("#fieldRightFile")).getText()+"를 불러옵니다");
         assertEquals(((TextField)GuiTest.find("#fieldRightFile")).getText(), file2);
-        //콜백받는거 확인 //TODO
-        //assertEquals("", "FileOpen callback");
+
+        System.out.println("양쪽 파일의 확장자가 .txt파일이 맞는지 검사합니다");
+        assert(((TextField)GuiTest.find("#fieldLeftFile")).getText(). endsWith(".txt"));
+        assert(((TextField)GuiTest.find("#fieldRightFile")).getText(). endsWith(".txt"));
+
 
         System.out.println("선택후 오른쪽 Save, Edit 작동하는 것 확인");
         assertFalse(GuiTest.find("#btnRightFileEdit").isDisable());
         assertFalse(GuiTest.find("#btnRightFileSave").isDisable());
 
-        //TODO
-        //.txt 파일만 받는지 확인할것
 
     }
 
