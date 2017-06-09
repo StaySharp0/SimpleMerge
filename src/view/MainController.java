@@ -107,7 +107,7 @@ public class MainController implements Initializable {
             return model.load((File) source, pos);
         });
 
-        if(condLoadFile[pos]) return; //현재 불러온 파일이 있지만 다시 불러오기를 실패한 경우
+        if(condLoadFile[pos] && !status) return; //현재 불러온 파일이 있지만 다시 불러오기를 실패한 경우
 
         editorUI[pos].ShowViewMode();
         condLoadFile[pos] = status;
