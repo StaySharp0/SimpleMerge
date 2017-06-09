@@ -9,5 +9,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.easymock:easymock:3.4" level="project" />
     <orderEntry type="library" name="junit:junit:4.1" level="project" />
+    <orderEntry type="library" name="org.loadui:testFx:3.1.2" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="net.sf.cuf:cuf-javafx:2.0.2" level="project" />
   </component>
 </module>

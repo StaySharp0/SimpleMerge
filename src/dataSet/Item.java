@@ -40,6 +40,15 @@ public class Item implements FileOpen, FileEditSave, MergeCompare{
     }
 
     @Override
+    public String getTextItem(int position) {
+        String rtn = "";
+
+        for(String tmp :listViewItem[position]) rtn += tmp;
+
+        return rtn;
+    }
+
+    @Override
     public void setListViewItem(String[][] data) {
         this.listViewItem = data;
     }
