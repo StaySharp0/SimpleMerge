@@ -92,11 +92,14 @@ public class TestMergeFile extends GuiTest {
         //assertFalse(GuiTest.find("#btnMtoRight").isDisable());
 
 
+        click("#btnMtoLeft");
+        click("#btnMtoRight");
         ListView list = find("#listLeft");
         ListView list2 = find("#listRight");
         click(list);
         System.out.println("leftList의 클릭한 부분의 item"+list.getSelectionModel().getSelectedItem());
         click(list2);
+        System.out.println("Merge 후 두 값이 동일한지 확인");
         assertEquals(list.getSelectionModel().getSelectedItem(), list.getSelectionModel().getSelectedItem());
         System.out.println("RightList의 클릭한 부분의 item"+list2.getSelectionModel().getSelectedItem());
 
