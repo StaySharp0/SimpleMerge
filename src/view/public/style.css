@@ -1,0 +1,119 @@
+.tab-pane {
+    -fx-tab-max-width: 0 ;
+    -fx-tab-max-height: 0 ;
+}
+.tab-pane .tab-header-area {
+    -fx-padding: 0px;
+    -fx-margin: 0px;
+    visibility: hidden;
+}
+
+/*
+1. Odd rows with white background color;
+2. ListView: when mouse over an item, highlight with a blue shade;
+3. ListView: when an item is selected, paint it with a gradient;
+4. ListView: when focus is lost from ListView, selected item should be painted with gradient;
+5. ListView: all items will start with text-fill black. But on mouse over and/or selected it will change to white.
+*/
+
+.list-cell{
+    -fx-alignment: top-left;
+}
+.list-view.even .list-cell:filled:even,
+.list-view.odd .list-cell:filled:odd {
+    -fx-background-color: #efcb05;
+}
+
+.list-cell:filled:selected:focused,
+.list-cell:filled:selected {
+    -fx-background-color: #ef7673!important;
+    -fx-text-fill: black!important;
+}
+
+/*.list-cell { -fx-text-fill: black; !* 5 *! }*/
+/*.list-cell:odd { -fx-background-color: white; !* 1 *! }*/
+/*.list-cell:even { -fx-background-color: #8f8; !* for information *! }*/
+/*.list-cell:filled:hover {*/
+    /*-fx-background-color: #00f; !* 2 *!*/
+    /*-fx-text-fill: white; !* 5 *!*/
+/*}*/
+.text-area {
+    -fx-font-size: 1.1em;
+}
+.list-cell{
+    -fx-font-size: 1.1em;
+    -fx-padding: 0 1em 0 1em;
+}
+
+/*
+ * button CSS
+ */
+.btnFile{
+    -fx-background-repeat: stretch;
+    -fx-background-size: 20 20;
+    -fx-background-position: center center
+}
+.btnFile.fileOpen{ -fx-background-image: url("icon/open.png") }
+.btnFile.fileEdit.edit{ -fx-background-image: url("icon/edit.png") }
+.btnFile.fileEdit.view{ -fx-background-image: url("icon/view.png") }
+.btnFile.fileSave{ -fx-background-image: url("icon/save.png") }
+
+.btnMenu{
+    -fx-background-repeat: stretch;
+    -fx-background-size: 25 25;
+    -fx-background-position: center center
+}
+#btnProjectOpen.btnMenu{
+    -fx-background-image: url("icon/project.png");
+    -fx-background-size: 21 21;
+}
+#btnProjectSave.btnMenu{ -fx-background-image: url("icon/save.png") }
+#btnCompare.btnMenu{ -fx-background-image: url("icon/compare.png") }
+#btnMtoLeft.btnMenu{ -fx-background-image: url("icon/merge_left.png") }
+#btnMtoRight.btnMenu{ -fx-background-image: url("icon/merge_right.png") }
+
+#listLeft .scroll-bar:vertical .increment-arrow,
+#listLeft .scroll-bar:vertical .decrement-arrow,
+#listLeft .scroll-bar:vertical .increment-button,
+#listLeft .scroll-bar:vertical .decrement-button,
+#listLeft .scroll-bar:vertical {
+    -fx-padding: 0px;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+	-fx-background-color:transparent;
+	-fx-border-color:transparent;
+	-fx-background-radius: 0em;
+	-fx-border-radius:2em;
+}
+
+.scroll-bar:horizontal .increment-button ,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color:transparent;
+	-fx-background-radius: 0em;
+	-fx-padding:0 0 10 0;
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+	-fx-background-radius: 0em;
+	-fx-padding:0 10 0 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow
+ {
+	-fx-shape: " ";
+	-fx-padding:0;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,95%);
+	-fx-background-insets: 2, 0, 0;
+	-fx-background-radius: 2em;
+
+}
