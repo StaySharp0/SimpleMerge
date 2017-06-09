@@ -88,11 +88,6 @@ public class TestMergeFile extends GuiTest {
         assertFalse(GuiTest.find("#btnCompare").isDisable());
         click("#btnCompare");
 
-        //System.out.println("Merge 버튼이 눌리는지 확인합니다");
-        //assertFalse(GuiTest.find("#btnMtoLeft").isDisable());
-        //assertFalse(GuiTest.find("#btnMtoRight").isDisable());
-
-
         click("#btnMtoLeft");
         click("#btnMtoRight");
         ListView list = find("#listLeft");
@@ -105,6 +100,11 @@ public class TestMergeFile extends GuiTest {
         moveBy(0, 20);
         moveBy(0, 20);
         click();
+
+        System.out.println("Merge 버튼이 눌리는지 확인합니다");
+        assertFalse(GuiTest.find("#btnMtoLeft").isDisable());
+        assertFalse(GuiTest.find("#btnMtoRight").isDisable());
+
         System.out.println("Merge left -> right");
         click("#btnMtoLeft");
         System.out.println("Merge right -> left");
@@ -113,7 +113,7 @@ public class TestMergeFile extends GuiTest {
         moveBy(0, 20);
         moveBy(0, 20);
 
-        
+
         System.out.println("스크롤을 아래로 내립니다.");
         scroll( 3, DOWN );
 
