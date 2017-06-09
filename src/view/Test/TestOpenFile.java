@@ -89,7 +89,7 @@ public class TestOpenFile extends GuiTest {
         type(file1).type(KeyCode.ENTER);
         System.out.println(((TextField)GuiTest.find("#fieldLeftFile")).getText()+"를 불러옵니다");
         assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), file1);
-        //verifythat
+        //verifyThat(inAllWindows.select(allNodes)), every(hasText(endsWith(".txt"))));
 
         //콜백받는거 확인 //TODO
         //assertEquals("", "FileOpen callback");

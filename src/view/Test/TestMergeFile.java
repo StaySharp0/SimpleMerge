@@ -3,6 +3,7 @@ package view.Test;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import org.loadui.testfx.controls.ListViews;
 import view.Main;
 import com.google.common.util.concurrent.SettableFuture;
 import javafx.scene.Parent;
@@ -20,7 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
-public class TestCompareFile extends GuiTest {
+public class TestMergeFile extends GuiTest {
     private static final SettableFuture<Stage> stageFuture = SettableFuture.create();
 
     protected static class TestProgramInfoWindow extends Main {
@@ -40,7 +41,7 @@ public class TestCompareFile extends GuiTest {
     public void setupStage() throws Throwable {
         assumeTrue(!UserInputDetector.instance.hasDetectedUserInput());
 
-        FXTestUtils.launchApp(TestCompareFile.TestProgramInfoWindow.class); // You can add start parameters here
+        FXTestUtils.launchApp(TestMergeFile.TestProgramInfoWindow.class); // You can add start parameters here
         try {
             stage = targetWindow(stageFuture.get(25, TimeUnit.SECONDS));
             FXTestUtils.bringToFront(stage);
@@ -55,31 +56,27 @@ public class TestCompareFile extends GuiTest {
     }
 
     @Test
-    public void TestListClick() throws InterruptedException {
-        String file1 = "s2 left.txt";
-        String file2 = "s2 right.txt";
+    public void TestListClick(){
+        String file1 = "s3 left.txt";
+        String file2 = "s3 right.txt";
 
-        System.out.println("Compare 버튼이 안 눌리는지 확인합니다");
-        assertTrue(GuiTest.find("#btnCompare").isDisable());
-        click("#btnCompare");
+        System.out.println("Merge 버튼이 눌리지 않는지 확인합니다");
+        assertTrue(GuiTest.find("#btnMtoLeft").isDisable());
+        click("#btnMtoLeft");
+        assertTrue(GuiTest.find("#btnMtoRight").isDisable());
+        click("#btnMtoRight");
 
         System.out.println("왼쪽 파일을 선택한다");
         click("#btnLeftFileOpen");
         type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
-        //type("Users\\503\\Desktop\\SimpleMerge-GUI\\src\\view").type(KeyCode.ENTER);
         type("\\Users\\503\\Downloads\\samples").type(KeyCode.ENTER);
         type(file1).type(KeyCode.ENTER);
         System.out.println(((TextField) GuiTest.find("#fieldLeftFile")).getText() + "를 불러옵니다");
         assertEquals(((TextField) GuiTest.find("#fieldLeftFile")).getText(), file1);
 
-        System.out.println("Compare 버튼이 안 눌리는지 확인합니다");
-        assertTrue(GuiTest.find("#btnCompare").isDisable());
-        click("#btnCompare");
-
         System.out.println("오른쪽 파일을 선택한다");
         click("#btnRightFileOpen");
         type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
-        //type("Users\\503\\Desktop\\SimpleMerge-GUI\\src\\view").type(KeyCode.ENTER);
         type("\\Users\\503\\Downloads\\samples").type(KeyCode.ENTER);
         type(file2).type(KeyCode.ENTER);
         System.out.println(((TextField)GuiTest.find("#fieldRightFile")).getText()+"를 불러옵니다");
@@ -90,14 +87,22 @@ public class TestCompareFile extends GuiTest {
         assertFalse(GuiTest.find("#btnCompare").isDisable());
         click("#btnCompare");
 
-        ListView list = find("#listLeft");
-        list.getSelectionModel().select(0);
+        //System.out.println("Merge 버튼이 눌리는지 확인합니다");
+        //assertFalse(GuiTest.find("#btnMtoLeft").isDisable());
+        //assertFalse(GuiTest.find("#btnMtoRight").isDisable());
 
-        click(list.getSelectionModel().getSelectedItems());
-        moveBy(0, 15);
-        click();
-        moveBy(0, 100);
-        click();
+
+        ListView list = find("#listLeft");
+        ListView list2 = find("#listRight");
+        click(list);
+        System.out.println("leftList의 클릭한 부분의 item"+list.getSelectionModel().getSelectedItem());
+        click(list2);
+        assertEquals(list.getSelectionModel().getSelectedItem(), list.getSelectionModel().getSelectedItem());
+        System.out.println("RightList의 클릭한 부분의 item"+list2.getSelectionModel().getSelectedItem());
+
+
+
+
     }
 
 }
