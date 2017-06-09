@@ -81,7 +81,7 @@ public class Model implements ModelInterface{
 		String buf = new String("");
 
 		for(int i = 0; i < data.size();i++){
-			buf += data.get(i) +( (i != data.size() - 1) ? ("\n") : ("") );
+			buf += data.get(i) + "\n";
 		}
 
 		return buf;
@@ -426,7 +426,7 @@ public class Model implements ModelInterface{
 			}
 		}
 
-		if(!this.algo.isIdentical() && this.left.length() < this.right.length()  && cntResultLen < this.algo.totalLength()){
+		if(!this.algo.isIdentical()  && cntResultLen < this.algo.totalLength()){
 			buf = new StringBuilder();
 			for(int i = 0; i < this.algo.getResultRight().get(this.algo.getResultRight().size() - 1).distance;i++){
 				buf.append("\u23CE\n");
@@ -438,7 +438,7 @@ public class Model implements ModelInterface{
 			result.add(buf.toString());
 		}
 
-        this.left.getLines().add("");
+//        this.left.getLines().add("");
 		return result;
 	}
 	private ArrayList<String> getResultRight(){
@@ -523,7 +523,7 @@ public class Model implements ModelInterface{
 				return new ArrayList<String>();
 			}
 		}
-		if(!this.algo.isIdentical() && this.right.length() < this.left.length() && cntResultLen < this.algo.totalLength()){
+		if(!this.algo.isIdentical() && cntResultLen < this.algo.totalLength()){
 			buf = new StringBuilder();
 			for(int i = 0; i < this.algo.getResultLeft().get(this.algo.getResultLeft().size() - 1).distance;i++){
 				buf.append("\u23CE\n");
@@ -535,7 +535,7 @@ public class Model implements ModelInterface{
 			result.add(buf.toString());
 		}
 
-        this.right.getLines().add("");
+//        this.right.getLines().add("");
 		return result;
 	}
 
