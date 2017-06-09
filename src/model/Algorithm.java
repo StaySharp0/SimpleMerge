@@ -26,12 +26,13 @@ import java.io.File;
 		}
 		else{
 			this.right = new ArrayList<String>(right);
-		}		
+		}
+
 		this.lcs = new LongestCommonSubseq(this.left, this.right);
 		this.compLen = null;
 
-		this.left.add("");
-		this.right.add("");
+
+
 		
 		if(this.lcs.length() != 0){
 			
@@ -82,10 +83,19 @@ import java.io.File;
 		}
 		else { // no same line; all changed
 			this.lChange = new ArrayList<IdxPair>();
-			this.lChange = new ArrayList<IdxPair>();
+			this.rChange = new ArrayList<IdxPair>();
 
-			this.lChange.add(new IdxPair(0,this.left.size()));
-			this.rChange.add(new IdxPair(0,this.right.size()));
+			if(this.left.size() > 0 && this.right.size() > 0){
+				this.lChange.add(new IdxPair(0,this.left.size()));
+				this.rChange.add(new IdxPair(0,this.right.size()));
+			} else if(this.left.size() == 0) {
+				this.lChange.add(new IdxPair(0,0));
+				this.rChange.add(new IdxPair(0,this.right.size()));
+			} else if(this.right.size() == 0){
+				this.lChange.add(new IdxPair(0,this.left.size()));
+				this.rChange.add(new IdxPair(0,0));
+			}
+
 		}
 		if(this.isIdentical()){
 			this.lChange = null;
