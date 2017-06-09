@@ -333,22 +333,24 @@ public class Model implements ModelInterface{
 		ArrayList<IdxPair> diff = this.algo.getResultLeft();
 		ArrayList<Integer> same = this.algo.getLcsIdxLeft();
 
-		int cntDiff = 0, cntSame = 0;
+		int cntDiff = 0, cntSame = 0, cntResultLen = 0;
 
 		for(int i = 0; i < this.left.length();){
 			int chki = i;
 			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin){
 				if(i < diff.get(cntDiff).end){
 					for(int j = diff.get(cntDiff).begin; j < diff.get(cntDiff).end; j++){
-						buf.append(this.left.getLines().get(j));
-						if(j + 1 < this.left.length()){
-							buf.append("\n");
-						}
+						buf.append(this.left.getLines().get(j) + "\n");
+						cntResultLen++;
 					}
 					if(diff.get(cntDiff).distance < this.algo.getResultRight().get(cntDiff).distance){
 						for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
 							buf.append("\u23CE\n");
+							cntResultLen++;
 						}
+					}
+					if(cntResultLen < this.algo.totalLength()){
+						buf.deleteCherAt(buf.length() - 1);
 					}
 					result.add(buf.toString());
 					buf = new StringBuilder("");
@@ -358,6 +360,10 @@ public class Model implements ModelInterface{
 				else if(diff.get(cntDiff).begin == diff.get(cntDiff).end && this.algo.getResultRight().get(cntDiff).distance > 0){
 					for(int j = 0; j < this.algo.getResultRight().get(cntDiff).distance; j++){
 						buf.append("\u23CE\n");
+						cntResultLen++;
+					}
+					if(cntResultLen < this.algo.totalLength()){
+						buf.deleteCherAt(buf.length() - 1);
 					}
 					result.add(buf.toString());
 					buf = new StringBuilder("");
@@ -371,17 +377,25 @@ public class Model implements ModelInterface{
 
 			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
 				buf.append(this.left.getLines().get(same.get(cntSame)));
+				cntResultLen++;
 				if(i + 1 < this.left.length()){
 					buf.append("\n");
+					cntResultLen++;
 					if(cntSame < same.size() - 1){
 						cntSame++;
 					}
 					if((!this.algo.isIdentical() && i + 1 == diff.get(cntDiff).begin)){
+						if(cntResultLen < this.algo.totalLength()){
+							buf.deleteCherAt(buf.length() - 1);
+						}
 						result.add(buf.toString());
-						buf = new StringBuilder();					
+						buf = new StringBuilder("");					
 					}
 				}
 				else {
+					if(cntResultLen < this.algo.totalLength()){
+						buf.deleteCherAt(buf.length() - 1);
+					}
 					result.add(buf.toString());
 				}
 				i++;
@@ -395,10 +409,11 @@ public class Model implements ModelInterface{
 		if(!this.algo.isIdentical() && this.left.length() < this.right.length() && cntDiff < this.algo.getResultRight().size() - 1){
 			buf = new StringBuilder();
 			for(int i = 0; i < this.algo.getResultRight().get(this.algo.getResultRight().size() - 1).distance;i++){
-				buf.append("\u23CE");
-				if(i < this.algo.getResultRight().get(this.algo.getResultRight().size() - 1).end - 1){
-					buf.append("\n");
-				}
+				buf.append("\u23CE\n");
+				cntResultLen++;
+			}
+			if(cntResultLen < this.algo.totalLength()){
+				buf.deleteCherAt(buf.length() - 1);
 			}
 			result.add(buf.toString());
 		}
@@ -419,22 +434,24 @@ public class Model implements ModelInterface{
 		ArrayList<IdxPair> diff = this.algo.getResultRight();
 		ArrayList<Integer> same = this.algo.getLcsIdxRight();
 
-		int cntDiff = 0, cntSame = 0;
+		int cntDiff = 0, cntSame = 0, cntResultLen = 0;
 
 		for(int i = 0; i < this.right.length();){
 			int chki = i;
 			if(!this.algo.isIdentical() && i == diff.get(cntDiff).begin){
 				if(i < diff.get(cntDiff).end){
 					for(int j = diff.get(cntDiff).begin; j < diff.get(cntDiff).end; j++){
-						buf.append(this.right.getLines().get(j));
-						if(j + 1 < this.right.length()){
-							buf.append("\n");
-						}
+						buf.append(this.right.getLines().get(j) + "\n");
+						cntResultLen++;
 					}
 					if(diff.get(cntDiff).distance < this.algo.getResultLeft().get(cntDiff).distance){
 						for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance - diff.get(cntDiff).distance; j++){
 							buf.append("\u23CE\n");
+							cntResultLen++;
 						}
+					}
+					if(cntResultLen < this.algo.totalLength()){
+						buf.deleteCherAt(buf.length() - 1);
 					}
 					result.add(buf.toString());
 					buf = new StringBuilder("");
@@ -443,6 +460,10 @@ public class Model implements ModelInterface{
 				else if(diff.get(cntDiff).begin == diff.get(cntDiff).end && this.algo.getResultLeft().get(cntDiff).distance > 0){
 					for(int j = 0; j < this.algo.getResultLeft().get(cntDiff).distance; j++){
 						buf.append("\u23CE\n");
+						cntResultLen++;
+					}
+					if(cntResultLen < this.algo.totalLength()){
+						buf.deleteCherAt(buf.length() - 1);
 					}
 					result.add(buf.toString());
 					buf = new StringBuilder("");
@@ -454,18 +475,26 @@ public class Model implements ModelInterface{
 			}
 
 			if(this.algo.lenLcs() > 0 && i == same.get(cntSame)){
-				buf.append(this.right.getLines().get(same.get(cntSame)));
+				buf.append(this.right.getLines().get(same.get(cntSame)) + "\n");
+				cntResultLen++;
 				if(i + 1 < this.right.length()){
 					buf.append("\n");
+					cntResultLen++;
 					if(cntSame < same.size() - 1){
 						cntSame++;
 					}
 					if((!this.algo.isIdentical() && i + 1 == diff.get(cntDiff).begin)){
+						if(cntResultLen < this.algo.totalLength()){
+							buf.deleteCherAt(buf.length() - 1);
+						}
 						result.add(buf.toString());
 						buf = new StringBuilder("");					
 					}
 				}
 				else {
+					if(cntResultLen < this.algo.totalLength()){
+						buf.deleteCherAt(buf.length() - 1);
+					}
 					result.add(buf.toString());
 				}
 				i++;
@@ -478,16 +507,16 @@ public class Model implements ModelInterface{
 		if(!this.algo.isIdentical() && this.right.length() < this.left.length() && cntDiff < this.algo.getResultLeft().size() - 1){
 			buf = new StringBuilder();
 			for(int i = 0; i < this.algo.getResultLeft().get(this.algo.getResultLeft().size() - 1).distance;i++){
-				buf.append("\u23CE");
-				if(i < this.algo.getResultLeft().get(this.algo.getResultLeft().size() - 1).end - 1){
-					buf.append("\n");
-				}
+				buf.append("\u23CE\n");
+				cntResultLen++;
+			}
+			if(cntResultLen < this.algo.totalLength()){
+				buf.deleteCherAt(buf.length() - 1);
 			}
 			result.add(buf.toString());
 		}
 
-
-		return result;		
+		return result;
 	}
 
 
