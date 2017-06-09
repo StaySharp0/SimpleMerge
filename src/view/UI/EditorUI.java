@@ -31,6 +31,7 @@ public class EditorUI implements btnAction, ScreenMode {
         ShowViewMode();
     }
 
+    @Override
     public void ShowViewMode(){
         status = status.VIEW;
         tabPane.getSelectionModel().select(1);
@@ -42,6 +43,8 @@ public class EditorUI implements btnAction, ScreenMode {
 
         SetFileName();
     }
+
+    @Override
     public void ShowEditMode(){
         status = status.EDIT;
         tabPane.getSelectionModel().select(1);
@@ -54,6 +57,7 @@ public class EditorUI implements btnAction, ScreenMode {
         SetFileName();
     }
 
+    @Override
     public void ShowCompareMode(){
         status = status.COMPARE;
         tabPane.getSelectionModel().select(0);

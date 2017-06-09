@@ -107,7 +107,7 @@ public class MainController implements Initializable {
             return model.load((File) source, pos);
         });
 
-        if(condLoadFile[pos] && ) return; //현재 불러온 파일이 있지만 다시 불러오기를 실패한 경우
+        if(condLoadFile[pos] && !status) return; //현재 불러온 파일이 있지만 다시 불러오기를 실패한 경우
 
         editorUI[pos].ShowViewMode();
         condLoadFile[pos] = status;
@@ -209,7 +209,6 @@ public class MainController implements Initializable {
 
         for (int pos : position) {
             listModels[pos].setAll(data.getListViewItem(pos));
-            textAreas[pos].setText(data.getTextItem(pos));
             editorUI[pos].ShowCompareMode();
 
             listViews[pos].getStyleClass().removeAll("odd","even");
@@ -218,6 +217,7 @@ public class MainController implements Initializable {
             } else if (condActiveOrder == 0) {    //짝수번째가 틀린경우
                 listViews[pos].getStyleClass().add("even");
             }
+            System.out.println(listViews[pos].getStyleClass().getClass());
         }
     }
 }
