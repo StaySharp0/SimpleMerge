@@ -303,9 +303,14 @@ public class Model implements ModelInterface{
 				this.getResultLeft().toArray(new String[this.getResultLeft().size()]),
 				this.getResultRight().toArray(new String[this.getResultRight().size()])
 		};
+		String[] TextData = {
+                this.concatData(this.left.getLines()),
+                this.concatData(this.right.getLines())
+        };
 
 		rtn.setListViewItem(ListData);
 		rtn.setListActiveOrder(this.algo.isFirstAreSame());
+		rtn.setTextItem(TextData);
 
 		return (Item) rtn;
 	}

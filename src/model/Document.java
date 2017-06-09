@@ -8,10 +8,21 @@ class Document{
 	public Document(List<String> strLst){
 		this.lines = new ArrayList<String>(strLst);
 		this.edited = false;
+
+		removeFakeLine();
 	}
 	public Document(List<String> strLst, boolean isEdited){
 		this.lines = new ArrayList<String>(strLst);
 		this.edited = isEdited;
+
+		removeFakeLine();
+	}
+
+	private void removeFakeLine(){
+		int size = lines.size();
+		for(int i=0; i<size;i++){
+			if(lines.get(i).indexOf("\u23CE") != -1) lines.set(i,"");
+		}
 	}
 
 	public ArrayList<String> getLines(){
@@ -29,11 +40,15 @@ class Document{
 	public void setLine(int idx, String newLine){
 		this.lines.set(idx, newLine);
 		this.edited = true;
+
+		removeFakeLine();
 	}
 
 	public void insertLine(int idx, String newLine){
 		this.lines.add(idx,newLine);
 		this.edited = true;
+
+		removeFakeLine();
 	}
 
 	public void insertLine(int idx, List<String> listLines){

@@ -9,6 +9,7 @@ public class Item implements FileOpen, FileEditSave, MergeCompare{
     private String fileName;
     private String textData;
     private String[][] listViewItem;
+    private String[] textItem;
     private boolean listActiveOrder;
 
 
@@ -41,11 +42,12 @@ public class Item implements FileOpen, FileEditSave, MergeCompare{
 
     @Override
     public String getTextItem(int position) {
-        String rtn = "";
+        return textItem[position];
+    }
 
-        for(String tmp :listViewItem[position]) rtn += tmp;
-
-        return rtn;
+    @Override
+    public void setTextItem(String[] data) {
+        this.textItem = data;
     }
 
     @Override
