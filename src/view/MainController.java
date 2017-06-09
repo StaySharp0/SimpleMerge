@@ -222,5 +222,8 @@ public class MainController implements Initializable {
 
             textAreas[pos].setText(data.getTextItem(pos));
         }
+
+        btnMtoLeft.setDisable(true);
+        btnMtoRight.setDisable(true);
     }
 }
