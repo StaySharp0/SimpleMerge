@@ -217,7 +217,7 @@ public class Model implements ModelInterface{
 
 //{
 	public Item edit(String data, int lr){
-		return this.edit(this.parseData(data), lr);
+		return this.edit(this.parseViewData(data), lr);
 	}
 	public Item edit(List<String> data, int lr){
 		String name = "";
