@@ -15,20 +15,26 @@ import java.io.File;
 	private Integer compLen;
 
 	public Algorithm(List<String> left, List<String> right){
-		this.left = new ArrayList<String>(left);
-		this.right = new ArrayList<String>(right);
+		if(left == null){
+			this.left = new ArrayList<String>();
+		}
+		else {
+			this.left = new ArrayList<String>(left);	
+		}
+		if(right == null){
+			this.right = new ArrayList<String>();
+		}
+		else{
+			this.right = new ArrayList<String>(right);
+		}		
 		this.lcs = new LongestCommonSubseq(this.left, this.right);
 		this.compLen = null;
 
-
-
+		this.left.add("");
+		this.right.add("");
+		
 		if(this.lcs.length() != 0){
-			if(this.left == null || this.left.size() < 0){
-
-			}
-			else if(this.right == null || this.right.size() < 0){
-
-			}
+			
 			this.lChange = new ArrayList<IdxPair>();
 			this.rChange = new ArrayList<IdxPair>();
 			this.lMatch = new ArrayList<Integer>();
@@ -86,7 +92,7 @@ import java.io.File;
 			this.rChange = null;
 		}
 		this.totalLength();
-		
+
 	}
 
 	public ArrayList<IdxPair> getResultLeft(){
