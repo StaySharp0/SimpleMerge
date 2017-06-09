@@ -20,7 +20,15 @@ import java.io.File;
 		this.lcs = new LongestCommonSubseq(this.left, this.right);
 		this.compLen = null;
 
+
+
 		if(this.lcs.length() != 0){
+			if(this.left == null || this.left.size() < 0){
+
+			}
+			else if(this.right == null || this.right.size() < 0){
+
+			}
 			this.lChange = new ArrayList<IdxPair>();
 			this.rChange = new ArrayList<IdxPair>();
 			this.lMatch = new ArrayList<Integer>();
@@ -37,13 +45,12 @@ import java.io.File;
 					rIdx = new IdxPair(0,this.right.indexOf(lcs.get(i)));
 				}
 				else if(i == this.lcs.length()){
-					lIdx = new IdxPair(this.left.lastIndexOf(lcs.get(i - 1)) + 1, this.left.size());
-					rIdx = new IdxPair(this.right.lastIndexOf(lcs.get(i - 1)) + 1, this.right.size());
+					lIdx = new IdxPair(this.lMatch.get(i - 1) + 1, this.left.size());
+					rIdx = new IdxPair(this.rMatch.get(i - 1) + 1, this.right.size());
 				}
 				else {
 					lIdx = new IdxPair(i + ld, i + ld + tmpl.indexOf(lcs.get(i)));
 					rIdx = new IdxPair(i + rd, i + rd + tmpr.indexOf(lcs.get(i)));
-
 				}
 
 
@@ -79,6 +86,7 @@ import java.io.File;
 			this.rChange = null;
 		}
 		this.totalLength();
+		
 	}
 
 	public ArrayList<IdxPair> getResultLeft(){
@@ -148,7 +156,7 @@ import java.io.File;
 				rsc = new Scanner(rf);
 				lbuf = new ArrayList<String>();
 				rbuf = new ArrayList<String>();
-
+				
 				while(lsc.hasNextLine()){
 					lbuf.add(lsc.nextLine());
 				}
@@ -179,6 +187,7 @@ import java.io.File;
 					System.out.println("identical!");
 				}
 
+				System.out.println("lcslen : " + algo.lenLcs());
 				System.out.println("len : " + algo.totalLength());
 				// for(int i = 0; i < algo.getLcsIdxLeft().size(); i++){
 				// 	System.out.println(lbuf.get(algo.getLcsIdxLeft().get(i)));
