@@ -217,7 +217,8 @@ public class MainController implements Initializable {
             } else if (condActiveOrder == 0) {    //짝수번째가 틀린경우
                 listViews[pos].getStyleClass().add("even");
             }
-            System.out.println(listViews[pos].getStyleClass().getClass());
+
+            textAreas[pos].setText(data.getTextItem(pos));
         }
     }
 }

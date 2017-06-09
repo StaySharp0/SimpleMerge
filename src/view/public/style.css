@@ -16,6 +16,9 @@
 5. ListView: all items will start with text-fill black. But on mouse over and/or selected it will change to white.
 */
 
+.list-cell{
+    -fx-alignment: top-left;
+}
 .list-view.even .list-cell:filled:even,
 .list-view.odd .list-cell:filled:odd {
     -fx-background-color: #efcb05;
