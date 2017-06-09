@@ -17,16 +17,7 @@ import javax.print.Doc;
  */
 public class ModelTester {
     private Model model;
-    /* mock이 필요한것만 냄기자
-    private FileManager fm;
-    private Document left;
-    private Document right;
-    private Document oleft;
-    private Document oright;
-    private Algorithm algo;
-    private ArrayList<String> compResultLeft;
-    private ArrayList<String> compResultRight;
-    */
+
     public void setUp(){
 
     }
@@ -57,6 +48,13 @@ public class ModelTester {
         Assert.assertEquals(test_ListData, ListData);
     }
 
+    @Test
+    //public Item merge(int idx, int lr);
+    public boolean testMerge(){
+
+        return true;
+    }
+
     //public Item load(File f, int lr);
     //public Item load(String path, int lr);
     //public Item save(int lr);
@@ -78,12 +76,4 @@ public class ModelTester {
         return true;
     }
 
-
-
-    //public Item merge(int idx, int lr);
-    //public Item merge(List<Integer> idxList, int lr);
-    public boolean testMerge(){
-
-        return true;
-    }
 }
