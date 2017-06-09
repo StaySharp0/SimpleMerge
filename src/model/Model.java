@@ -233,6 +233,8 @@ public class Model implements ModelInterface{
 
 		if(isEdited && this.isCompared()){
 			this.algo = null;
+			this.compResultLeft = null;
+			this.compResultRight = null;
 		}
 
 		rtn.setFileName(name);
