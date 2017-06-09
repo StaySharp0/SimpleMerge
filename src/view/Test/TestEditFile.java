@@ -114,11 +114,11 @@ public class TestEditFile extends GuiTest {
         click("#btnRightFileEdit");
         assertEquals(((TextField)GuiTest.find("#fieldRightFile")).getText(), "*"+file2);
 
-        System.out.println("edit 버튼을 다시 누를 시 수정 불가능한지 확인합니다");
+        System.out.println("edit 버튼을 다시 누를 시 수정 가능한지 확인합니다");
         click("#btnLeftFileEdit");
-        //assertTrue(GuiTest.find("#fieldLeftFile").isDisable());
+        assertFalse(GuiTest.find("#fieldLeftFile").isDisable());
         click("#btnRightFileEdit");
-        //assertTrue(GuiTest.find("#fieldRightFile").isDisable());
+        assertFalse(GuiTest.find("#fieldRightFile").isDisable());
 
 
         System.out.println("Edit을 여러번 누를 시 파일명 앞에 *이 그대로인지 확인합니다");
@@ -127,7 +127,7 @@ public class TestEditFile extends GuiTest {
         click("#btnLeftFileEdit");
         assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), "Edit: *"+file1);
         click("#btnRightFileEdit");
-        assertEquals(((TextField)GuiTest.find("#fieldLeftFile")).getText(), "*"+file2);
+        assertEquals(((TextField)GuiTest.find("#fieldRightFile")).getText(), "*"+file2);
         click("#btnRightFileEdit");
         assertEquals(((TextField)GuiTest.find("#fieldRightFile")).getText(), "Edit: *"+file2);
 
