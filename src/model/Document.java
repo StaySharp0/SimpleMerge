@@ -38,7 +38,7 @@ class Document{
 
 	public void insertLine(int idx, List<String> listLines){
 		for(int i = 0; i < listLines.size(); i++){
-			this.insertLine(idx, listLines.get(i));
+			this.insertLine(idx+i, listLines.get(i));
 		}
 	}
 
@@ -49,7 +49,7 @@ class Document{
 
 	public void deleteLine(int beginIdx, int endIdx){
 		for(int i = beginIdx; i < endIdx; i++){
-			this.deleteLine(i);
+			this.deleteLine(beginIdx);
 		}
 	}
 

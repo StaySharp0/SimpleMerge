@@ -47,13 +47,32 @@ public class Model implements ModelInterface{
 		this.compResultLeft = null;
 		this.compResultRight = null;
 	}
-	private ArrayList<String> parseData(String data){
-		if(data == null){
-			return null;
-		}
+    private ArrayList<String> parseData(String data){
+        if(data == null) return null;
 
-		return new ArrayList<String>(Arrays.asList(data.split("\n")));
+        return new ArrayList<String>(Arrays.asList(data.split("\n")));
+    }
+
+	private ArrayList<String> parseViewData(String data){
+		if(data == null) return null;
+
+        ArrayList<String> rtn = new ArrayList<String>();
+        String tmp = "";
+
+		for(char ch: data.toCharArray()){
+            if(ch != '\n') tmp += ch;
+            else {
+                tmp += "";
+                rtn.add(tmp);
+                tmp = "";
+            }
+        }
+
+        if(tmp.length() != 0) rtn.add(tmp);
+
+		return rtn;
 	}
+
 	private String concatData(List<String> data){
 		if(data == null){
 			return "";
@@ -566,6 +585,8 @@ public class Model implements ModelInterface{
 				this.algo = null;
 				this.compResultLeft = null;
 				this.compResultRight = null;
+
+
 				return this.compare();
 			}
 			return null;
@@ -599,32 +620,37 @@ public class Model implements ModelInterface{
 
 	private void LeftToRight(int idx){
 		ArrayList<String> compResult = this.getResultLeft();
-		ArrayList<String> data = this.parseData(compResult.get(idx));
+		ArrayList<String> data = this.parseViewData(compResult.get(idx));
+		System.out.println(data);
 		data = removeFakeLine(data);
 
 		System.out.println(data);
 
 		int diffIdx = (idx - (this.algo.isFirstAreSame() ? 1 : 0) )/ 2;
 
-		System.out.println(this.algo.getResultLeft().get(diffIdx).begin+" "+this.algo.getResultLeft().get(diffIdx).end);
-		System.out.println(this.right.getLines());
+        System.out.println(this.right.getLines());
+        System.out.println(this.algo.getResultRight().get(diffIdx).begin+" "+this.algo.getResultRight().get(diffIdx).end);
 
 		this.right.deleteLine(this.algo.getResultRight().get(diffIdx).begin, this.algo.getResultRight().get(diffIdx).end);
+        System.out.println(this.right.getLines());
 		this.right.insertLine(this.algo.getResultRight().get(diffIdx).begin, data);
 	}
 	private void RightToLeft(int idx){
 		ArrayList<String> compResult = this.getResultRight();
-		ArrayList<String> data = this.parseData(compResult.get(idx));
+		ArrayList<String> data = this.parseViewData(compResult.get(idx));
+		System.out.println(data);
 		data = removeFakeLine(data);
 
 		System.out.println(data);
 
 		int diffIdx = (idx - (this.algo.isFirstAreSame() ? 1 : 0) )/ 2;
 
-		System.out.println(this.algo.getResultRight().get(diffIdx).begin+" "+this.algo.getResultRight().get(diffIdx).end);
-		System.out.println(this.right.getLines());
+        System.out.println(this.left.getLines());
+        System.out.println(this.algo.getResultLeft().get(diffIdx).begin+" "+this.algo.getResultLeft().get(diffIdx).end);
+
 
 		this.left.deleteLine(this.algo.getResultLeft().get(diffIdx).begin, this.algo.getResultLeft().get(diffIdx).end);
+        System.out.println(this.left.getLines());
 		this.left.insertLine(this.algo.getResultLeft().get(diffIdx).begin, data);
 	}
 }
