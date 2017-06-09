@@ -113,6 +113,7 @@ public class TestMergeFile extends GuiTest {
         moveBy(0, 20);
         moveBy(0, 20);
 
+        
         System.out.println("스크롤을 아래로 내립니다.");
         scroll( 3, DOWN );
 
