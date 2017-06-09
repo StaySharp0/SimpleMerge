@@ -338,7 +338,7 @@ public class Model implements ModelInterface{
 
 						}
 					}
-					if(cntResultLen < this.algo.totalLength()){
+					if(cntResultLen >= this.algo.totalLength()){
 						buf.deleteCharAt(buf.length() - 1);
 					}
 					result.add(buf.toString());
@@ -351,7 +351,7 @@ public class Model implements ModelInterface{
 						buf.append("\u23CE\n");
 						cntResultLen++;
 					}
-					if(cntResultLen < this.algo.totalLength()){
+					if(cntResultLen >= this.algo.totalLength()){
 						buf.deleteCharAt(buf.length() - 1);
 
 					}
@@ -373,7 +373,7 @@ public class Model implements ModelInterface{
 						cntSame++;
 					}
 					if((!this.algo.isIdentical() && i + 1 == diff.get(cntDiff).begin)){
-						if(cntResultLen < this.algo.totalLength()){
+						if(cntResultLen >= this.algo.totalLength()){
 							buf.deleteCharAt(buf.length() - 1);
 						}
 						result.add(buf.toString());
@@ -381,7 +381,7 @@ public class Model implements ModelInterface{
 					}
 				}
 				else {
-					if(cntResultLen < this.algo.totalLength()){
+					if(cntResultLen >= this.algo.totalLength()){
 						buf.deleteCharAt(buf.length() - 1);
 					}
 					result.add(buf.toString());
@@ -400,7 +400,7 @@ public class Model implements ModelInterface{
 				buf.append("\u23CE\n");
 				cntResultLen++;
 			}
-			if(cntResultLen < this.algo.totalLength()){
+			if(cntResultLen >= this.algo.totalLength()){
 				buf.deleteCharAt(buf.length() - 1);
 			}
 			result.add(buf.toString());
@@ -438,7 +438,7 @@ public class Model implements ModelInterface{
 							cntResultLen++;
 						}
 					}
-					if(cntResultLen < this.algo.totalLength()){
+					if(cntResultLen >= this.algo.totalLength()){
 						buf.deleteCharAt(buf.length() - 1);
 					}
 					result.add(buf.toString());
@@ -450,7 +450,7 @@ public class Model implements ModelInterface{
 						buf.append("\u23CE\n");
 						cntResultLen++;
 					}
-					if(cntResultLen < this.algo.totalLength()){
+					if(cntResultLen >= this.algo.totalLength()){
 						buf.deleteCharAt(buf.length() - 1);
 					}
 					result.add(buf.toString());
@@ -470,7 +470,7 @@ public class Model implements ModelInterface{
 						cntSame++;
 					}
 					if((!this.algo.isIdentical() && i + 1 == diff.get(cntDiff).begin)){
-						if(cntResultLen < this.algo.totalLength()){
+						if(cntResultLen >= this.algo.totalLength()){
 							buf.deleteCharAt(buf.length() - 1);
 						}
 						result.add(buf.toString());
@@ -478,7 +478,7 @@ public class Model implements ModelInterface{
 					}
 				}
 				else {
-					if(cntResultLen < this.algo.totalLength()){
+					if(cntResultLen >= this.algo.totalLength()){
 						buf.deleteCharAt(buf.length() - 1);
 					}
 					result.add(buf.toString());
@@ -496,7 +496,7 @@ public class Model implements ModelInterface{
 				buf.append("\u23CE\n");
 				cntResultLen++;
 			}
-			if(cntResultLen < this.algo.totalLength()){
+			if(cntResultLen >= this.algo.totalLength()){
 				buf.deleteCharAt(buf.length() - 1);
 			}
 			result.add(buf.toString());
