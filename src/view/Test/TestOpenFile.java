@@ -60,7 +60,7 @@ public class TestOpenFile extends GuiTest {
         String file1 = "s1 left.txt";
         String file2 = "s1 right.txt";
 
-        click("#btnLeftFileOpen");
+
         if(GuiTest.find("#btnLeftFileEdit").isDisable()) {
             assertTrue(GuiTest.find("#btnLeftFileEdit").isDisable());
             assertTrue(GuiTest.find("#btnLeftFileSave").isDisable());
@@ -82,6 +82,7 @@ public class TestOpenFile extends GuiTest {
 
         System.out.println("왼쪽 파일을 선택한다");
         click("#btnLeftFileOpen");
+
         type("C").type(KeyCode.SHIFT, KeyCode.SEMICOLON).type((KeyCode.ENTER));
         //type("Users\\503\\Desktop\\SimpleMerge-GUI\\src\\view").type(KeyCode.ENTER);
         type("\\Users\\503\\Downloads\\samples").type(KeyCode.ENTER);

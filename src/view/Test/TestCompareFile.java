@@ -96,7 +96,7 @@ public class TestCompareFile extends GuiTest {
         click(list.getSelectionModel().getSelectedItems());
         moveBy(0, 15);
         click();
-        moveBy(0, 30);
+        moveBy(0, 20);
         click();
     }
 

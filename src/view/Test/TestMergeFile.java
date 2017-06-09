@@ -16,6 +16,7 @@ import org.loadui.testfx.utils.UserInputDetector;
 
 import java.util.concurrent.TimeUnit;
 
+import static javafx.geometry.VerticalDirection.DOWN;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -57,8 +58,8 @@ public class TestMergeFile extends GuiTest {
 
     @Test
     public void TestListClick(){
-        String file1 = "s3 left.txt";
-        String file2 = "s3 right.txt";
+        String file1 = "s7 left.txt";
+        String file2 = "s7 right.txt";
 
         System.out.println("Merge 버튼이 눌리지 않는지 확인합니다");
         assertTrue(GuiTest.find("#btnMtoLeft").isDisable());
@@ -96,13 +97,35 @@ public class TestMergeFile extends GuiTest {
         click("#btnMtoRight");
         ListView list = find("#listLeft");
         ListView list2 = find("#listRight");
-        click(list);
-        System.out.println("leftList의 클릭한 부분의 item"+list.getSelectionModel().getSelectedItem());
-        click(list2);
+
+        System.out.println("Merge");
+        moveBy(0, 20);
+        moveBy(0, 20);
+        moveBy(0, 20);
+        moveBy(0, 20);
+        moveBy(0, 20);
+        click();
+        System.out.println("Merge left -> right");
+        click("#btnMtoLeft");
+        System.out.println("Merge right -> left");
+        click("#btnMtoRight");
+        moveBy(0, 20);
+        moveBy(0, 20);
+        moveBy(0, 20);
+
+        System.out.println("스크롤을 아래로 내립니다.");
+        scroll( 3, DOWN );
+
+        System.out.println("Merge left -> right");
+        click("#btnMtoLeft");
+        System.out.println("Merge right -> left");
+        click("#btnMtoRight");
+
+        /*System.out.println("leftList의 클릭한 부분의 item"+list.getSelectionModel().getSelectedItem());
+        //click(list2);
         System.out.println("Merge 후 두 값이 동일한지 확인");
         assertEquals(list.getSelectionModel().getSelectedItem(), list.getSelectionModel().getSelectedItem());
-        System.out.println("RightList의 클릭한 부분의 item"+list2.getSelectionModel().getSelectedItem());
-
+        System.out.println("RightList의 클릭한 부분의 item"+list2.getSelectionModel().getSelectedItem());*/
 
 
 
