@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/out" />
-    <output-test url="file://https:/github.com/StaySharp0/SimpleMerge.git" />
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-      <excludeFolder url="file://$MODULE_DIR$/out" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="org.loadui:testFx:3.1.2" level="project" />
     <orderEntry type="library" name="org.easymock:easymock:3.4" level="project" />
+    <orderEntry type="library" name="junit:junit:4.1" level="project" />
+    <orderEntry type="library" name="org.loadui:testFx:3.1.2" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="net.sf.cuf:cuf-javafx:2.0.2" level="project" />
   </component>
 </module>
